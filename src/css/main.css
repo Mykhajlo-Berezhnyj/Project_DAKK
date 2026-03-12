@@ -1,0 +1,18 @@
+/* 1. Global Reset & Variables */
+@import "./base/reset.css";
+@import "./base/variables.css";
+
+/* 2. Layout Components */
+@import "./components/header.css";
+@import "./components/footer.css";
+@import "./components/menu.css";
+
+/* 3. Content Sections */
+@import "./components/hero.about";
+@import "./components/contacts.css";
+@import "./components/hero.css";
+@import "./components/menu.css";
+@import "./components/news.css";
+@import "./components/project-single.css";
+@import "./components/projects.css";
+@import "./components/videos.css";
