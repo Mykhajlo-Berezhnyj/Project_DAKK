@@ -1,16 +1,18 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html :lang="$store.locale.current" x-data="localization">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project-dakk</title>
+    <title x-text="t(indexData.titleHead)"></title>
+    <meta name="description" :content="t(indexData.descriptionHead)" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
   <body data-page="home">
     <load src="./src/partials/header.html" />
     <main>
       <section>
-        <h1>Welcome to the Project</h1>
+        <h1 x-text="t(indexData.title)"></h1>
       </section>
     </main>
     <load src="./src/partials/footer.html" />

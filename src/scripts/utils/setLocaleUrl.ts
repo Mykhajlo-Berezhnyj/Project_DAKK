@@ -12,12 +12,16 @@ export function setLocaleUrl(locale: Lang) {
     if (firstSegmentIsLocale) {
       path[0] = locale;
     } else {
-      path.splice(0, 0, locale);
+      path.unshift(locale);
     }
   }
 
   const newPath =
-    "/" + path.join("/") + "/" + window.location.search + window.location.hash;
+    "/" +
+    path.join("/") +
+    (path.length ? "/" : "") +
+    window.location.search +
+    window.location.hash;
 
   window.history.pushState({}, "", newPath);
 }
