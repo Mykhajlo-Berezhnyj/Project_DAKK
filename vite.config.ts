@@ -28,7 +28,6 @@ export default defineConfig({
       },
     },
   },
-
   plugins: [
     injectHTML(),
     {
