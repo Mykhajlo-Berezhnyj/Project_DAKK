@@ -1,0 +1,89 @@
+* {
+    color: var(--clr-text-secondary);
+}
+
+h1 {
+    color: var(--clr-text-main);
+    margin-bottom: 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hero {
+    margin: 5px 0px;
+
+    position: relative;
+    height: 100vh;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hero-content {
+    /* background: var(--clr-bg-main); */
+    background: linear-gradient(to top,
+            rgba(255, 255, 255, 0.5),
+            rgba(255, 255, 255, 0.8));
+
+    padding: 10px 24px;
+    max-width: 500px;
+    border-radius: 0 8px 0 0;
+}
+
+.main-details ul {
+    list-style: none;
+}
+
+.description {
+    /*  background-color: var(--clr-bg-block); */
+    font-style: italic;
+    padding: 20px 0px;
+}
+
+/* .details {
+    background-color: var(--clr-text-secondary);
+    color: var(--clr-bg-block);
+} */
+
+.details p {
+    margin: 4px 0;
+}
+
+.pdf-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    text-decoration: none;
+}
+
+.website {
+    margin: 15px 0px;
+}
+
+.gallery {
+    display: flex;
+    gap: 15px;
+}
+
+.gallery img {
+    width: 200px;
+    margin: 8px;
+}
+
+.partners img {
+    width: 100px;
+    height: 100px;
+}

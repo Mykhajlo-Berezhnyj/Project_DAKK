@@ -2,6 +2,7 @@ import "./css/main.css";
 import { localization } from "./scripts/core/localization";
 import Alpine from "alpinejs";
 import { loadProjects } from "./scripts/pages/projects";
+import { loadSingleProject } from "./scripts/pages/project-single";
 import { filtersProjects } from "./scripts/service/filters";
 import { getLocaleFromURL } from "./scripts/utils/getLocaleFromURL";
 import { setLocaleUrl } from "./scripts/utils/setLocaleUrl";
@@ -36,6 +37,7 @@ if (page && routes[page]) {
 Alpine.data("localization", () => localization());
 Alpine.data("filters", () => filtersProjects());
 Alpine.data("loadProjects", () => loadProjects(filtersProjects()));
+Alpine.data("loadSingleProject", () => loadSingleProject());
 
 Alpine.plugin(intersect);
 

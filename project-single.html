@@ -1,16 +1,141 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project</title>
-  </head>
-  <body data-page="project-single">
-    <load src="./src/partials/header.html" />
-    <main>
-      <h1>Welcome to Project Page</h1>
-    </main>
-    <load src="./src/partials/footer.html" />
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project</title>
+</head>
+
+<body data-page="project-single">
+  <load src="./src/partials/header.html" />
+
+
+  <main>
+    <h1 x-text="t(projectData.title)" class="title1"></h1>
+
+    <section id="singleProject" x-data="loadSingleProject" x-init="$watch('$store.locale.current', () => init())">
+
+      <div class="container">
+
+        <!-- Cover -->
+        <!--  <img x-show="project?.cover" :src="project?.cover" /> -->
+
+        <!-- Hero -->
+        <section class="hero" :style="project?.cover ? `background-image: url(${project.cover})` : ''">
+
+          <div class="hero-overlay">
+            <div class="hero-content">
+
+              <h1 x-text="project?.projectName"></h1>
+              <h4><a x-show="project?.siteUrl" :href="project.siteUrl" x-text="project.siteUrl"></a></h4>
+              <h2 x-text="project?.category?.name"></h2>
+
+            </div>
+          </div>
+
+
+        </section>
+
+        <!-- Main Details -->
+        <section class="main-details">
+          <div class="meta">
+            <h4>
+              <ul>
+                <li x-text="project?.country + ', ' + project?.city?.name"></li>
+                <li x-text="project?.area ? 'Площа: ' + project.area + ' м²' : ''"></li>
+                <li x-text="project?.timeline
+              ? (project.timeline.yearStart && project.timeline.yearEnd
+              ? 'Рік роботи: ' + project.timeline.yearStart + ' - ' + project.timeline.yearEnd
+              : (project.timeline.yearStart ?? project.timeline.yearEnd))
+              : ''">
+                </li>
+                <li x-text="project?.status ? 'Статус: ' + project.status : ''"></li>
+
+              </ul>
+            </h4>
+          </div>
+        </section>
+
+
+        <!-- Description -->
+        <section class="description">
+          <p x-text="project?.description"></p>
+        </section>
+
+        <!-- Deatils -->
+        <section class="details">
+
+          <template x-if="project?.supplier?.length">
+            <div>
+              <p>
+                <span x-text="project.supplier.length > 1 ? 'Замовники: ' : 'Замовник: '"></span>
+                <span x-text="project.supplier.map(s => s.name).join(', ')"></span>
+              </p>
+              <!-- <template x-for="s in project.supplier">
+                <p x-text="s.name"></p>
+              </template> -->
+            </div>
+          </template>
+
+          <p>
+            <span x-text="'Генпроектувальник: '"></span>
+            <span><a x-show="project.linkDocuments" :href="project.linkDocuments" target="_blank" alt="">
+                <span x-text="project?.generalDesigner.name"></span>
+              </a></span>
+          </p>
+
+          <div class="pdf-link">
+            <a x-show="project.linkDocuments" :href="project.linkDocuments" target="_blank" alt="">
+              <img
+                src="../public/images/pdf_icon.jpg" width="30px" />
+                <span>Паспорт об'єкта</span>
+              </a>
+          </div>
+
+          <p x-text="'Код категорії: ' + project?.consequenceClass"></p>
+          <p x-text="'Конструктив: ' + project?.constructive"></p>
+          <p x-show="project?.award" x-text="'Нагороди: ' + project?.award"></p>
+        </section>
+
+
+        <section class="website">
+          <a x-show="project?.siteUrl" :href="project.siteUrl">
+            Перейти на сайт
+          </a>
+          <!-- Gallery -->
+          <template x-if="project?.photo?.length">
+            <section class="gallery">
+              <template x-for="img in project.photo">
+                <img :src="img" />
+              </template>
+            </section>
+          </template>
+        </section>
+
+        <!-- Partners -->
+        <template x-if="project?.partners?.length">
+          <section class="partners">
+            <h3>Партнери</h3>
+
+            <template x-for="p in project.partners" :key="p._id">
+              <a x-show="p.link" :href="p.link" target="_blank">
+                <div>
+                  <img x-show="p.logo" :src="p.logo" />
+                  <span x-text="p.name"></span>
+                </div>
+              </a>
+            </template>
+          </section>
+        </template>
+
+
+    </section>
+  </main>
+
+
+  <load src="./src/partials/footer.html" />
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
