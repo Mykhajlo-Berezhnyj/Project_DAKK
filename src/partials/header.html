@@ -16,7 +16,21 @@
         UA
       </button>
     </div> -->
-    <button type="button" @click="openMenu()" aria-label="Відкрити меню">
+    <a href="/" class="logo-link">
+      <img
+        src="/images/logoFull.webp"
+        width="150"
+        height="50"
+        alt="На головну"
+        class="logo-img"
+      />
+    </a>
+    <button
+      type="button"
+      class="btn open-button"
+      @click="openMenu()"
+      aria-label="Відкрити меню"
+    >
       Menu
     </button>
 
@@ -26,6 +40,15 @@
         :class="{ 'is-open': open }"
         @keydown.escape.window="closeMenu()"
       >
+        <a href="/" @click="closeMenu()">
+          <img
+            src="/images/logoFull.webp"
+            width="150"
+            height="50"
+            alt="На головну"
+            class="logo-img"
+          />
+        </a>
         <button
           type="button"
           class="close-button"

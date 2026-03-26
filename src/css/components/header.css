@@ -1,10 +1,11 @@
 header {
   padding: 24px 0;
+  background-color: var(--clr-bg-dark);
 }
 
 .header-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -17,6 +18,16 @@ header {
   border: none;
   background-color: transparent;
   padding: 10px 20px;
+}
+
+.open-button {
+  background-color: transparent;
+  font-size: var(--fs-h3);
+}
+
+.open-button:hover {
+  background-color: transparent;
+  opacity: 0.8;
 }
 
 .full-screen-menu {
@@ -73,4 +84,19 @@ header {
   border: none;
   font-size: 5rem;
   cursor: pointer;
+}
+
+.logo-link {
+  display: inline-block;
+  transition: opacity 0.3s ease;
+}
+
+.logo-link:hover {
+  opacity: 0.8;
+}
+
+.logo-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
