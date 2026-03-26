@@ -16,117 +16,156 @@
 
     <section id="singleProject" x-data="loadSingleProject" x-init="$watch('$store.locale.current', () => init())">
 
-      <div class="container">
+      <div class="container container-100">
 
         <!-- Cover -->
         <!--  <img x-show="project?.cover" :src="project?.cover" /> -->
 
         <!-- Hero -->
-        <section class="hero" :style="project?.cover ? `background-image: url(${project.cover})` : ''">
+        <div class="container container-100 grey">
+          <section class="hero" :style="project?.cover ? `background-image: url(${project.cover})` : ''">
 
-          <div class="hero-overlay">
-            <div class="hero-content">
+          </section>
 
-              <h1 x-text="project?.projectName"></h1>
-              <h4><a x-show="project?.siteUrl" :href="project.siteUrl" x-text="project.siteUrl"></a></h4>
-              <h2 x-text="project?.category?.name"></h2>
 
+          <!-- Main Details -->
+          <section class="main-details">
+            <div class="main-details-content">
+              <div class="container main-details-content-1">
+                <h1 x-text="project?.projectName"></h1>
+                <h4><a x-show="project?.siteUrl" :href="project.siteUrl" x-text="project.siteUrl"></a></h4>
+                <h2 x-text="project?.category?.name"></h2>
+              </div>
+
+              <div class="container main-details-content-2">
+                <div class="details-column">
+                  <div>
+                    <p x-text="project?.country"></p>
+                    <p x-text="project?.city?.name"></p>
+                  </div>
+                  <div>
+                    <p x-text="project?.area ? 'Площа' : ''"></p>
+                    <p x-text="project?.area ? project.area + ' м²' : ''"></p>
+                  </div>
+                </div>
+
+                <div class="details-column">
+                  <div>
+                    <p x-text="project?.timeline ? 'Рік роботи' : ''"></p>
+                    <p x-text="project?.timeline
+                  ? (project.timeline.yearStart && project.timeline.yearEnd
+                  ? project.timeline.yearStart + ' - ' + project.timeline.yearEnd
+                  : (project.timeline.yearStart ?? project.timeline.yearEnd))
+                  : ''"></p>
+                  </div>
+                  <div>
+                    <p x-text="project?.status ? 'Статус' : ''"></p>
+                    <p x-text="project?.status ? project.status : ''"></p>
+                  </div>
+                </div>
+
+              </div>
             </div>
-          </div>
-
-
-        </section>
-
-        <!-- Main Details -->
-        <section class="main-details">
-          <div class="meta">
-            <h4>
-              <ul>
-                <li x-text="project?.country + ', ' + project?.city?.name"></li>
-                <li x-text="project?.area ? 'Площа: ' + project.area + ' м²' : ''"></li>
-                <li x-text="project?.timeline
-              ? (project.timeline.yearStart && project.timeline.yearEnd
-              ? 'Рік роботи: ' + project.timeline.yearStart + ' - ' + project.timeline.yearEnd
-              : (project.timeline.yearStart ?? project.timeline.yearEnd))
-              : ''">
-                </li>
-                <li x-text="project?.status ? 'Статус: ' + project.status : ''"></li>
-
-              </ul>
-            </h4>
-          </div>
-        </section>
+          </section>
+        </div>
 
 
         <!-- Description -->
-        <section class="description">
-          <p x-text="project?.description"></p>
-        </section>
+        <div class="container container-100">
+          <section class="description">
+            <p x-text="project?.description"></p>
+          </section>
+        </div>
+
+        <div class="divider">
+          <p></p>
+        </div>
 
         <!-- Deatils -->
-        <section class="details">
+        <div class="container container-100">
+          <section class="details">
+            <div class="details-1">
 
-          <template x-if="project?.supplier?.length">
-            <div>
-              <p>
-                <span x-text="project.supplier.length > 1 ? 'Замовники: ' : 'Замовник: '"></span>
-                <span x-text="project.supplier.map(s => s.name).join(', ')"></span>
-              </p>
-              <!-- <template x-for="s in project.supplier">
-                <p x-text="s.name"></p>
-              </template> -->
-            </div>
-          </template>
-
-          <p>
-            <span x-text="'Генпроектувальник: '"></span>
-            <span><a x-show="project.linkDocuments" :href="project.linkDocuments" target="_blank" alt="">
-                <span x-text="project?.generalDesigner.name"></span>
-              </a></span>
-          </p>
-
-          <div class="pdf-link">
-            <a x-show="project.linkDocuments" :href="project.linkDocuments" target="_blank" alt="">
-              <img
-                src="../public/images/pdf_icon.jpg" width="30px" />
-                <span>Паспорт об'єкта</span>
-              </a>
-          </div>
-
-          <p x-text="'Код категорії: ' + project?.consequenceClass"></p>
-          <p x-text="'Конструктив: ' + project?.constructive"></p>
-          <p x-show="project?.award" x-text="'Нагороди: ' + project?.award"></p>
-        </section>
-
-
-        <section class="website">
-          <a x-show="project?.siteUrl" :href="project.siteUrl">
-            Перейти на сайт
-          </a>
-          <!-- Gallery -->
-          <template x-if="project?.photo?.length">
-            <section class="gallery">
-              <template x-for="img in project.photo">
-                <img :src="img" />
+              <template x-if="project?.supplier?.length">
+                <div>
+                  <p>
+                    <span x-text="project.supplier.length > 1 ? 'Замовники: ' : 'Замовник: '"></span>
+                    <span x-text="project.supplier.map(s => s.name).join(', ')"></span>
+                  </p>
+                  <!-- <template x-for="s in project.supplier">
+                  <p x-text="s.name"></p>
+                </template> -->
+                </div>
               </template>
-            </section>
-          </template>
-        </section>
+
+              <p>
+                <span x-text="project?.generalDesigner?.name ? 'Генпроектувальник: ' : ''"></span>
+                <span><a x-show="project.generalDesigner" :href="project.generalDesigner.link" target="_blank" alt="">
+                    <span x-text="project?.generalDesigner.name"></span>
+                  </a></span>
+              </p>
+
+              <div class="pdf-link">
+                <a x-show="project.linkDocuments" :href="project.linkDocuments" target="_blank" alt="">
+                  <img src="../public/images/pdf_icon.jpg" width="30px" />
+                  <span>Паспорт об'єкта</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="details-2">
+              <p x-text="'Код категорії: ' + project?.consequenceClass"></p>
+              <p x-text="'Конструктив: ' + project?.constructive"></p>
+            </div>
+
+            <div class="details-3">
+              <p x-show="project?.award" x-text="'Нагороди: ' + project?.award"></p>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="container container-100 light-grey" x-show="project?.siteUrl || project?.photo">
+          <section class="website">
+            <a x-show="project?.siteUrl" :href="project.siteUrl">
+              Перейти на сайт: <span x-text="project.siteUrl"></span>
+            </a>
+            <!-- Gallery -->
+            <template x-if="project?.photo?.length">
+              <section class="gallery">
+                <template x-for="img in project.photo">
+                  <img class="thumbnail" :src="img" @click="openImage(img)" />
+                </template>
+
+                <template x-if="activeImage">
+                  <div class="modal" @click="closeImage()">
+                    <img :src="activeImage" />
+                  </div>
+                </template>
+
+              </section>
+            </template>
+          </section>
+        </div>
 
         <!-- Partners -->
         <template x-if="project?.partners?.length">
-          <section class="partners">
-            <h3>Партнери</h3>
+          <div class="container container-100">
+            <section class="partners">
+              <h3>Партнери</h3>
 
-            <template x-for="p in project.partners" :key="p._id">
-              <a x-show="p.link" :href="p.link" target="_blank">
-                <div>
-                  <img x-show="p.logo" :src="p.logo" />
-                  <span x-text="p.name"></span>
+              <template x-for="p in project.partners" :key="p._id">
+                <div class="partners-items">
+                  <a x-show="p.link" :href="p.link" target="_blank">
+                    <div>
+                      <img x-show="p.logo" :src="p.logo" />
+                      <span x-text="p.name"></span>
+                    </div>
+                  </a>
                 </div>
-              </a>
-            </template>
-          </section>
+              </template>
+            </section>
+          </div>
         </template>
 
 
