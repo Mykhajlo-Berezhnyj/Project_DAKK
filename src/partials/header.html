@@ -1,6 +1,6 @@
-<header>
+<header x-data="renderMenu()">
   <div class="container header-container">
-    <div class="langSwitch">
+    <!-- <div class="langSwitch">
       <button
         @click="($store.locale.set('en'))"
         :aria-label="t(projectsData.langSwitch) + ' EN'"
@@ -15,8 +15,41 @@
       >
         UA
       </button>
-    </div>
-    <button>Menu</button>
+    </div> -->
+    <button type="button" @click="openMenu()" aria-label="Відкрити меню">
+      Menu
+    </button>
+
+    <template x-teleport="body">
+      <div
+        class="full-screen-menu"
+        :class="{ 'is-open': open }"
+        x-show="open"
+        @keydown.escape.window="closeMenu()"
+      >
+        <button
+          type="button"
+          class="close-button"
+          @click="closeMenu()"
+          aria-label="Закрити меню"
+        >
+          &times;
+        </button>
+
+        <nav class="menu-nav">
+          <ul>
+            <template x-for="page in pages" :key="page.link">
+              <li>
+                <a
+                  :href="page.link"
+                  @click="closeMenu()"
+                  x-text="page.name"
+                ></a>
+              </li>
+            </template>
+          </ul>
+        </nav>
+      </div>
+    </template>
   </div>
-  <load src="/src/partials/menu.html" />
 </header>
