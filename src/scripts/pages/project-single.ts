@@ -3,12 +3,23 @@ import { PROJECT_QUERY } from "../service/query";
 import type { Project } from "../type/project";
 import { getStartEnd } from "../utils/getStartEnd";
 
-/* export function init() {} */
 
 export function loadSingleProject() {
     return {
         project: null as Partial<Project> | null,
         isLoading: false,
+
+        //For Gallery
+        activeImage: null,
+
+        openImage(img: string) {
+            this.activeImage = img;
+        },
+
+        closeImage() {
+            this.activeImage = null;
+        },
+
 
         async init() {
             this.reset();
@@ -21,11 +32,11 @@ export function loadSingleProject() {
             this.isLoading = true;
 
             // test
-           /*  const slug = "central-park"; */
+            /*  const slug = "central-park"; */
 
             //real
             const slug = window.location.pathname.split("/").pop();
-             
+
 
             try {
                 this.project = await fetchData<Project>({
