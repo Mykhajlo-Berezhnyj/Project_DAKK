@@ -8,6 +8,7 @@ import { getLocaleFromURL } from "./scripts/utils/getLocaleFromURL";
 import { setLocaleUrl } from "./scripts/utils/setLocaleUrl";
 import intersect from "@alpinejs/intersect";
 import type { Lang, LocaleStore } from "./scripts/type/lang";
+import { renderMenu } from "./scripts/core/menu";
 
 interface PageModule {
   init: () => void;
@@ -38,6 +39,7 @@ Alpine.data("localization", () => localization());
 Alpine.data("filters", () => filtersProjects());
 Alpine.data("loadProjects", () => loadProjects(filtersProjects()));
 Alpine.data("loadSingleProject", () => loadSingleProject());
+Alpine.data("renderMenu", renderMenu);
 
 Alpine.plugin(intersect);
 

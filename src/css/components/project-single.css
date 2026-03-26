@@ -4,9 +4,14 @@
 
 .container-100 {
     max-width: 100%;
+    padding: 0;
     /* NOT 1200px */
     /* padding-top: 20px;
     padding-bottom: 20px; */
+}
+
+.p-40-50 {
+    padding: 20px 25px;
 }
 
 h1 {
@@ -80,21 +85,14 @@ a:hover {
     margin-bottom: 10px;
 }
 
-
-
-
-
 .description {
     font-style: italic;
-    padding: 40px 0px;
 }
 
 .details {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
-    margin-bottom: 40px;
 }
 
 .details p {
@@ -107,42 +105,6 @@ a:hover {
     flex: 1 1 0px;
 }
 
-@media (min-width: 768px) {
-    .main-details-content {
-        flex-direction: row;
-    }
-
-    .main-details-content-2 {
-        flex-direction: row;
-        gap: 50px;
-    }
-
-    .details {
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-
-    }
-}
-
-@media (min-width: 1024px) {
-    .main-details-content-2 {
-        justify-content: flex-start;
-    }
-
-    .details-column {
-        display: flex;
-        flex-direction: row;
-        gap: 50px;
-    }
-
-    .details {
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-    }
-}
-
 .pdf-link a {
     display: inline-flex;
     align-items: center;
@@ -153,9 +115,6 @@ a:hover {
 
 .website {
     margin: 15px 0px;
-    padding: 20px 0;
-
-
 }
 
 .gallery {
@@ -209,5 +168,48 @@ a:hover {
 .divider {
     background-color: var(--clr-divider);
     height: 5px;
-    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .p-40-50 {
+        padding: 40px 50px;
+    }
+
+    .main-details-content {
+        flex-direction: row;
+    }
+
+    .main-details-content-2 {
+        flex-direction: row;
+        gap: 50px;
+    }
+
+    .details {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+
+    }
+}
+
+@media (min-width: 1024px) {
+    .p-40-50 {
+        padding: 40px 50px;
+    }
+
+    .main-details-content-2 {
+        justify-content: flex-start;
+    }
+
+    .details-column {
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+    }
+
+    .details {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
 }
