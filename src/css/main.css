@@ -5,7 +5,6 @@
 /* 2. Layout Components */
 @import "./components/header.css";
 @import "./components/footer.css";
-@import "./components/menu.css";
 
 /* 3. Content Sections */
 @import "./components/hero.css";

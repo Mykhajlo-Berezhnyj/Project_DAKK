@@ -1,10 +1,11 @@
 header {
   padding: 24px 0;
+  background-color: var(--clr-bg-dark);
 }
 
 .header-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -17,4 +18,85 @@ header {
   border: none;
   background-color: transparent;
   padding: 10px 20px;
+}
+
+.open-button {
+  background-color: transparent;
+  font-size: var(--fs-h3);
+}
+
+.open-button:hover {
+  background-color: transparent;
+  opacity: 0.8;
+}
+
+.full-screen-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: var(--clr-bg-main); /* Темний колір (напр. gray-900) */
+  color: var(--clr-text-main);
+
+  transition:
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.4s;
+
+  transform: translateX(100%);
+  visibility: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-screen-menu.is-open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.menu-nav ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.menu-nav li {
+  margin: 1.5rem 0;
+}
+
+.menu-nav a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: var(--fw-bold);
+}
+
+.menu-nav a:hover {
+  transform: scale(1.2);
+}
+
+.close-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  font-size: 5rem;
+  cursor: pointer;
+}
+
+.logo-link {
+  display: inline-block;
+  transition: opacity 0.3s ease;
+}
+
+.logo-link:hover {
+  opacity: 0.8;
+}
+
+.logo-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
