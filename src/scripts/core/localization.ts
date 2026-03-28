@@ -4,12 +4,14 @@ import type { Field, LocaleStore } from "../type/lang";
 import { statusLang } from "../../data/dictionary/statusLang";
 import { DEFAULT_LANG, SUPPORTED_LANG } from "../../data/lang";
 import { SORT_OPTIONS } from "../../data/sortOptions";
+import { indexData } from "../../data/dictionary/indexData";
 
 export function localization() {
   return {
     projectsData,
     statusLang,
     SORT_OPTIONS,
+    indexData,
 
     t(field: Field) {
       return (

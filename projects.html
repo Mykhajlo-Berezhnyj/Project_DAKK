@@ -30,10 +30,14 @@
     <load src="./src/partials/header.html" />
 
     <main x-data="loadProjects">
-      <load src="./src/partials/filters.html" />
+      <section id="filter" x-data="{open: false, show: false}">
+        <load src="./src/partials/filters.html" />
+      </section>
 
       <template x-if="mode === 'all'">
-        <load src="./src/partials/projects.html" />
+        <section id="projects">
+          <load src="./src/partials/projects.html" />
+        </section>
       </template>
 
       <template x-if="mode === 'group'">

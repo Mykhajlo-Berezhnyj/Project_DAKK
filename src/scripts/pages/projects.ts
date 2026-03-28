@@ -2,6 +2,7 @@ import { fetchData } from "../core/api";
 import { type Filter } from "../service/filters";
 import type { CategorySlug, Project } from "../type/project";
 import { buildProjectQuery } from "../service/buildProjectsQuery";
+import { animationEnter, waitTransition } from "../core/animations";
 
 type CategoryGroup = {
   name: string;
@@ -18,7 +19,8 @@ interface LoadProjects {
   perPage: number;
   currentFilters: Partial<Filter>;
   categoryGroup: CategoryGroup[];
-  isInitp: boolean;
+  isFirstLoad: boolean;
+  isLocking: boolean;
   load: () => void;
   reload: () => void;
   reset: () => void;
@@ -35,11 +37,10 @@ export function loadProjects(): LoadProjects {
     perPage: 6,
     categoryGroup: [],
     currentFilters: {},
-    isInitp: false,
+    isFirstLoad: true,
+    isLocking: false,
 
     async init() {
-      if (this.isInitp) return;
-
       window.addEventListener("filters-changed", (e) => {
         this.currentFilters = (e as CustomEvent<Partial<Filter>>).detail;
         this.reload();
@@ -48,66 +49,71 @@ export function loadProjects(): LoadProjects {
       window.addEventListener("popstate", () => {
         this.reload();
       });
-
-      this.isInitp = true;
     },
 
     async reload() {
-      const items = document.querySelectorAll(".gallery-item");
+      if (this.isLocking) return;
+      if (!this.isFirstLoad) {
+        const items = document.querySelectorAll(".gallery-item");
 
-      items.forEach((element) => {
-        element.classList.add("reset");
-      });
+        items.forEach((element) => {
+          element.classList.add("reset");
+        });
 
-      await new Promise((resolve) => setTimeout(resolve, 200));
+        await waitTransition(items[0]);
+      }
 
       this.reset();
       await this.load();
-      const newItems = document.querySelectorAll(".gallery-item");
+      this.isFirstLoad = false;
 
-      newItems.forEach((element) => {
-        element.classList.add("loading");
-      });
+      await new Promise((r) => requestAnimationFrame(r));
 
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      newItems.forEach((element) => {
-        element.classList.remove("loading");
-      });
+      animationEnter();
     },
 
     async load() {
-      if (this.isLoading || !this.hasMore) return;
+      if (this.isLocking || !this.hasMore) return;
       this.isLoading = true;
+      this.isLocking = true;
+      this.error = null;
 
-      const { query, options } = buildProjectQuery(
-        this.currentFilters,
-        this.page,
-        this.perPage,
-      );
+      try {
+        const { query, options } = buildProjectQuery(
+          this.currentFilters,
+          this.page,
+          this.perPage,
+        );
 
-      if (options.mode === "group") {
-        const result = await fetchData<{ category: CategoryGroup[] }>({
-          query,
-          options,
-        });
-        const group = result.category;
-        this.categoryGroup = group;
-        this.isLoading = false;
-      } else {
-        const result = await fetchData<{
-          projects: Project[];
-          total: number;
-        }>({ query, options });
-        const newProjects = result.projects;
-        const total = result.total;
+        if (options.mode === "group") {
+          const result = await fetchData<{ category: CategoryGroup[] }>({
+            query,
+            options,
+          });
+          const group = result.category;
+          this.categoryGroup = group;
+        } else {
+          const result = await fetchData<{
+            projects: Project[];
+            total: number;
+          }>({ query, options });
+          const newProjects = result.projects;
+          const total = result.total;
 
-        this.projects = [...this.projects, ...newProjects];
-        this.isLoading = false;
-        if (total < this.page * this.perPage) {
-          this.hasMore = false;
+          this.projects = [...this.projects, ...newProjects];
+
+          if (total < this.page * this.perPage) {
+            this.hasMore = false;
+          }
+          this.page++;
         }
-        this.page++;
+      } catch (err) {
+        this.error =
+          err instanceof Error ? err.message : "Something went wrong";
+        this.hasMore = false;
+      } finally {
+        this.isLoading = false;
+        this.isLocking = false;
       }
     },
 
@@ -116,6 +122,7 @@ export function loadProjects(): LoadProjects {
       this.isLoading = false;
       this.hasMore = true;
       this.page = 1;
+      this.error = null;
     },
   };
 }

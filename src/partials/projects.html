@@ -1,58 +1,53 @@
-<section id="projects">
-  <div class="container container-gallery">
-    <template x-if="projects.length===0 && !isLoading">
-      <p class="not-projects" x-text="t(projectsData.notFound)">
-        На жаль за Вашим запитом не знайшлося проектів. Спроуйте повторити пошук
-        з іншими параметрами
-      </p>
-    </template>
+<div class="container container-gallery">
+  <template x-if="projects.length===0 && !isLoading">
+    <p class="not-projects" x-text="t(projectsData.notFound)">
+      На жаль за Вашим запитом не знайшлося проектів. Спроуйте повторити пошук з
+      іншими параметрами
+    </p>
+  </template>
 
-    <template x-if="isLoading">
-      <div class="loading" x-text="t(projectsData.loading)"></div>
-    </template>
+  <template x-if="isLoading">
+    <div class="loading" x-text="t(projectsData.loading)"></div>
+  </template>
 
-    <ul class="projects-gallery">
-      <template x-for="item in projects" :key="item._id">
-        <li class="gallery-item">
-          <article class="card">
-            <a
-              :href="l(`/projects/${item.category?.slug}/${item.slug}`)"
-              class="link-project"
-            >
-            </a>
-            <img
-              :src="item.cover"
-              :alt="item.projectName"
-              class="img"
-              x-show="mode === 'all' || mode === item.key"
-            />
-            <div class="hoverInfo">
-              <img src="/public/images/logo.webp" class="logo-info" />
-              <div class="info">
-                <h2 x-text="item.projectName"></h2>
-                <h3 x-text="item.category?.name"></h3>
-                <div class="wrap-info">
-                  <a
-                    class="city-name"
-                    :href="l(`/city/${item.city?.slug}`)"
-                    x-text="item.city?.name"
-                  ></a>
-                  <p
-                    x-text="item.timeline? (item.timeline.yearStart && item.timeline.yearEnd ? (item.timeline.yearStart + '-'+ item.timeline.yearEnd) :  (item.timeline.yearStart ?? item.timeline.yearEnd)) : ''"
-                  ></p>
-                </div>
-                <p x-text="item.area + ' м2'"></p>
+  <ul class="projects-gallery">
+    <template x-for="item in projects" :key="item._id">
+      <li class="gallery-item">
+        <article class="card">
+          <a
+            :href="l(`/projects/${item.category?.slug}/${item.slug}`)"
+            class="link-project"
+          >
+          </a>
+          <img
+            :src="item.cover"
+            :alt="item.projectName"
+            class="img"
+            x-show="mode === 'all' || mode === item.key"
+          />
+          <div class="hoverInfo">
+            <img src="/public/images/logo.webp" class="logo-info" />
+            <div class="info">
+              <h2 x-text="item.projectName"></h2>
+              <h3 x-text="item.category?.name"></h3>
+              <div class="wrap-info">
+                <a
+                  class="city-name"
+                  :href="l(`/city/${item.city?.slug}`)"
+                  x-text="item.city?.name"
+                ></a>
+                <p
+                  x-text="item.timeline? (item.timeline.yearStart && item.timeline.yearEnd ? (item.timeline.yearStart + '-'+ item.timeline.yearEnd) :  (item.timeline.yearStart ?? item.timeline.yearEnd)) : ''"
+                ></p>
               </div>
+              <p x-text="item.area + ' м2'"></p>
             </div>
-          </article>
-        </li>
-      </template>
-    </ul>
-  </div>
-  <div
-    x-intersect="hasMore && isInitp && mode === 'all' && load()"
-    class="loader"
-  >
+          </div>
+        </article>
+      </li>
+    </template>
+  </ul>
+  <div x-intersect="hasMore && mode === 'all' && load()" class="loader">
     <span x-show="isLoading && hasMore">...Loading. Please wait</span>
   </div>
-</section>
+</div>

@@ -6,7 +6,7 @@ import { getLocaleFromURL } from "../utils/getLocaleFromURL";
 import { getPartsPath } from "../utils/getPartsPath";
 import { CATEGORY_QUERY } from "./query";
 
-type Categories = {
+export type Categories = {
   name: string;
   slug: CategorySlug;
 };

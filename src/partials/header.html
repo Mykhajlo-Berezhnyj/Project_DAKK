@@ -1,5 +1,15 @@
 <header x-data="renderMenu()">
   <div class="container header-container">
+    <a href="/" class="logo-link">
+      <img
+        src="/images/logoFull.webp"
+        width="150"
+        height="50"
+        alt="На головну"
+        class="logo-img"
+      />
+    </a>
+
     <div class="langSwitch">
       <button
         @click="($store.locale.set('en'));"
@@ -16,15 +26,7 @@
         UA
       </button>
     </div>
-    <a href="/" class="logo-link">
-      <img
-        src="/images/logoFull.webp"
-        width="150"
-        height="50"
-        alt="На головну"
-        class="logo-img"
-      />
-    </a>
+
     <button
       type="button"
       class="btn open-button"
@@ -72,7 +74,6 @@
           </ul>
         </nav>
       </div>
-      <load src="/src/partials/menu.html" />
     </template>
   </div>
 </header>

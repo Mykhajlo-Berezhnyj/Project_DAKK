@@ -79,9 +79,9 @@ export const projectsData = {
     uk: "Завантаження списку проектів... Зачекайте будь-ласка",
     en: "loading project list... Please wait",
   },
-  notCategory: {
-    uk: "Категорію не знайдено",
-    en: "Category not found",
+  404: {
+    uk: "Не знайдено",
+    en: "Not found",
   },
   redirect: {
     uk: "Ви будуте перенаправлені на сторінку проектів через",

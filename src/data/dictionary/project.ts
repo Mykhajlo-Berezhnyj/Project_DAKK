@@ -1,4 +1,4 @@
-export const projectsData = {
+export const projectData = {
   titleHead: {
     uk: "Галерея проектів Дніпровської архітектурної конструкторської компанії(ДАКК)",
     en: "Gallery of Projects by Dnipro Architectural Design Company (DAKK)",
@@ -14,5 +14,5 @@ export const projectsData = {
   langSwitch: {
     uk: "Переключити мову на",
     en: "Langswitch to",
-  }
+  },
 };

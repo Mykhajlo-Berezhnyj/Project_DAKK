@@ -54,7 +54,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
+    width: 280px;
     height: 200px;
     background: var(--clr-bg-dark);
     opacity: 0.95;
@@ -62,7 +62,7 @@
     color: var(--clr-white);
     padding: 10px 15px;
     border-radius: 20px;
-    font-size: var(--font-headers);
+    font-size: 20px;
     z-index: 9999;
   }
 }

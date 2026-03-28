@@ -1,5 +1,6 @@
 import type { categorySlugs } from "../../data/category";
 import type { statusLang } from "../../data/dictionary/statusLang";
+import type { Categories } from "../service/filters";
 
 export interface Timeline {
   yearStart?: number;
@@ -101,3 +102,9 @@ export interface Project {
 }
 
 export type Mode = "all" | "group";
+
+export type CategoriesStore = {
+  list: Categories[];
+  isReady: boolean;
+  init: () => Promise<void>;
+};

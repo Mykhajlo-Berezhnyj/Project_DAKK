@@ -1,24 +1,33 @@
+import Alpine from "alpinejs";
 import { localization } from "../core/localization.ts";
-import { filtersProjects } from "../service/filters.ts";
 import { getPartsPath } from "../utils/getPartsPath.ts";
 import { redirect } from "../utils/redirect.ts";
-import { init as initLeaflet } from "./leaflet.ts";
+import type { CategoriesStore } from "../type/project.ts";
+import { init as leaflet } from "./leaflet.ts";
 
-export async function init() {
-  const { category } = getPartsPath();
-  const locale = localization();
-  const filters = filtersProjects();
-  await filters.init();
+export function pageCategoryProject() {
+  return {
+    isReady: false,
+    is404: false,
 
-  const categories = filters.categories;
+    async init() {
+      const { category } = getPartsPath();
+      const locale = localization();
 
-  const isCategories = categories.some((c) => c.slug === category);
+      const store = await (Alpine.store("categories") as CategoriesStore);
 
-  if (!isCategories) {
-    const url = `${locale.l("/projects")}`;
-    const txt = locale.t(locale.projectsData.notCategory);
-    redirect({ url, time: 5, txt });
-  } else {
-    initLeaflet();
-  }
+      const iValid = store.list.some((c) => c.slug === category);
+
+      if (!iValid) {
+        this.is404 = true;
+        this.isReady = true;
+        const url = `${locale.l("/projects")}`;
+
+        redirect({ url, time: 5 });
+      } else {
+        this.isReady = true;
+        queueMicrotask(() => leaflet());
+      }
+    },
+  };
 }

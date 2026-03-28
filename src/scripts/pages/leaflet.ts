@@ -1,15 +1,12 @@
 import L from "leaflet";
+import type { Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { fetchData } from "../core/api";
 import { LEAFLET_QUERY, LEAFLET_SINGLE_QUERY } from "../service/query";
 import { localization } from "../core/localization";
 import type { Category } from "../type/project";
 
-const map = L.map("map").setView([50.4501, 30.5234], 12);
-
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: "© OpenStreetMap contributors",
-}).addTo(map);
+let map: Map;
 
 interface ProjectLocation {
   projectName: string;
@@ -21,6 +18,16 @@ interface ProjectLocation {
 const local = localization();
 
 export async function init() {
+  if (!map) {
+    map = L.map("map").setView([50.4501, 30.5234], 12);
+    console.log("🚀 ~ init ~ map:", map);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors",
+    }).addTo(map);
+  } else {
+    map.setView([50.4501, 30.5234], 12);
+  }
   const projects: ProjectLocation[] = await fetchData({
     query: LEAFLET_QUERY,
   });
@@ -45,7 +52,18 @@ export async function leaflet(slug: string) {
   });
 
   if (project.location) {
-    map.setView([project.location.lat, project.location.lng], 12);
+    if (!map) {
+      map = L.map("map").setView(
+        [project.location.lat, project.location.lng],
+        12,
+      );
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
+    } else {
+      map.setView([project.location.lat, project.location.lng], 12);
+    }
 
     L.marker([project.location.lat, project.location.lng])
       .addTo(map)

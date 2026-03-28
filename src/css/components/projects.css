@@ -124,9 +124,9 @@ input {
   border-radius: 12px;
   border: 1px solid var(--clr-text-secondary);
   background-color: var(--clr-bg-block);
+  color: var(--clr-text-main);
   height: 46px;
   text-decoration: none;
-  color: var(--clr-text-main);
   font-size: var(--fs-small);
   text-align: center;
 
@@ -137,6 +137,7 @@ input {
 
   &:hover {
     background-color: var(--clr-bg-main);
+    color: var(--clr-text-main);
     box-shadow: var(--btn-hover-box-shadow);
   }
 }

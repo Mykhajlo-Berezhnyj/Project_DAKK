@@ -22,18 +22,29 @@
     />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
-  <body
-    data-page="projects-category"
-    x-data="filters"
-    x-init="$watch('$store.locale.current', () => init())"
-  >
-    <load src="./src/partials/header.html" />
-    <main x-data="loadProjects">
-      <load src="./src/partials/filters.html" />
-
-      <load src="./src/partials/projects.html" />
+  <body data-page="projects-category" x-data="pageCategoryProject()">
+    <template x-if="isReady && !is404">
+      <fragment>
+        <load src="./src/partials/header.html" />
+        <main
+          x-data="filters"
+          x-init="$watch('$store.locale.current', () => init())"
+        >
+          <section id="filter" x-data="{open: false, show: false}">
+            <load src="./src/partials/filters.html" />
+          </section>
+          <section id="projects" x-data="loadProjects">
+            <load src="./src/partials/projects.html" />
+          </section>
+          <load src="./src/partials/leaflet.html" />
+        </main>
+        <load src="./src/partials/footer.html" />
+      </fragment>
+    </template>
+    <template x-if="isReady && is404">
+      <load src="./src/partials/404.html" />
       <load src="./src/partials/leaflet.html" />
-    </main>
+    </template>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

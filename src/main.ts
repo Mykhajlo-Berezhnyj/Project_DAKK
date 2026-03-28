@@ -9,6 +9,9 @@ import { setLocaleUrl } from "./scripts/utils/setLocaleUrl";
 import intersect from "@alpinejs/intersect";
 import type { Lang, LocaleStore } from "./scripts/type/lang";
 import { renderMenu } from "./scripts/core/menu";
+import { getCategories } from "./scripts/service/getCategories";
+import type { CategoriesStore } from "./scripts/type/project";
+import { pageCategoryProject } from "./scripts/pages/projects-category";
 
 interface PageModule {
   init: () => void;
@@ -21,7 +24,6 @@ const routes: Record<string, () => Promise<PageModule>> = {
   projects: () => import("./scripts/pages/leaflet"),
   video: () => import("./scripts/pages/video"),
   "project-single": () => import("./scripts/pages/project-single"),
-  "projects-category": () => import("./scripts/pages/projects-category"),
 };
 
 const page = document.body.dataset.page;
@@ -41,6 +43,7 @@ Alpine.data("filters", filtersProjects);
 Alpine.data("loadProjects", () => loadProjects());
 Alpine.data("loadSingleProject", () => loadSingleProject());
 Alpine.data("renderMenu", renderMenu);
+Alpine.data("pageCategoryProject", () => pageCategoryProject());
 
 Alpine.plugin(intersect);
 
@@ -51,6 +54,19 @@ Alpine.store("locale", {
     ((this.current = locale), setLocaleUrl(locale));
   },
 } as LocaleStore);
+
+document.addEventListener("alpine:init", () => {
+  Alpine.store("categories", {
+    list: [],
+    isReady: false,
+
+    async init() {
+      if (this.isReady) return;
+      this.list = await getCategories();
+      this.isReady = true;
+    },
+  } as CategoriesStore);
+});
 
 window.Alpine = Alpine;
 Alpine.start();
