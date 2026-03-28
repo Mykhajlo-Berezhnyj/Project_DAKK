@@ -85,6 +85,10 @@ a:hover {
     margin-bottom: 10px;
 }
 
+
+
+
+
 .description {
     font-style: italic;
 }
@@ -115,6 +119,9 @@ a:hover {
 
 .website {
     margin: 15px 0px;
+    padding: 20px 0;
+
+
 }
 
 .gallery {
