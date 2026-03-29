@@ -72,7 +72,7 @@
 
         <!-- Description -->
         <div class="container container-100">
-          <section class="description">
+          <section class="description p-40-50">
             <p x-text="project?.description"></p>
           </section>
         </div>
@@ -83,7 +83,7 @@
 
         <!-- Deatils -->
         <div class="container container-100">
-          <section class="details">
+          <section class="details p-40-50">
             <div class="details-1">
 
               <template x-if="project?.supplier?.length">
@@ -126,7 +126,7 @@
 
 
         <div class="container container-100 light-grey" x-show="project?.siteUrl || project?.photo">
-          <section class="website">
+          <section class="website p-40-50">
             <a x-show="project?.siteUrl" :href="project.siteUrl">
               Перейти на сайт: <span x-text="project.siteUrl"></span>
             </a>
@@ -151,7 +151,7 @@
         <!-- Partners -->
         <template x-if="project?.partners?.length">
           <div class="container container-100">
-            <section class="partners">
+            <section class="partners p-40-50">
               <h3>Партнери</h3>
 
               <template x-for="p in project.partners" :key="p._id">
