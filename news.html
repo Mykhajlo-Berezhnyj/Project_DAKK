@@ -8,7 +8,14 @@
   <body data-page="news">
     <load src="./src/partials/header.html" />
     <main>
-      <h1>Welcome to News Page</h1>
+      <section class="section-news">
+        <div x-data x-show="$store.news.isPublicationOpened">
+          <load src="./src/partials/news-single.html" />
+        </div>
+        <div x-data x-show="!$store.news.isPublicationOpened">
+          <load src="./src/partials/news.html" />
+        </div>
+      </section>
     </main>
     <load src="./src/partials/footer.html" />
     <script type="module" src="/src/main.ts"></script>

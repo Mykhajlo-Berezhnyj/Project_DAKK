@@ -1,5 +1,7 @@
 /* 1. Global Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -9,8 +11,8 @@
 body {
   font-family: var(--font-main);
   font-weight: var(--fw-regular); /* Inter Regular */
-  font-size: var(--fs-body);      /* 16px */
-  line-height: 1.6;               /* Relative ratio for better readability */
+  font-size: var(--fs-body); /* 16px */
+  line-height: 1.6; /* Relative ratio for better readability */
   color: var(--clr-text-main);
   background-color: var(--clr-bg-main);
   -webkit-font-smoothing: antialiased;
@@ -39,24 +41,24 @@ body {
 /* 4. Headings Configuration (Montserrat) */
 h1 {
   font-family: var(--font-headers);
-  font-weight: var(--fw-bold);    /* Montserrat Bold (700) */
-  font-size: var(--fs-h1);        /* 40px */
-  line-height: 48px;              /* Fixed height for precision */
+  font-weight: var(--fw-bold); /* Montserrat Bold (700) */
+  font-size: var(--fs-h1); /* 40px */
+  line-height: 48px; /* Fixed height for precision */
   margin-bottom: 24px;
 }
 
 h2 {
   font-family: var(--font-headers);
   font-weight: var(--fw-semibold); /* Montserrat SemiBold (600) */
-  font-size: var(--fs-h2);         /* 32px */
+  font-size: var(--fs-h2); /* 32px */
   line-height: 40px;
   margin-bottom: 20px;
 }
 
 h3 {
   font-family: var(--font-headers);
-  font-weight: var(--fw-medium);   /* Montserrat Medium (500) */
-  font-size: var(--fs-h3);         /* 24px */
+  font-weight: var(--fw-medium); /* Montserrat Medium (500) */
+  font-size: var(--fs-h3); /* 24px */
   line-height: 32px;
   margin-bottom: 16px;
 }
@@ -65,7 +67,7 @@ h3 {
 .nav-link {
   font-family: var(--font-main);
   font-weight: var(--fw-inter-medium); /* Inter Medium (500) */
-  font-size: var(--fs-menu);           /* 15px */
+  font-size: var(--fs-menu); /* 15px */
   text-decoration: none;
   color: var(--clr-text-main);
 }
@@ -103,4 +105,8 @@ img {
   max-width: 100%;
   display: block;
   height: auto;
+}
+
+ul {
+  list-style: none;
 }
