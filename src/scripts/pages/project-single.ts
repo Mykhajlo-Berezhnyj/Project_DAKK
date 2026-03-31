@@ -15,13 +15,15 @@ export function init() {
   }
 }
 
+type ActiveImage = string | null;
+
 export function loadSingleProject() {
   return {
     project: null as Partial<Project> | null,
     isLoading: false,
 
     //For Gallery
-    activeImage: null,
+    activeImage: null as ActiveImage,
 
     openImage(img: string) {
       this.activeImage = img;

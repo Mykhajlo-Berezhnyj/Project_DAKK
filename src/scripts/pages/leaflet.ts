@@ -8,6 +8,16 @@ import type { Category } from "../type/project";
 
 let map: Map;
 
+const defaultIcon = L.icon({
+  iconUrl: "/images/marker-icon.png",
+  iconRetinaUrl: "/images/marker-icon-2x.png",
+  shadowUrl: "/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
 interface ProjectLocation {
   projectName: string;
   slug: string;
@@ -20,7 +30,8 @@ const local = localization();
 export async function init() {
   if (!map) {
     map = L.map("map").setView([50.4501, 30.5234], 12);
-    console.log("🚀 ~ init ~ map:", map);
+
+    L.Marker.prototype.options.icon = defaultIcon;
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap contributors",
@@ -57,6 +68,7 @@ export async function leaflet(slug: string) {
         [project.location.lat, project.location.lng],
         12,
       );
+      L.Marker.prototype.options.icon = defaultIcon;
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",

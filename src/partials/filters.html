@@ -21,7 +21,7 @@
         x-text="t(projectsData.titleCategory)"
       ></h4>
       <a
-        :href="l('/projects/')"
+        :href="l('/projects')"
         class="btnMode btnAll"
         :class="{activeCategory: !category && mode !== 'group'}"
         x-text="t(projectsData.titleAll)"
@@ -54,7 +54,7 @@
         </div>
       </div>
       <a
-        :href="l('/projects/?mode=group')"
+        :href="l('/projects?mode=group')"
         class="btnMode"
         x-text="t(projectsData.btnTab)"
         :class="{'activeCategory' : mode === 'group'}"

@@ -87,6 +87,14 @@ export const projectsData = {
     uk: "Ви будуте перенаправлені на сторінку проектів через",
     en: "You will be redirected to the projects page after",
   },
+  more: {
+    uk: "Більше проектів",
+    en: "More projects",
+  },
+  allProjects: {
+    uk: "Всі проекти",
+    en: "All projects",
+  },
   langSwitch: {
     uk: "Переключити мову на",
     en: "Langswitch to",

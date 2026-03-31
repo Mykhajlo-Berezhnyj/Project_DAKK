@@ -12,6 +12,7 @@ import { renderMenu } from "./scripts/core/menu";
 import { getCategories } from "./scripts/service/getCategories";
 import type { CategoriesStore } from "./scripts/type/project";
 import { pageCategoryProject } from "./scripts/pages/projects-category";
+import { projectsPrev } from "./scripts/pages/projects-preview";
 
 interface PageModule {
   init: () => void;
@@ -44,6 +45,7 @@ Alpine.data("loadProjects", () => loadProjects());
 Alpine.data("loadSingleProject", () => loadSingleProject());
 Alpine.data("renderMenu", renderMenu);
 Alpine.data("pageCategoryProject", () => pageCategoryProject());
+Alpine.data("projectsPrev", projectsPrev);
 
 Alpine.plugin(intersect);
 
