@@ -11,10 +11,10 @@
   <load src="./src/partials/header.html" />
 
 
-  <main>
+   <main id="singleProject" x-data="loadSingleProject" x-init="$watch('$store.locale.current', () => init())">
 
 
-    <section id="singleProject" x-data="loadSingleProject" x-init="$watch('$store.locale.current', () => init())">
+    <section>
 
       <div class="container container-100">
 
@@ -169,7 +169,7 @@
         </template>
     </section>
 
-    
+     <load src="./src/partials/projects-preview.html" />
       <load src="./src/partials/leaflet.html" />
 
   </main>
