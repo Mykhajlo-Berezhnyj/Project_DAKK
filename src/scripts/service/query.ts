@@ -127,3 +127,22 @@ export const LEAFLET_SINGLE_QUERY = `*[_type == 'project' && slug.current == $sl
  "slug": slug.current,
  location
 }`;
+
+export const PREVIEW_PROJECTS_QUERY = `*[_type == "project" && (!defined($currentId) || _id != $currentId)]
+  | order(_id)
+  [0...6] {
+    _id,
+    "projectName": coalesce(projectName[$locale], projectName.uk),
+    "slug": slug.current,
+    status,
+    timeline,
+    area,
+    typeOfServices[]->{"name": coalesce(name[$locale], name.uk)},
+    category->{
+      _id,
+      "name": coalesce(name[$locale], name.uk),
+      "slug": slug.current
+    },
+    city->{_id, "name": coalesce(name[$locale], name.uk), "slug": slug.current},
+    "cover": cover.asset->url
+  }`;
