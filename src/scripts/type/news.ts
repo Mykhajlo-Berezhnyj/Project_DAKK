@@ -11,11 +11,21 @@ export interface New {
 
 export interface NewsStore {
   items: Publication[] | [];
-  currentItem: number | null;
-  isPublicationOpened: boolean;
+  page: {
+    current: number;
+    pageLength: number;
+  };
+  publication: {
+    currentItem: number | null;
+    isOpened: boolean;
+  };
   isLoading: boolean;
-  getNews: () => [];
+  getNews: () => Publication[] | [];
   setNews: ([]) => void;
+  getCurrentPublication: () => number | null;
+  setCurrentPublication: (id: number) => void;
+  getPublicationStatus: () => boolean;
+  setPublicationStatus: (isOpened: boolean) => void;
 }
 
 export interface Publication {

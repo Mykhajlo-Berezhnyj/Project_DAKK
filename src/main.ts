@@ -10,8 +10,12 @@ import intersect from "@alpinejs/intersect";
 import type { Lang, LocaleStore } from "./scripts/type/lang";
 import { renderMenu } from "./scripts/core/menu";
 import type { NewsStore } from "./scripts/type/news";
-import { init as initNews } from "./scripts/pages/news";
-import { descriptionCutting as cutTextFn } from "./scripts/pages/news";
+import {
+  init as initNews,
+  setPublication,
+  newsStore,
+  cutTextFn,
+} from "./scripts/pages/news";
 
 interface PageModule {
   init: () => void;
@@ -56,23 +60,12 @@ Alpine.store("locale", {
 
 window.Alpine = Alpine;
 
-Alpine.store("news", {
-  items: [],
-  currentItem: null,
-  isPublicationOpened: false,
-  isLoading: false,
-
-  getNews() {
-    return this.items;
-  },
-  setNews(newsArr) {
-    this.items = [...newsArr];
-  },
-} as NewsStore);
+Alpine.store("news", newsStore as NewsStore);
 
 Alpine.data("news", () => ({
   init: initNews,
-  descriptionCutting: cutTextFn,
+  cutText: cutTextFn,
+  setPublication,
 }));
 
 Alpine.start();

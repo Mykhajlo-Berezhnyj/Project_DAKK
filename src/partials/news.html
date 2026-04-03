@@ -3,23 +3,31 @@
   <ul x-show="$store.news.items.length>0" class="news-gallery">
     <template x-data x-for="pub in $store.news.items">
       <li class="news-gallery-item">
-        <a href="./news-single.html">
-          <article :data-id="pub._id" class="news-item">
-            <div class="publication-img-thumb">
-              <img
-                :src="pub.images"
-                alt="publication logo"
-                class="publication-logo"
-                height="170px"
-              />
-            </div>
-            <div class="publication-content-thumb">
+        <article :data-id="pub._id" class="news-item">
+          <div class="publication-img-thumb">
+            <img
+              :src="pub.images"
+              alt="publication logo"
+              class="publication-logo"
+              height="170px"
+            />
+          </div>
+          <div class="publication-content-thumb">
+            <a
+              x-data="news"
+              href="./news-single.html"
+              @click="setPublication(pub._id)"
+            >
               <p class="publication-definition">Публікація</p>
-              <h3 x-text="pub.title" class="publication-title"></h3>
-              <p x-text="pub.description" class="publication-description"></p>
-            </div>
-          </article>
-        </a>
+            </a>
+            <h3 x-text="pub.title" class="publication-title"></h3>
+            <p
+              x-data="news"
+              x-text="()=>cutText(pub.description)"
+              class="publication-description"
+            ></p>
+          </div>
+        </article>
       </li>
     </template>
   </ul>
