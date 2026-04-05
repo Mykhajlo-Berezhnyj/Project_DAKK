@@ -6,12 +6,12 @@
           <article class="gallery-card">
             <a :href="l(`/projects/${item.slug}`)" class="link-project"></a>
             <img
-              :src="item.projects ? item.projects.cover: '/public/images/logo.webp'"
+              :src="item.projects ? item.projects.cover: '/images/logo.webp'"
               :alt="item.projects?.projectName"
               class="img"
             />
             <div class="hoverInfo groupгInfo">
-              <img src="/public/images/logo.webp" class="logo-info" />
+              <img src="/images/logo.webp" class="logo-info" />
               <div class="info">
                 <h2 x-text="item.name" style="text-align: center"></h2>
                 <!-- <template x-if="item.projects!==null">

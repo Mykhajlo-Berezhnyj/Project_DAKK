@@ -56,10 +56,18 @@ export const projectsData = {
     en: "View",
   },
   mapTitle: {
+    uk: "Локація об'єкту",
+    en: "Location of the object",
+  },
+  mapText: {
+    uk: "Можете переглянути положення даного об'єкту на карті",
+    en: "You can view the position of this object on the map",
+  },
+  mapsTitle: {
     uk: "Карта наших проектів",
     en: "Map of our projects",
   },
-  mapText: {
+  mapsText: {
     uk: "Можете переглянути положення наших об'єктів на карті",
     en: "You can view the position of our facilities on the map",
   },
@@ -86,6 +94,14 @@ export const projectsData = {
   redirect: {
     uk: "Ви будуте перенаправлені на сторінку проектів через",
     en: "You will be redirected to the projects page after",
+  },
+  more: {
+    uk: "Більше проектів",
+    en: "More projects",
+  },
+  allProjects: {
+    uk: "Всі проекти",
+    en: "All projects",
   },
   langSwitch: {
     uk: "Переключити мову на",

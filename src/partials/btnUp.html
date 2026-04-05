@@ -1,0 +1,14 @@
+<button
+  class="btnUp"
+  x-data="{show: false}"
+  x-init="window.addEventListener('scroll', ()=> show=scrollY>400)"
+  x-show="show"
+  x-transition
+  aria-label="button Up"
+  title="button Up"
+  @click="window.scrollTo({top:0, behavior: 'smooth'})"
+>
+  <svg class="icon-btnUp">
+    <use href="/images/sprite.svg#select-up"></use>
+  </svg>
+</button>

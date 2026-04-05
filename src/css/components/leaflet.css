@@ -1,0 +1,36 @@
+.leaflet {
+  text-align: center;
+  padding-block: calc(var(--mb-section) / 2);
+}
+
+.container-leaflet {
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    max-width: var(--container-width);
+  }
+}
+
+#map {
+  aspect-ratio: 2 / 1;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  min-height: 250px;
+}
+
+#map .leaflet-popup-content {
+  text-align: center;
+  max-width: 200px;
+}
+
+.leaflet-container a {
+  display: inline-block;
+  padding-top: 8px;
+}
+
+.map-prew {
+  aspect-ratio: 2 / 1;
+  width: 100%;
+  min-height: 250px;
+}

@@ -61,13 +61,13 @@ export function loadProjects(): LoadProjects {
         });
 
         await waitTransition(items[0]);
+        this.reset();
       }
 
-      this.reset();
       await this.load();
       this.isFirstLoad = false;
 
-      await new Promise((r) => requestAnimationFrame(r));
+      // await new Promise((r) => requestAnimationFrame(r));
 
       animationEnter();
     },

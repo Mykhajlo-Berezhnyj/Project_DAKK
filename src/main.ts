@@ -1,4 +1,4 @@
-import "./css/main.css";
+// import "./css/main.css";
 import { localization } from "./scripts/core/localization";
 import Alpine from "alpinejs";
 import { loadProjects } from "./scripts/pages/projects";
@@ -12,6 +12,8 @@ import { renderMenu } from "./scripts/core/menu";
 import { getCategories } from "./scripts/service/getCategories";
 import type { CategoriesStore } from "./scripts/type/project";
 import { pageCategoryProject } from "./scripts/pages/projects-category";
+import { projectsPrev } from "./scripts/pages/projects-preview";
+import { leaflet } from "./scripts/pages/leaflet";
 
 interface PageModule {
   init: () => void;
@@ -21,9 +23,7 @@ const routes: Record<string, () => Promise<PageModule>> = {
   map: () => import("./scripts/pages/map"),
   home: () => import("./scripts/pages/home"),
   news: () => import("./scripts/pages/news"),
-  projects: () => import("./scripts/pages/leaflet"),
   video: () => import("./scripts/pages/video"),
-  "project-single": () => import("./scripts/pages/project-single"),
 };
 
 const page = document.body.dataset.page;
@@ -44,6 +44,8 @@ Alpine.data("loadProjects", () => loadProjects());
 Alpine.data("loadSingleProject", () => loadSingleProject());
 Alpine.data("renderMenu", renderMenu);
 Alpine.data("pageCategoryProject", () => pageCategoryProject());
+Alpine.data("projectsPrev", projectsPrev);
+Alpine.data("leaflet", leaflet);
 
 Alpine.plugin(intersect);
 

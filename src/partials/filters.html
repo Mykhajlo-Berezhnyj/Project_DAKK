@@ -1,10 +1,14 @@
 <div class="container container-filter">
-  <h1 x-text="t(projectsData.title)" class="title1"></h1>
+  <h1 x-text="t(projectsData.title)" class="title1">Наші проекти</h1>
   <div class="filters">
     <template x-if="mode === 'all'">
       <div class="input-wrap">
+        <label for="search" class="visually-hidden">Search project</label>
         <input
+          id="search"
           type="search"
+          aria-label="search projects"
+          title="search projects"
           x-model="search"
           class="search"
           @input.debounce.600="updateUrl(); dispatch()"
@@ -19,104 +23,122 @@
       <h4
         class="title-filter visually-hidden"
         x-text="t(projectsData.titleCategory)"
-      ></h4>
+      >
+        Категорія
+      </h4>
       <a
-        :href="l('/projects/')"
+        :href="l('/projects')"
         class="btnMode btnAll"
         :class="{activeCategory: !category && mode !== 'group'}"
         x-text="t(projectsData.titleAll)"
-      ></a>
+        >Всі категорії</a
+      >
       <div class="custom-select" @click.outside="open=false">
         <button
           class="input-select"
           :class="{activeCategory: category}"
+          :aria-pressed="category ? 'true' : 'false'"
           @click="open=!open"
           :aria-label="t(projectsData.tiltup)"
           :title="t(projectsData.tiltup)"
           x-effect="document.body.style.overflow = open ? 'hidden' : ''"
           x-text="category ? (categories.find(c=> c.slug ===category))?.name : 'Виберіть категорію'"
-        ></button>
+        >
+          Виберіть категорію
+        </button>
         <svg class="icon-select" :class="{open: open}" width="16" height="16">
           <use href="/images/sprite.svg#select-up"></use>
         </svg>
-        <div class="dropdown" x-show="open">
-          <ul class="category-list">
-            <template x-for="item in categories">
-              <li class="category-item">
-                <a
-                  :href="l(`/projects/${item.slug}`)"
-                  x-text="item.name"
-                  class="category-link"
-                ></a>
-              </li>
-            </template>
-          </ul>
-        </div>
+        <template x-if="open">
+          <div class="dropdown">
+            <ul class="category-list">
+              <template x-for="item in categories">
+                <li class="category-item">
+                  <a
+                    :href="l(`/projects/${item.slug}`)"
+                    x-text="item.name"
+                    class="category-link"
+                  ></a>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </template>
       </div>
       <a
-        :href="l('/projects/?mode=group')"
+        :href="l('/projects?mode=group')"
         class="btnMode"
         x-text="t(projectsData.btnTab)"
         :class="{'activeCategory' : mode === 'group'}"
         :disabled="mode==='group'"
-      ></a>
+        >Групувати за категоріями</a
+      >
     </div>
   </div>
 
-  <template x-if="mode!== 'group'">
-    <div class="statWrap" x-data="{open: false}">
-      <div class="sort">
-        <label
-          for="sort"
-          x-text="t(projectsData.sort)"
-          class="title-filter visually-hidden"
-        ></label>
-        <select
-          name="sort"
-          class="select-sort input-select"
-          id="sort"
-          x-model="order"
-          @change="updateUrl(); dispatch()"
-        >
-          <option value="nameAsc" x-text="t(projectsData.nameAsc)"></option>
-          <option value="nameDesc" x-text="t(projectsData.nameDesc)"></option>
-          <option value="oldest" x-text="t(projectsData.oldest)"></option>
-          <option
-            selected
-            value="newest"
-            x-text="t(projectsData.newest)"
-          ></option>
-        </select>
-        <svg
-          class="icon-select-sort"
-          :class="{open: open }"
-          width="16"
-          height="16"
-        >
-          <use href="/images/sprite.svg#select-up"></use>
-        </svg>
-      </div>
-      <div class="status">
-        <h4
-          for="filterTab"
-          class="title-filter visually-hidden"
-          x-text="t(projectsData.titleStatus)"
-        ></h4>
-        <ul class="filterTab">
-          <template x-for="item in statusLang" :key="item.key">
-            <li class="tab">
-              <button
-                @click="show = !show; setStatus(item.key);"
-                x-text="t(item.label)"
-                :aria-label="t(item.label)"
-                :title="t(item.label)"
-                :class="{'active':isActive(item)}"
-                :disabled="isActive(item)"
-              ></button>
-            </li>
-          </template>
-        </ul>
-      </div>
+  <h2 class="title-group" x-show="mode=== 'group'">
+    На даній сторінці представлено показ категорій
+  </h2>
+
+  <!-- <template x-if="mode!== 'group'"> -->
+  <div class="statWrap" x-data="{open: false}" x-show="mode!== 'group'">
+    <div class="sort">
+      <label
+        for="sort"
+        x-text="t(projectsData.sort)"
+        class="title-filter visually-hidden"
+      ></label>
+      <select
+        name="sort"
+        class="select-sort input-select"
+        id="sort"
+        x-model="order"
+        @change="updateUrl(); dispatch()"
+      >
+        <option value="nameAsc" x-text="t(projectsData.nameAsc)"></option>
+        <option value="nameDesc" x-text="t(projectsData.nameDesc)"></option>
+        <option value="oldest" x-text="t(projectsData.oldest)"></option>
+        <option
+          selected
+          value="newest"
+          x-text="t(projectsData.newest)"
+        ></option>
+      </select>
+      <svg
+        class="icon-select-sort"
+        :class="{open: open }"
+        width="16"
+        height="16"
+      >
+        <use href="/images/sprite.svg#select-up"></use>
+      </svg>
     </div>
-  </template>
+    <div class="status">
+      <h4
+        for="filterTab"
+        class="title-filter visually-hidden"
+        x-text="t(projectsData.titleStatus)"
+      >
+        Статус
+      </h4>
+      <ul class="filterTab" role="tablist">
+        <template x-for="item in statusLang" :key="item.key">
+          <li class="tab" role="tab">
+            <button
+              @click="show = !show; setStatus(item.key);"
+              x-text="t(item.label)"
+              :aria-label="t(item.label)"
+              :title="t(item.label)"
+              :class="{'active':isActive(item)}"
+              :disabled="isActive(item)"
+              :aria-pressed="isActive(item) ? 'true' : 'false'"
+            >
+              {{item.label}}
+            </button>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </div>
+  <!-- </template> -->
 </div>

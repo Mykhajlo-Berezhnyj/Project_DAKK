@@ -1,11 +1,14 @@
-<section class="leaflet">
-  <div class="container">
-    <h2 x-text="t(projectsData.mapTitle)"></h2>
-    <p x-text="t(projectsData.mapText)"></p>
-    <div id="map"></div>
-    <p class="note">
-      <strong x-text="t(projectsData.note)"></strong>
-      <span x-text="t(projectsData.noteDescription)"></span>
-    </p>
-  </div>
+<section class="leaflet" x-data="leaflet">
+    <div class="container container-leaflet" x-intersect="buildMap()">
+      <h2 x-text="textMap().title">Карта наших проектів</h2>
+      <p x-text="textMap().text">Можете переглянути положення наших об'єктів на карті</p>
+      <div id="map">
+         <!-- <img x-show="!isLoad" src="/images/map-preview.webp" alt="map preview" class="map-prew" fetchpriority="high"> -->
+      </div>
+      <p class="note">
+        <strong x-text="t(projectsData.note)">Примітка</strong>
+        <span x-text="t(projectsData.noteDescription)">Натисніть на мітку, щоб переглянути інформацію про об’єкт. Для переходу на сторінку об’єкта скористайтеся посиланням 'Переглянути'.</span>
+      </p>
+        </div>
+    </div>
 </section>

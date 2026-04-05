@@ -10,8 +10,12 @@ header {
 }
 
 .langSwitch {
-  display: flex;
-  gap: 10px;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+    gap: 10px;
+  }
 }
 
 .langSwitch button {
@@ -98,6 +102,6 @@ header {
 
 .logo-img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  max-width: 150px;
+  height: 50px;
 }

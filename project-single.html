@@ -11,10 +11,10 @@
   <load src="./src/partials/header.html" />
 
 
-  <main>
+   <main id="singleProject" x-data="loadSingleProject" x-init="$watch('$store.locale.current', () => init())">
 
 
-    <section id="singleProject" x-data="loadSingleProject" x-init="$watch('$store.locale.current', () => init())">
+    <section>
 
       <div class="container container-100">
 
@@ -107,7 +107,7 @@
 
               <div class="pdf-link">
                 <a x-show="project?.linkDocuments" :href="project?.linkDocuments" target="_blank" alt="">
-                  <img src="../public/images/pdf_icon.jpg" width="30px" />
+                  <img src="/images/pdf_icon.jpg" width="30px" />
                   <span>Паспорт об'єкта</span>
                 </a>
               </div>
@@ -170,6 +170,7 @@
     </section>
 
     
+    <load src="./src/partials/projects-preview.html" />
       <load src="./src/partials/leaflet.html" />
 
   </main>

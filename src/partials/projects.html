@@ -1,4 +1,4 @@
-<div class="container container-gallery">
+<div class="container container-gallery" x-cloak>
   <template x-if="projects.length===0 && !isLoading">
     <p class="not-projects" x-text="t(projectsData.notFound)">
       На жаль за Вашим запитом не знайшлося проектів. Спроуйте повторити пошук з
@@ -6,27 +6,60 @@
     </p>
   </template>
 
-  <template x-if="isLoading">
-    <div class="loading" x-text="t(projectsData.loading)"></div>
-  </template>
+  <ul class="projects-gallery skeleton-gallery" x-show="isLoading">
+    <template x-for="item, index in [1, 2 , 3 ,4]" :key="item">
+      <li class="gallery-item">
+        <img
+          src="/images/logo.webp"
+          alt="preview loading picture"
+          class="preview-img"
+        />
+      </li>
+    </template>
+  </ul>
+  <!-- <div class="loading" x-text="t(projectsData.loading)"></div> -->
 
-  <ul class="projects-gallery">
-    <template x-for="item in projects" :key="item._id">
+  <ul class="projects-gallery" x-show="!isLoading">
+    <template x-for="item, index in projects" :key="item._id">
       <li class="gallery-item">
         <article class="card">
           <a
             :href="l(`/projects/${item.category?.slug}/${item.slug}`)"
             class="link-project"
+            :aria-label="`link to page project ${item.projectName}`"
+            :title="`link to page project ${item.projectName}`"
           >
           </a>
-          <img
-            :src="item.cover"
-            :alt="item.projectName"
-            class="img"
-            x-show="mode === 'all' || mode === item.key"
-          />
+          <picture>
+            <source
+              :srcset="`${item.cover}?w=320&fm=webp&q=60 320w, ${item.cover}?w=570&fm=webp&q=60 570w`"
+              type="image/webp"
+            />
+            <source
+              :srcset="`${item.cover}?w=320&fm=avif&q=60 320w, ${item.cover}?w=570&fm=avif&q=60 570w`"
+              type="image/avif"
+            />
+            <img
+              :src="`${item.cover}?w=570`"
+              :srcset="`${item.cover}?w=320 320w, ${item.cover}?w=570 570w`"
+              sizes="(max-width: 600px) 100vw, 570px"
+              :alt="`picture project ${item.projectName}`"
+              class="img"
+              :fetchpriority="index === 0 ? 'high' : null"
+              :loading="index === 0 ? null : 'lazy'"
+              width="570"
+              height="320"
+            />
+          </picture>
+
           <div class="hoverInfo">
-            <img src="/public/images/logo.webp" class="logo-info" />
+            <img
+              src="/images/logo.webp"
+              class="logo-info"
+              alt=""
+              width="80"
+              height="80"
+            />
             <div class="info">
               <h2 x-text="item.projectName"></h2>
               <h3 x-text="item.category?.name"></h3>
@@ -47,7 +80,11 @@
       </li>
     </template>
   </ul>
-  <div x-intersect="hasMore && mode === 'all' && load()" class="loader">
+  <div
+    x-intersect="hasMore && mode === 'all' && load()"
+    class="loader"
+    role="status"
+  >
     <span x-show="isLoading && hasMore">...Loading. Please wait</span>
   </div>
 </div>
