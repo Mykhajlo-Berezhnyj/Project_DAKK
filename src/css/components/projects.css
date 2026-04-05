@@ -11,6 +11,22 @@ button {
   text-align: center;
 }
 
+h2 {
+  font-size: 20px;
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-h2);
+  }
+}
+
+h3 {
+  font-size: 18px;
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-h3);
+  }
+}
+
 #filter,
 #projects {
   padding: calc(var(--mb-section) / 2) 0;
@@ -478,11 +494,13 @@ input {
 
 .hoverInfo {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   position: absolute;
   top: 0;
   left: 0;
-  padding: 30px;
+  height: 100%;
+  padding-left: 30px;
+  padding-right: 15px;
   align-items: center;
   opacity: 0;
   pointer-events: none;
@@ -490,7 +508,9 @@ input {
   transition: opacity 0.2s ease 0.4s;
 
   @media (min-width: 768px) {
-    padding: 40px;
+    padding-left: 40px;
+    padding-right: 20px;
+    gap: 20px;
   }
 }
 

@@ -1,0 +1,63 @@
+<section
+  id="projects-preview"
+  x-data="projectsPrev($el.dataset.currentId)"
+  x-init="init()"
+  data-current-id="project._id"
+>
+  <div class="container container-preview">
+    <div class="preview-title">
+      <h2 x-text="t(projectsData.more)"></h2>
+      <a :href="l('/projects')" x-text="t(projectsData.allProjects)"></a>
+    </div>
+    <div class="preview-wrap">
+      <button
+        @click="prev"
+        aria-label="prev card"
+        title="prev card"
+        class="btnPrev"
+      >
+        ❮
+      </button>
+      <ul class="projects-gallery">
+        <template x-for="item in visible" :key="item._id">
+          <li class="gallery-item">
+            <article class="card">
+              <a
+                :href="l(`/projects/${item.category?.slug}/${item.slug}`)"
+                class="link-project"
+              >
+              </a>
+              <img :src="item.cover" :alt="item.projectName" class="img" />
+              <div class="hoverInfo">
+                <img src="/images/logo.webp" class="logo-info" />
+                <div class="info">
+                  <h2 x-text="item?.projectName"></h2>
+                  <h3 x-text="item?.category?.name"></h3>
+                  <div class="wrap-info">
+                    <a
+                      class="city-name"
+                      :href="l(`/city/${item.city?.slug}`)"
+                      x-text="item.city?.name"
+                    ></a>
+                    <p
+                      x-text="item.timeline? (item.timeline.yearStart && item.timeline.yearEnd ? (item.timeline.yearStart + '-'+ item.timeline.yearEnd) :  (item.timeline.yearStart ?? item.timeline.yearEnd)) : ''"
+                    ></p>
+                  </div>
+                  <p x-text="item.area + ' м2'"></p>
+                </div>
+              </div>
+            </article>
+          </li>
+        </template>
+      </ul>
+      <button
+        @click="next"
+        aria-label="next card"
+        title="next card"
+        class="btnNext"
+      >
+        ❯
+      </button>
+    </div>
+  </div>
+</section>

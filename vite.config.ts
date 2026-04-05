@@ -29,6 +29,7 @@ export default defineConfig({
         about: resolve(__dirname, "about.html"),
         projects: resolve(__dirname, "projects.html"),
         "project-single": resolve(__dirname, "project-single.html"),
+        "projects-category": resolve(__dirname, "projects-category.html"),
         news: resolve(__dirname, "news.html"),
         videos: resolve(__dirname, "videos.html"),
         contacts: resolve(__dirname, "contacts.html"),
