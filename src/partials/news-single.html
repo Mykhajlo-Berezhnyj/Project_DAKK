@@ -1,25 +1,22 @@
 <div class="container">
-  <div class="publication-img-thumb">
-    <img
-      :src="pub.logoXl"
-      alt="publication logo"
-      class="publication-logo"
-      height="170px"
-    />
+  <div x-data="news" class="post">
+    <div class="post-img-thumb">
+      <img
+        :src="getPost()?.images"
+        alt="post logo"
+        class="post-logo"
+        height="170px"
+      />
+    </div>
+    <div class="post-content-thumb">
+      <a href="./news.html" class="post-link-back"></a>
+      <p class="post-definition">Публікація</p>
+      <h3 x-text="getPost()?.title" class="post-title"></h3>
+      <p x-text="getPost()?.description" class="post-description"></p>
+    </div>
+    <button type="button" @click="resetPost()" class="post-btn-back">
+      Повернутися до публікацій
+    </button>
   </div>
-  <div class="publication-content-thumb">
-    <button class="publication-btn">Повернутися до публікацій</button>
-    <p class="publication-definition">Публікація</p>
-    <h3 x-text="pub.title" class="publication-title"></h3>
-    <p x-text="pub.description" class="publication-description"></p>
-  </div>
-  <div class="publication-more">
-    <ul>
-      <template>
-        <li>
-          <article></article>
-        </li>
-      </template>
-    </ul>
-  </div>
+  <div class="post-more-publication"></div>
 </div>

@@ -1,28 +1,28 @@
 :root {
   /* --- COLOR PALETTE (DACC STYLE) --- */
-  --clr-bg-main: #f2f2f2;      /* Light gray background for the whole site */
-  --clr-bg-block: #ffffff;    /* Pure white for content cards/sections */
-  --clr-bg-dark: #2b2b2b;     /* Dark charcoal for footer and accents */
-  
-  --clr-text-main: #222222;      /* Deep black for primary readability */
+  --clr-bg-main: #f2f2f2; /* Light gray background for the whole site */
+  --clr-bg-block: #ffffff; /* Pure white for content cards/sections */
+  --clr-bg-dark: #2b2b2b; /* Dark charcoal for footer and accents */
+
+  --clr-text-main: #222222; /* Deep black for primary readability */
   --clr-text-secondary: #666666; /* Soft gray for descriptions/subtitles */
-  --clr-divider: #dddddd;        /* Light lines for visual separation */
-  
-  --clr-accent: #2ea8df;       /* Corporate blue from logo */
+  --clr-divider: #dddddd; /* Light lines for visual separation */
+
+  --clr-accent: #2ea8df; /* Corporate blue from logo */
   --clr-accent-hover: #1f8fc4; /* Darker blue for interactive states */
   --clr-white: #ffffff;
 
   /* --- TYPOGRAPHY (PIXELS) --- */
-  
+
   /* Montserrat: Primary Heading Font */
-  --font-headers: 'Montserrat', sans-serif;
-  --fw-bold: 700;      /* Used for H1 */
-  --fw-semibold: 600;  /* Used for H2 */
-  --fw-medium: 500;    /* Used for H3 */
+  --font-headers: "Montserrat", sans-serif;
+  --fw-bold: 700; /* Used for H1 */
+  --fw-semibold: 600; /* Used for H2 */
+  --fw-medium: 500; /* Used for H3 */
 
   /* Inter: Body and UI Font */
-  --font-main: 'Inter', sans-serif;
-  --fw-regular: 400;   /* Standard reading text */
+  --font-main: "Inter", sans-serif;
+  --fw-regular: 400; /* Standard reading text */
   --fw-inter-medium: 500; /* Navigation menu items */
 
   /* Font Sizes */
@@ -32,10 +32,18 @@
   --fs-body: 16px;
   --fs-menu: 15px;
   --fs-small: 13px;
+  --fs-news-sx: 10px;
+  --fs-news-sm: 12px;
+  --fs-news-md: 14px;
+  --fs-news-lg: 18px;
+  --fs-news-xl: 20px;
+  --fs-news-xxl: 24px;
+  --fs-news-xxxl: 30px;
+  --fs-news-xxxxl: 40px;
 
   /* --- LAYOUT & SPACING (PIXELS) --- */
   --container-width: 1200px;
   --container-padding: 20px;
-  --mb-section: 80px;  /* Standard bottom margin for sections */
+  --mb-section: 80px; /* Standard bottom margin for sections */
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

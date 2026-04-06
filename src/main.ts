@@ -11,6 +11,10 @@ import type { Lang, LocaleStore } from "./scripts/type/lang";
 import { renderMenu } from "./scripts/core/menu";
 import type { NewsStore } from "./scripts/type/news";
 import {
+  getPost,
+  resetCurrentPost as resetPost,
+} from "./scripts/pages/news-single";
+import {
   init as initNews,
   setPublication,
   newsStore,
@@ -66,6 +70,8 @@ Alpine.data("news", () => ({
   init: initNews,
   cutText: cutTextFn,
   setPublication,
+  getPost,
+  resetPost,
 }));
 
 Alpine.start();

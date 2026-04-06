@@ -1,0 +1,140 @@
+.bgc-dark {
+  background-color: rgb(36, 36, 36);
+}
+
+.post-img-thumb {
+  height: 170px;
+  background-color: #e3e3e3;
+}
+
+.post-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-definition {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  font-size: var(--fs-news-sx);
+  font-style: normal;
+  font-weight: var(--fw-inter-medium);
+  letter-spacing: 3.7px;
+  line-height: 3;
+  text-transform: uppercase;
+  color: var(--clr-white);
+}
+
+.post-title {
+  font-size: var(--fs-news-xl);
+  font-style: normal;
+  font-weight: var(--fw-bold);
+  letter-spacing: -1px;
+  line-height: 1.4;
+  color: var(--clr-white);
+}
+
+.post-description {
+  margin-top: 16px;
+  font-size: var(--fs-news-sm);
+  font-style: normal;
+  font-weight: var(--fw-inter-medium);
+  letter-spacing: 0.1px;
+  line-height: 2;
+  color: var(--clr-white);
+}
+
+.post-btn-back {
+  display: inline-block;
+  box-sizing: content-box;
+  margin-top: 10px;
+  font-size: var(--fs-news-sx);
+  font-style: normal;
+  font-weight: var(--fw-bold);
+  letter-spacing: 3px;
+  line-height: 2;
+  text-transform: uppercase;
+  color: var(--clr-white);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .post {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 768px;
+  }
+
+  .post-img-thumb {
+    height: 415px;
+  }
+
+  .post-definition {
+    margin-top: 30px;
+    margin-bottom: 26px;
+    font-size: var(--fs-news-sm);
+    line-height: 2.5;
+  }
+
+  .post-title {
+    font-size: var(--fs-news-xxxxl);
+    line-height: 1.35;
+  }
+
+  .post-description {
+    font-size: var(--fs-news-md);
+    letter-spacing: 0.1px;
+    line-height: 1.714;
+  }
+
+  .post-btn-back {
+    margin-top: 44px;
+    font-size: var(--fs-news-sm);
+    line-height: 2.5;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .post {
+    position: relative;
+    max-width: 100%;
+  }
+
+  .post-img-thumb {
+    position: relative;
+    max-width: 1524px;
+    height: 680px;
+  }
+
+  .post-img-thumb::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: rgba(36, 36, 36, 0.5);
+  }
+
+  .post-content-thumb {
+    max-width: 610px;
+  }
+
+  .post-content-thumb {
+    position: absolute;
+    left: 60px;
+    bottom: 40px;
+  }
+
+  .post-description {
+    max-width: 500px;
+  }
+
+  .post-btn-back {
+    position: absolute;
+    right: 60px;
+    bottom: 40px;
+  }
+}

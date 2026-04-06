@@ -10,28 +10,20 @@ export interface New {
 }
 
 export interface NewsStore {
-  items: Publication[] | [];
+  items: New[] | [];
   page: {
     current: number;
     pageLength: number;
   };
-  publication: {
-    currentItem: number | null;
-    isOpened: boolean;
-  };
+  isItemOpened: boolean;
+  openedItemId: string | null;
+
   isLoading: boolean;
-  getNews: () => Publication[] | [];
+
+  getNews: () => New[] | [];
   setNews: ([]) => void;
-  getCurrentPublication: () => number | null;
-  setCurrentPublication: (id: number) => void;
+  getCurrentPublication: () => string | null;
+  setCurrentPublication: (id: string | null) => void;
   getPublicationStatus: () => boolean;
   setPublicationStatus: (isOpened: boolean) => void;
-}
-
-export interface Publication {
-  id: number;
-  title: string;
-  description: string;
-  logoSm: string;
-  logoXl: string;
 }

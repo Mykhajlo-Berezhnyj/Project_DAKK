@@ -2,14 +2,15 @@ import Alpine from "alpinejs";
 import { fetchData } from "../core/api";
 import { NEWS_QUERY } from "../service/query";
 import type { NewsStore } from "../type/news";
+import { newsTmpData } from "../../data/news/news-tmp";
+
+const MAX_SYMBOLS_TO_SHOW = 150;
 
 export const newsStore: NewsStore = {
   items: [],
   page: { current: 0, pageLength: 10 },
-  publication: {
-    currentItem: null,
-    isOpened: false,
-  },
+  isItemOpened: false,
+  openedItemId: null,
   isLoading: false,
 
   getNews() {
@@ -19,22 +20,23 @@ export const newsStore: NewsStore = {
     this.items = [...newsArr];
   },
   getCurrentPublication() {
-    return this.publication.currentItem;
+    return this.openedItemId;
   },
-  setCurrentPublication(id: number) {
-    this.publication.currentItem = id;
+  setCurrentPublication(id: string | null) {
+    this.openedItemId = id;
   },
   getPublicationStatus() {
-    return this.publication.isOpened;
+    return this.isItemOpened;
   },
   setPublicationStatus(isOpened: boolean) {
-    this.publication.isOpened = isOpened;
+    this.isItemOpened = isOpened;
   },
 };
 
 export function init() {
-  (Alpine.store("news") as NewsStore).isLoading = false;
-
+  const newsStore = Alpine.store("news") as NewsStore;
+  newsStore.isLoading = false;
+  console.log("Initializing request...");
   fetchData({
     query: NEWS_QUERY,
     options: {
@@ -43,22 +45,25 @@ export function init() {
     },
   })
     .then((data: any) => {
-      (Alpine.store("news") as NewsStore).setNews(data.news);
+      // newsStore.setNews(data.news);
+      // // !! Temporary data
+      newsStore.setNews(newsTmpData);
     })
     .catch((err) => {
       console.error("Failed to load news items:", err);
     })
     .finally(() => {
-      (Alpine.store("news") as NewsStore).isLoading = false;
+      newsStore.isLoading = false;
     });
 }
 
-export function cutTextFn(text: string, length: number = 100) {
-  return text.length <= length ? text : text.slice(0, length) + "...";
+export function cutTextFn(text: string, length: number = MAX_SYMBOLS_TO_SHOW) {
+  return text.length <= length ? text : text.slice(0, length) + " ...";
 }
 
-export function setPublication(id: number) {
-  (Alpine.store("news") as NewsStore).setCurrentPublication(id);
-  (Alpine.store("news") as NewsStore).setPublicationStatus(true);
-  console.log(Alpine.store("news"));
+export function setPublication(id: string) {
+  const newsStore = Alpine.store("news") as NewsStore;
+
+  newsStore.setCurrentPublication(id);
+  newsStore.setPublicationStatus(true);
 }
