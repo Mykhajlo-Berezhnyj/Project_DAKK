@@ -1,0 +1,64 @@
+.video-background {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.video-background video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.18));
+}
+
+.video-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--clr-accent);
+  opacity: 0.25;
+  mask-image: url("/images/wave-mask.svg");
+  mask-size: cover;
+  mask-position: top center;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("/images/wave-mask.svg");
+  -webkit-mask-size: cover;
+  -webkit-mask-position: top center;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
+.phrase-item {
+  position: absolute;
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
