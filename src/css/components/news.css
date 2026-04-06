@@ -1,0 +1,124 @@
+.section-news .container {
+  padding-top: 118px;
+  padding-bottom: 112px;
+}
+
+.news-title {
+  margin-bottom: 26px;
+  font-size: var(--fs-news-xl);
+  font-style: normal;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.1px;
+  line-height: 1.385;
+  color: #1f1f1f;
+}
+
+.news-gallery-item:not(:last-of-type) {
+  margin-bottom: 32px;
+}
+
+.publication-img-thumb {
+  height: 170px;
+  background-color: #e3e3e3;
+}
+
+.publication-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.publication-definition {
+  margin-top: 26px;
+  margin-bottom: 10px;
+  font-size: var(--fs-news-sx);
+  font-style: normal;
+  font-weight: var(--fw-bold);
+  letter-spacing: 3px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: #ccc;
+}
+
+.publication-title {
+  margin-bottom: 10px;
+  font-size: var(--fs-news-lg);
+  font-style: normal;
+  font-weight: var(--fw-bold);
+  letter-spacing: normal;
+  line-height: 1.333;
+  color: #1f1f1f;
+}
+
+.publication-description {
+  max-height: 124px;
+  font-size: var(--fs-news-sm);
+  font-style: normal;
+  font-weight: var(--fw-inter-medium);
+  letter-spacing: normal;
+  line-height: 1.833;
+  color: #1f1f1f;
+  overflow-y: hidden;
+}
+
+.publication-btn {
+  display: inline-block;
+  box-sizing: content-box;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .news-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .news-gallery-item {
+    width: calc(50% - 20px);
+  }
+
+  .news-title {
+    font-size: var(--fs-news-xxxl);
+    line-height: 1.2;
+  }
+
+  .publication-img-thumb {
+    height: 195px;
+  }
+
+  .publication-definition {
+    font-size: var(--fs-news-sm);
+    letter-spacing: 3.5px;
+    line-height: 1.667;
+  }
+
+  .publication-title {
+    font-size: var(--fs-news-xxl);
+    line-height: 1.25;
+  }
+
+  .publication-description {
+    font-size: var(--fs-news-lg);
+    line-height: 1.778;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .news-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .news-gallery-item {
+    width: calc((100% - 40px) / 3);
+  }
+
+  .publication-img-thumb {
+    height: 210px;
+  }
+}

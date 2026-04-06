@@ -1,0 +1,22 @@
+<div class="container">
+  <div x-data="news" class="post">
+    <div class="post-img-thumb">
+      <img
+        :src="getPost()?.images"
+        alt="post logo"
+        class="post-logo"
+        height="170px"
+      />
+    </div>
+    <div class="post-content-thumb">
+      <a href="./news.html" class="post-link-back"></a>
+      <p class="post-definition">Публікація</p>
+      <h3 x-text="getPost()?.title" class="post-title"></h3>
+      <p x-text="getPost()?.description" class="post-description"></p>
+    </div>
+    <button type="button" @click="resetPost()" class="post-btn-back">
+      Повернутися до публікацій
+    </button>
+  </div>
+  <div class="post-more-publication"></div>
+</div>

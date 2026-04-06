@@ -32,37 +32,18 @@
   --fs-body: 16px;
   --fs-menu: 15px;
   --fs-small: 13px;
+  --fs-news-sx: 10px;
+  --fs-news-sm: 12px;
+  --fs-news-md: 14px;
+  --fs-news-lg: 18px;
+  --fs-news-xl: 20px;
+  --fs-news-xxl: 24px;
+  --fs-news-xxxl: 30px;
+  --fs-news-xxxxl: 40px;
 
   /* --- LAYOUT & SPACING (PIXELS) --- */
   --container-width: 1200px;
   --container-padding: 20px;
   --mb-section: 80px; /* Standard bottom margin for sections */
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  --btn-active-box-shadow:
-    inset 1px 1px 1px #000000b3, inset -1px -1px 2px #6464643d,
-    inset -2px 2px 2px #6464643d, inset 2px 2px 2px #000000b3;
-  --btn-hover-box-shadow:
-    inset 2px 2px 1px #000000b3, inset -2px -2px 4px #6464643d,
-    inset -2px 2px 2px #000000b3, inset -2px -2px 4px #6464643d;
-
-  .notice {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 280px;
-    height: 200px;
-    background: var(--clr-bg-dark);
-    opacity: 0.95;
-    border-radius: 20px;
-    color: var(--clr-white);
-    padding: 10px 15px;
-    border-radius: 20px;
-    font-size: 20px;
-    z-index: 9999;
-  }
 }
