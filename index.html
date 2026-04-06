@@ -20,12 +20,22 @@
     <load src="./src/partials/header.html" />
     <main>
       <section>
-        <!-- <h1 x-text="t(indexData.title)"></h1> -->
         <div class="video-background">
           <video autoplay muted loop playsinline>
             <source src="/videos/bg-video.mp4" type="video/mp4" />
           </video>
-          <div class="content"></div>
+          <div
+            class="content"
+            x-data="{ phrases: ['Проектуємо простір', 'Створюємо майбутнє', 'Архітектура нового покоління'], current: 0, show: true }"
+            x-init="setInterval(() => { show = false; setTimeout(() => { current = (current + 1) % phrases.length; show = true; }, 500) }, 3000)"
+          >
+            <p
+              class="phrase-item"
+              x-text="phrases[current]"
+              x-show="show"
+              x-transition.opacity.duration.500ms
+            ></p>
+          </div>
         </div>
       </section>
     </main>
