@@ -1,4 +1,9 @@
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   padding: 24px 0;
   background-color: var(--clr-bg-dark);
 }
@@ -79,7 +84,7 @@ header {
 
 .close-button {
   position: absolute;
-  top: 2rem;
+  top: 8rem;
   right: 2rem;
   background: none;
   border: none;
