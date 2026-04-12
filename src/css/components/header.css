@@ -1,4 +1,8 @@
 header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 3000;
   padding: 24px 0;
   background-color: var(--clr-bg-dark);
 }
@@ -34,7 +38,7 @@ header {
 .full-screen-menu {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 2000;
   background-color: var(--clr-bg-main); /* Темний колір (напр. gray-900) */
   color: var(--clr-text-main);
 
@@ -79,7 +83,7 @@ header {
 
 .close-button {
   position: absolute;
-  top: 2rem;
+  top: 8rem;
   right: 2rem;
   background: none;
   border: none;

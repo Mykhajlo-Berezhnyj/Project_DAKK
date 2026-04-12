@@ -19,8 +19,9 @@ export const renderMenu = (): AlpineComponent<MenuData> => ({
     { link: "/about", name: "Про компанію" },
     { link: "/projects", name: "Проекти" },
     { link: "/news", name: "Новини" },
+    { link: "https://drive.google.com/", name: "Вакансії" },
     { link: "/videos", name: "Відео" },
-    { link: "/contacts", name: "Контакти" },
+    { link: "#footer", name: "Контакти" },
   ] as MenuItem[],
 
   openMenu() {

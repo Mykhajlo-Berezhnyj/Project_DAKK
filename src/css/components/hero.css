@@ -21,23 +21,38 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  overflow: hidden;
   background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.18));
 }
 
 .video-overlay::before {
   content: "";
   position: absolute;
-  inset: 0;
+  /* inset: 0; */
+  bottom: 0;
+  left: -20%;
+  width: 140%;
+  height: 70vh;
   background-color: var(--clr-accent);
   opacity: 0.25;
   mask-image: url("/images/wave-mask.svg");
   mask-size: cover;
-  mask-position: top center;
-  mask-repeat: no-repeat;
+  mask-position: bottom center;
+  mask-repeat: repeat-x;
   -webkit-mask-image: url("/images/wave-mask.svg");
   -webkit-mask-size: cover;
-  -webkit-mask-position: top center;
-  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: bottom center;
+  -webkit-mask-repeat: repeat-x;
+  animation: wave-horizontal 12s ease-in-out infinite alternate;
+}
+
+@keyframes wave-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(10%);
+  }
 }
 
 .content {
