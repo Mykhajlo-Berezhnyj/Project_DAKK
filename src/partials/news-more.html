@@ -1,0 +1,36 @@
+<div x-data="news" class="container news-more">
+  <h2 class="news-more-title">Ще публікації</h2>
+  <ul x-show="$store.news.items.length>0" class="news-more-gallery">
+    <template
+      x-for="pub in $store.news.items.filter(el=> el._id!==$store.news.openedItemId).slice(-3)"
+      :key="pub._id"
+    >
+      <li class="news-more-gallery-item">
+        <button
+          type="button"
+          @click="setPublication(pub._id)"
+          class="news-more-btn"
+        >
+          <article class="news-more-item">
+            <div class="publ-img-thumb">
+              <img
+                :src="pub.images"
+                alt="publication logo"
+                class="publ-logo"
+                height="179px"
+              />
+            </div>
+            <div class="publ-content-thumb">
+              <p class="publ-definition">Публікація</p>
+
+              <h3 x-text="pub.title" class="publ-title news-more-title"></h3>
+            </div>
+          </article>
+        </button>
+      </li>
+    </template>
+  </ul>
+  <button type="button" @click="resetPost()" class="news-more-btn-back">
+    Ще публікації
+  </button>
+</div>
