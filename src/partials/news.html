@@ -13,7 +13,11 @@
             />
           </div>
           <div class="publication-content-thumb">
-            <button type="button" @click="setPublication(pub._id)" class="publication-btn">
+            <button
+              type="button"
+              @click="setPublication(pub._id)"
+              class="publication-btn"
+            >
               <p class="publication-definition">Публікація</p>
             </button>
             <h3 x-text="pub.title" class="publication-title"></h3>

@@ -6,6 +6,8 @@ import { newsTmpData } from "../../data/news/news-tmp";
 
 const MAX_SYMBOLS_TO_SHOW = 150;
 
+const newsSectionEl = document.querySelector(".section-news");
+
 export const newsStore: NewsStore = {
   items: [],
   page: { current: 0, pageLength: 10 },
@@ -66,4 +68,9 @@ export function setPublication(id: string) {
 
   newsStore.setCurrentPublication(id);
   newsStore.setPublicationStatus(true);
+  scrollToTopOfPublication();
+}
+
+export function scrollToTopOfPublication(): void {
+  newsSectionEl?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
