@@ -1,28 +1,33 @@
 <div class="container">
   <h2 class="news-title">Новини</h2>
   <ul x-show="$store.news.items.length>0" class="news-gallery">
-    <template x-data="news" x-for="pub in $store.news.items">
+    <template x-data="news" x-for="pub in $store.news.items" :key="pub._id">
       <li class="news-gallery-item">
-        <article :data-id="pub._id" class="news-item">
-          <div class="publication-img-thumb">
-            <img
-              :src="pub.images"
-              alt="publication logo"
-              class="publication-logo"
-              height="170px"
-            />
-          </div>
-          <div class="publication-content-thumb">
-            <button type="button" @click="setPublication(pub._id)" class="publication-btn">
+        <button
+          type="button"
+          @click="setPublication(pub._id)"
+          class="publication-btn"
+        >
+          <article class="news-item">
+            <div class="publication-img-thumb">
+              <img
+                :src="pub.images"
+                alt="publication logo"
+                class="publication-logo"
+                height="170px"
+              />
+            </div>
+            <div class="publication-content-thumb">
               <p class="publication-definition">Публікація</p>
-            </button>
-            <h3 x-text="pub.title" class="publication-title"></h3>
-            <p
-              x-text="cutText(pub.description)"
-              class="publication-description"
-            ></p>
-          </div>
-        </article>
+
+              <h3 x-text="pub.title" class="publication-title"></h3>
+              <p
+                x-text="cutText(pub.description)"
+                class="publication-description"
+              ></p>
+            </div>
+          </article>
+        </button>
       </li>
     </template>
   </ul>

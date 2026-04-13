@@ -8,16 +8,25 @@
   <body data-page="news">
     <load src="./src/partials/header.html" />
     <main>
-      <section
-        x-data
-        :class="{ 'bgc-dark':$store.news.isItemOpened}"
-        class="section-news"
-      >
-        <div x-show="!$store.news.isItemOpened">
+      <section x-data class="section-news">
+        <div
+          x-show="!$store.news.isItemOpened"
+          :class="{ 'bgc-dark':$store.news.isItemOpened}"
+        >
           <load src="./src/partials/news.html" />
         </div>
-        <div x-show="$store.news.isItemOpened">
+        <div
+          x-show="$store.news.isItemOpened"
+          :class="{ 'bgc-dark':$store.news.isItemOpened}"
+        >
           <load src="./src/partials/news-single.html" />
+        </div>
+        <div
+          class="news-more-part"
+          x-show="$store.news.isItemOpened"
+          :class="{ 'bgc-dark':$store.news.isItemOpened}"
+        >
+          <load src="./src/partials/news-more.html" />
         </div>
       </section>
     </main>

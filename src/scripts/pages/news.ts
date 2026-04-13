@@ -6,6 +6,8 @@ import { newsTmpData } from "../../data/news/news-tmp";
 
 const MAX_SYMBOLS_TO_SHOW = 150;
 
+const newsSectionEl = document.querySelector(".section-news");
+
 export const newsStore: NewsStore = {
   items: [],
   page: { current: 0, pageLength: 10 },
@@ -36,7 +38,7 @@ export const newsStore: NewsStore = {
 export function init() {
   const newsStore = Alpine.store("news") as NewsStore;
   newsStore.isLoading = false;
-  console.log("Initializing request...");
+
   fetchData({
     query: NEWS_QUERY,
     options: {
@@ -66,4 +68,11 @@ export function setPublication(id: string) {
 
   newsStore.setCurrentPublication(id);
   newsStore.setPublicationStatus(true);
+  scrollToTopOfPublication();
+}
+
+export function scrollToTopOfPublication(): void {
+  setTimeout(() => {
+    newsSectionEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 1);
 }
