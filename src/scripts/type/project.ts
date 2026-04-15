@@ -97,8 +97,9 @@ export interface Project {
   photo?: string[];
   linkDocuments?: string;
   seo: Seo;
-  _createdAt?: Date;
+  _createdAt: Date;
   _rev?: string;
+  searchIndex?: string;
 }
 
 export type Mode = "all" | "group";
@@ -106,5 +107,13 @@ export type Mode = "all" | "group";
 export type CategoriesStore = {
   list: Categories[];
   isReady: boolean;
+  init: () => Promise<void>;
+};
+
+export type ProjectsStore = {
+  projects: Project[];
+  isReady: boolean;
+  isLoading: boolean;
+  error: unknown;
   init: () => Promise<void>;
 };

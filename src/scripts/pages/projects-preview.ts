@@ -1,24 +1,31 @@
-import { fetchData } from "../core/api";
-import { PREVIEW_PROJECTS_QUERY } from "../service/query";
-import type { Project } from "../type/project";
+import Alpine from "alpinejs";
+import type { Project, ProjectsStore } from "../type/project";
+import { getRandomProjects } from "../utils/getRandomProjects";
 
-export function projectsPrev(currentId: string) {
+export function projectsPrev() {
   return {
-    projects: [] as Project[],
-    visible: [] as Project[],
+    projects: [] as Partial<Project>[],
+    visible: [] as Partial<Project>[],
     current: 0,
     isMobileMatches: null as MediaQueryList | null,
 
-    async init() {
-      await this.load();
-      this.isMobileMatches = window.matchMedia("(max-width: 767px)");
-      this.updateVisible();
-      this.isMobileMatches.addEventListener(
-        "change",
-        (e: MediaQueryListEvent) => {
-          this.updateVisible(e.matches);
-        },
-      );
+    init() {
+      const store = Alpine.store("projects") as ProjectsStore;
+
+      Alpine.effect(() => {
+        if (!store.isReady || store.projects.length === 0) return;
+        const projects = store.projects;
+        this.projects = getRandomProjects(projects);
+
+        this.isMobileMatches = window.matchMedia("(max-width: 767px)");
+        this.updateVisible();
+        this.isMobileMatches.addEventListener(
+          "change",
+          (e: MediaQueryListEvent) => {
+            this.updateVisible(e.matches);
+          },
+        );
+      });
     },
 
     updateVisible(eventMatches?: boolean) {
@@ -30,15 +37,6 @@ export function projectsPrev(currentId: string) {
             this.projects[this.current],
             this.projects[(this.current + 1) % this.projects.length],
           ];
-    },
-
-    async load() {
-      const seed = Date.now().toString();
-      const result = await fetchData<Project[]>({
-        query: PREVIEW_PROJECTS_QUERY,
-        options: { currentId, seed },
-      });
-      this.projects = result;
     },
 
     next() {

@@ -1,65 +1,146 @@
-import { fetchData } from "../core/api";
 import { filtersProjects, type Filter } from "../service/filters";
-import type { CategorySlug, Project } from "../type/project";
-import { buildProjectQuery } from "../service/buildProjectsQuery";
-import { animationEnter, waitTransition } from "../core/animations";
+import type { CategorySlug, Project, ProjectsStore } from "../type/project";
+import { getStartEnd } from "../utils/getStartEnd";
 import Alpine from "alpinejs";
+import { leaflet } from "./leaflet";
+import type { LocaleStore } from "../type/lang";
+import { getGroupByCategory } from "../utils/getGroupByCategory";
+import { getRandomProjectsFromCategory } from "../utils/getRandomProjectsFromCategory";
+import { animationEnter, waitTransition } from "../core/animations";
 
 type CategoryGroup = {
-  name: string;
-  slug: CategorySlug;
-  projects: Project;
+  category: CategorySlug;
+  project: Partial<Project>;
 };
 
-interface LoadProjects {
+interface loadProjects {
   projects: Partial<Project>[];
-  isLoading: boolean;
-  error: unknown | null;
-  hasMore: boolean;
+  filtered: Partial<Project>[];
+  currentFilters: Partial<Filter>;
+  visible: Partial<Project>[];
+  group: CategoryGroup[];
   page: number;
   perPage: number;
-  currentFilters: Partial<Filter>;
-  categoryGroup: CategoryGroup[];
-  isFirstLoad: boolean;
+  hasMore: boolean;
   isLocking: boolean;
-  load: () => void;
-  reload: () => void;
-  reset: () => void;
+  isFirtstLoad: boolean;
+  isReady: boolean;
   init: () => void;
+  getFilters: () => void;
+  load: (projects?: Partial<Project>[]) => void;
+  reset: () => void;
+  reload: () => void;
 }
 
 export function init() {
   Alpine.data("filters", filtersProjects);
   Alpine.data("loadProjects", () => loadProjects());
+  Alpine.data("leaflet", leaflet);
 }
 
-export function loadProjects(): LoadProjects {
+export function loadProjects(): loadProjects {
   return {
     projects: [],
-    isLoading: false,
-    error: null,
-    hasMore: true,
+    filtered: [],
+    currentFilters: {},
+    visible: [],
+    group: [],
     page: 1,
     perPage: 6,
-    categoryGroup: [],
-    currentFilters: {},
-    isFirstLoad: true,
+    hasMore: false,
     isLocking: false,
+    isFirtstLoad: true,
+    isReady: false,
 
     async init() {
+      const store = Alpine.store("projects") as ProjectsStore;
+
       window.addEventListener("filters-changed", (e) => {
         this.currentFilters = (e as CustomEvent<Partial<Filter>>).detail;
+        this.getFilters();
+        if (this.isFirtstLoad) return;
+
         this.reload();
       });
 
       window.addEventListener("popstate", () => {
         this.reload();
       });
+
+      Alpine.effect(() => {
+        const isReady = store.isReady;
+        if (!isReady || !this.isFirtstLoad) return;
+        this.isReady = isReady;
+
+        this.projects = store.projects;
+        this.getFilters();
+        this.load();
+      });
+    },
+
+    getFilters() {
+      const { search, status, category, city, order } = this.currentFilters;
+      this.filtered = this.projects
+        .filter((p) => !category || p.category?.slug === category)
+        .filter((p) => !status || p.status === status)
+        .filter((p) => !city || p.city?.name === city)
+        .filter((p) => !search || p.searchIndex?.includes(search))
+        .sort((a, b) => {
+          const locale = (Alpine.store("locale") as LocaleStore).current;
+          switch (order) {
+            case "newest":
+              return (
+                new Date(b._createdAt ?? 0).getTime() -
+                new Date(a._createdAt ?? 0).getTime()
+              );
+            case "oldest":
+              return (
+                new Date(a._createdAt ?? 0).getTime() -
+                new Date(b._createdAt ?? 0).getTime()
+              );
+            case "nameAsc":
+              return (a.projectName || "").localeCompare(
+                b.projectName || "",
+                locale,
+              );
+            case "nameDesc":
+              return (b.projectName || "").localeCompare(
+                a.projectName || "",
+                locale,
+              );
+            default:
+              return 0;
+          }
+        });
+    },
+
+    load() {
+      if (this.isLocking || !this.isReady) return;
+      if (!this.filtered?.length) return;
+      const { start, end } = getStartEnd(this.page, this.perPage);
+
+      if (this.currentFilters.mode === "all") {
+        this.isLocking = true;
+        const visibleCurrent = this.filtered.slice(start, end);
+        this.visible = [...this.visible, ...visibleCurrent];
+
+        this.hasMore = this.page * this.perPage < this.filtered.length;
+        this.page++;
+        this.isLocking = false;
+        this.isFirtstLoad = false;
+      } else {
+        if (!this.projects.length) return;
+        const grouped = getGroupByCategory(this.projects);
+        this.group = getRandomProjectsFromCategory(grouped);
+      }
     },
 
     async reload() {
-      if (this.isLocking) return;
-      if (!this.isFirstLoad) {
+      if (this.isFirtstLoad) {
+        this.load();
+        this.isFirtstLoad = false;
+        return;
+      } else {
         const items = document.querySelectorAll(".gallery-item");
 
         items.forEach((element) => {
@@ -67,67 +148,21 @@ export function loadProjects(): LoadProjects {
         });
 
         await waitTransition(items[0]);
+        items.forEach((element) => {
+          element.classList.remove("reset");
+        });
         this.reset();
-        await this.load();
+        this.load();
         await new Promise((r) => requestAnimationFrame(r));
         animationEnter();
-      } else {
-        await this.load();
-        this.isFirstLoad = false;
-      }
-    },
-
-    async load() {
-      if (this.isLocking || !this.hasMore) return;
-      this.isLoading = true;
-      this.isLocking = true;
-      this.error = null;
-
-      try {
-        const { query, options } = buildProjectQuery(
-          this.currentFilters,
-          this.page,
-          this.perPage,
-        );
-
-        if (options.mode === "group") {
-          const result = await fetchData<{ category: CategoryGroup[] }>({
-            query,
-            options,
-          });
-          const group = result.category;
-          this.categoryGroup = group;
-        } else {
-          const result = await fetchData<{
-            projects: Project[];
-            total: number;
-          }>({ query, options });
-          const newProjects = result.projects;
-          const total = result.total;
-
-          this.projects = [...this.projects, ...newProjects];
-
-          if (total < this.page * this.perPage) {
-            this.hasMore = false;
-          }
-          this.page++;
-        }
-      } catch (err) {
-        this.error =
-          err instanceof Error ? err.message : "Something went wrong";
-        this.hasMore = false;
-      } finally {
-        this.isLoading = false;
-        this.isLocking = false;
       }
     },
 
     reset() {
-      this.projects = [];
-      this.isLoading = false;
-      this.hasMore = true;
       this.page = 1;
-      this.error = null;
+      this.visible = [];
+      this.hasMore = true;
+      this.isLocking = false;
     },
   };
 }

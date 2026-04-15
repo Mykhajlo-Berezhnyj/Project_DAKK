@@ -4,10 +4,12 @@ import { PROJECT_QUERY } from "../service/query";
 import type { Project } from "../type/project";
 import { getPartsPath } from "../utils/getPartsPath";
 import { projectsPrev } from "./projects-preview";
+import { leaflet } from "./leaflet";
 
 export function init() {
   Alpine.data("loadSingleProject", () => loadSingleProject());
   Alpine.data("projectsPrev", projectsPrev);
+   Alpine.data("leaflet", leaflet);
 }
 
 type ActiveImage = string | null;

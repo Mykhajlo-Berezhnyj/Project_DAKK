@@ -1,4 +1,4 @@
-// import "./css/main.css";
+import "./css/main.css";
 import { localization } from "./scripts/core/localization";
 import Alpine from "alpinejs";
 import { getLocaleFromURL } from "./scripts/utils/getLocaleFromURL";
@@ -7,15 +7,16 @@ import intersect from "@alpinejs/intersect";
 import type { Lang, LocaleStore } from "./scripts/type/lang";
 import { renderMenu } from "./scripts/core/menu";
 import { getCategories } from "./scripts/service/getCategories";
-import type { CategoriesStore } from "./scripts/type/project";
-import { leaflet } from "./scripts/pages/leaflet";
+import type { CategoriesStore, ProjectsStore } from "./scripts/type/project";
+import { getProjects } from "./scripts/service/getProjects";
+
 
 interface PageModule {
   init: () => void;
 }
 
 const routes: Record<string, () => Promise<PageModule>> = {
-  map: () => import("./scripts/pages/map"),
+  // map: () => import("./scripts/pages/map"),
   home: () => import("./scripts/pages/home"),
   news: () => import("./scripts/pages/news"),
   projects: () => import("./scripts/pages/projects"),
@@ -41,7 +42,7 @@ if (page && routes[page]) {
 
 Alpine.data("localization", localization);
 Alpine.data("renderMenu", renderMenu);
-Alpine.data("leaflet", leaflet);
+// Alpine.data("leaflet", leaflet);
 
 Alpine.plugin(intersect);
 
@@ -50,6 +51,8 @@ Alpine.store("locale", {
 
   set(locale: Lang) {
     ((this.current = locale), setLocaleUrl(locale));
+    (Alpine.store("categories") as CategoriesStore).list = [];
+    (Alpine.store("projects") as ProjectsStore).projects = [];
   },
 } as LocaleStore);
 
@@ -64,6 +67,32 @@ document.addEventListener("alpine:init", () => {
       this.isReady = true;
     },
   } as CategoriesStore);
+});
+
+document.addEventListener("alpine:init", () => {
+  Alpine.store("projects", {
+    projects: [],
+    isReady: false,
+    isLoading: false,
+    error: null,
+
+    async init() {
+      if (this.isReady || this.isLoading) return;
+      this.isLoading = true;
+
+      try {
+        this.projects = await getProjects();
+        this.isReady = true;
+      } catch (error) {
+        if (error instanceof Error) {
+          this.error = error.message;
+        }
+        this.error = "Unknown error";
+      } finally {
+        this.isLoading = false;
+      }
+    },
+  } as ProjectsStore);
 });
 
 window.Alpine = Alpine;

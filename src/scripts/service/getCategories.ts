@@ -1,5 +1,6 @@
 import { fetchData } from "../core/api";
 import type { Categories } from "./filters";
+import { CASHE_TTL } from "./getProjects";
 import { CATEGORY_QUERY } from "./query";
 
 let categoriesCache: Categories[] | null;
@@ -9,9 +10,11 @@ export async function getCategories(): Promise<Categories[]> {
 
   const cached = localStorage.getItem("categories");
   if (cached) {
-    const parsed = JSON.parse(cached);
-    categoriesCache = parsed;
-    return parsed;
+    const { data, timestamp } = JSON.parse(cached);
+    if (Date.now() - timestamp > CASHE_TTL) {
+      categoriesCache = data;
+      return data;
+    }
   }
 
   const result = await fetchData<Categories[]>({
@@ -19,6 +22,9 @@ export async function getCategories(): Promise<Categories[]> {
   });
 
   categoriesCache = result;
-  localStorage.setItem("categories", JSON.stringify(result));
+  localStorage.setItem(
+    "categories",
+    JSON.stringify({ data: result, timestamp: Date.now() }),
+  );
   return result;
 }

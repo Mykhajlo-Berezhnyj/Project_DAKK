@@ -37,14 +37,14 @@
   >
     <load src="/src/partials/header.html" />
 
-    <main x-data="loadProjects">
+    <main x-data="loadProjects" x-init="init()">
       <section id="filter" x-data="{open: false, show: false}" x-cloak>
         <load src="/src/partials/filters.html" />
       </section>
 
       <template x-if="mode === 'all'">
         <section id="projects">
-          <template x-if="isLoading"
+          <template x-if="$store.projects.isLoading"
             ><load src="/src/partials/projects-group.html"
           /></template>
           <load src="/src/partials/projects.html" />
@@ -54,7 +54,7 @@
       <template x-if="mode === 'group'">
         <load src="/src/partials/projects-group.html" />
       </template>
-      <template x-if="!isLoading && projects.length>0">
+      <template x-if="!$store.projects.isLoading && $store.projects.projects.length>0">
         <load src="/src/partials/leaflet.html" />
       </template>
     </main>

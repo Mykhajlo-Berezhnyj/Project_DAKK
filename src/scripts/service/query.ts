@@ -146,3 +146,35 @@ export const PREVIEW_PROJECTS_QUERY = `*[_type == "project" && (!defined($curren
     city->{_id, "name": coalesce(name[$locale], name.uk), "slug": slug.current},
     "cover": cover.asset->url
   }`;
+
+export const PROJECT_All_QUERY = `*[_type == "project"]
+{
+_id, "projectName": coalesce(projectName[$locale], projectName.uk),
+ "slug": slug.current,
+"country": coalesce(country[$locale], country.uk), 
+city->{_id, "name": coalesce(name[$locale], name.uk), "slug": slug.current}, 
+"adress": coalesce(adress[$locale], adress.uk), 
+location,
+status, 
+timeline, 
+area, 
+typeOfServices[]->{"name": coalesce(name[$locale], name.uk)},
+  category->{
+    _id,
+  "name": coalesce(name[$locale], name.uk),
+    "slug": slug.current
+  },
+  constructive, 
+  consequenceClass,
+  "description": coalesce(description[$locale], description.uk),  
+  "advantages": advantages[]{"title": coalesce(title[$locale], title.uk), "description": coalesce(description[$locale], description.uk)},
+  supplier[]->{ _id, "name": coalesce(name[$locale], name.uk), "location": coalesce(location[$locale], location.uk), link},
+  generalDesigner->{_id, "name": coalesce(name[$locale], name.uk), "location": coalesce(location[$locale], location.uk), link},
+  'partners': partners[]->{ _id, "name": coalesce(name[$locale], name.uk), "location": coalesce(location[$locale], location.uk), link, "logo": logo.asset->url},
+ "award": coalesce(award[$locale], award.uk), siteUrl, 
+  "cover": cover.asset->url, "schema": schema.asset->url, 
+  "photo": photo[].asset->url,
+  linkDocuments,
+  "seo": seo{'metaTitle': coalesce(metaTitle[$locale], metaTitle.uk), 'metaDescription': coalesce(metaDescription[$locale], metaDescription.uk)},
+  searchIndex,
+}`;

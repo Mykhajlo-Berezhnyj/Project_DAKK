@@ -1,4 +1,4 @@
-export function waitTransition(el: Element, time = 500) {
+export function waitTransition(el: Element, time = 300) {
   return new Promise((resolve) => {
     if (!el) {
       resolve(null);
