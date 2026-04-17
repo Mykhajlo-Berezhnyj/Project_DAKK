@@ -1,6 +1,6 @@
 <section
   id="projects-preview"
-  x-data="projectsPrev($el.dataset.currentId)"
+  x-data="projectsPrev()"
   x-init="init()"
   data-current-id="project._id"
 >
@@ -19,8 +19,8 @@
         ❮
       </button>
       <ul class="projects-gallery">
-        <template x-for="item in visible" :key="item._id">
-          <li class="gallery-item">
+        <template x-for="(item, index) in visible" :key="item._id + '-' + index">
+          <li class="gallery-item item-prev">
             <article class="card">
               <a
                 :href="l(`/projects/${item.category?.slug}/${item.slug}`)"

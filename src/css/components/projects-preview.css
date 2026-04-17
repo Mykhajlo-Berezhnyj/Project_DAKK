@@ -1,0 +1,112 @@
+.preview-wrap {
+  position: relative;
+}
+
+.preview-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    padding-inline: 20px;
+  }
+}
+
+.preview-title a,
+.preview-title h2 {
+  font-size: 18px;
+  padding: 0;
+  margin-bottom: 20px;
+
+  @media (min-width: 768px) {
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-semibold);
+  }
+}
+
+#projects-preview .gallery-item:hover .card {
+  animation: none;
+}
+
+#projects-preview .hoverInfo {
+  transition:
+    transform var(--transition),
+    opacity var(--transition);
+
+  @media (hover: none) {
+    opacity: 1;
+  }
+}
+
+#projects-preview .card::before {
+  transition: opacity 0.1s var(--transition) background-color var(--transition);
+}
+
+#projects-preview button {
+  border: none;
+  font-size: 24px;
+  width: 30px;
+  height: 30px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  padding-bottom: 4px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  color: var(--clr-white);
+  text-shadow: 2px 2px 2px var(--clr-bg-dark);
+  background-color: rgba(0, 0, 0, 0.479);
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  transform: scale(1) translateY(-50%);
+  transition: transform var(--transition);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.712);
+    transform: scale(1.1) translateY(-50%);
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 36px;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+.btnNext {
+  right: 0;
+}
+
+#projects-preview .projects-gallery {
+  display: flex;
+  overflow-x: hidden;
+  height: calc(100% + 10px);
+}
+
+.item-prev {
+  flex: 0 0 100%;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+  opacity: 1;
+
+  @media (min-width: 768px) {
+    flex: 0 0 calc(50% - 10px);
+  }
+
+  &:hover {
+    transform: scale(0.97);
+  }
+}
+
+.item-prev.next {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.item-prev.prev {
+  transform: translateX(-100%);
+  transition: transform 0.1s ease;
+  opacity: 0;
+}
