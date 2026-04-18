@@ -1,25 +1,31 @@
 <!doctype html>
 <html lang="uk" :lang="$store.locale.current" x-data="localization">
-  <head>
+  <head x-data="pageCategoryProject()">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@500;600;700&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
+    <link rel="preload" href="/src/css/components/projects.css" as="style" />
     <link rel="stylesheet" href="/src/css/components/projects.css" />
 
-    <title x-text="t(projectsData.titleHead)">
+    <title>
       Галерея проектів Дніпровської архітектурної конструкторської
       компанії(ДАКК) Сторінка категорії
     </title>
     <meta
       name="description"
-      :content="t(projectsData.descriptionHead)"
-      content="Ознайомтесь із галереєю проектів ДАКК. Від концептуальних ідей до реалізованих будівель — сучасна архітектура з увагою до деталей. Відкрийте галерею ДАКК і ви знайдете проекти різного спрямування: від укриття та житлових комплексів до промислового будівництва, освітніх та бізнес-центрів. Використовуйте пошук і категорії для швидкого доступу до потрібних проектів."
+      content="Ознайомтесь із галереєю проектів ДАКК. Від концептуальних ідей до реалізованих будівель — сучасна архітектура з увагою до деталей. Відкрийте галерею ДАКК і ви знайдете проекти різного спрямування. На даній сторінці представлено проекти в одній із категорій"
     />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
@@ -28,13 +34,18 @@
       <fragment>
         <load src="/src/partials/header.html" />
         <main
-          x-data="filters"
+          x-data="$store.filters"
           x-init="$watch('$store.locale.current', () => init())"
         >
           <section id="filter" x-data="{open: false, show: false}">
             <load src="/src/partials/filters.html" />
           </section>
-          <section id="projects" x-data="loadProjects">
+          <section
+            id="projects"
+            x-data="loadProjects"
+            x-init="$watch(()=>[$store.filters.search, $store.filters.category, $store.filters.status, $store.filters.city, $store.filters.order], 
+      ()=> {setFilters(); reload(); $store.filters.updateUrl()}), init()"
+          >
             <load src="/src/partials/projects.html" />
           </section>
           <load src="/src/partials/leaflet.html" />

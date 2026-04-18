@@ -1,41 +1,14 @@
-import type { StatusItem } from "../../data/dictionary/statusLang";
-import { SORT_OPTIONS, type SortKey } from "../../data/sortOptions";
-import { fetchData } from "../core/api";
-import type { CategorySlug, Status, StatusLang } from "../type/project";
-import { getLocaleFromURL } from "../utils/getLocaleFromURL";
-import { getPartsPath } from "../utils/getPartsPath";
-import { CATEGORY_QUERY } from "./query";
+import Alpine from "alpinejs";
+import { getLocaleFromURL } from "../scripts/utils/getLocaleFromURL";
+import { fetchData } from "../scripts/core/api";
+import { CATEGORY_QUERY } from "../scripts/service/query";
+import type { Categories, FiltersStore } from "../scripts/type/filters";
+import { getPartsPath } from "../scripts/utils/getPartsPath";
+import type { CategorySlug } from "../scripts/type/project";
+import { SORT_OPTIONS, type SortKey } from "../data/sortOptions";
 
-export type Categories = {
-  name: string;
-  slug: CategorySlug;
-};
-
-type Mode = "group" | "all" | null;
-
-export interface Filter {
-  status: Status | null;
-  category: CategorySlug | null;
-  city: string | null;
-  search: string;
-  order: SortKey;
-  locale?: string;
-  categories: Categories[];
-  mode: Mode;
-}
-
-export interface FiltersProjects extends Filter {
-  paramsFromUrl: () => void;
-  updateUrl: () => void;
-  setStatus: (status: StatusLang) => void;
-  init: () => void;
-  dispatch: () => void;
-  setOrder: (order: SortKey) => void;
-  isActive: (item: StatusItem) => void;
-}
-
-export function filtersProjects(): FiltersProjects {
-  return {
+export function initFiltersStore() {
+  Alpine.store<"filters">("filters", {
     status: null,
     category: null,
     city: null,
@@ -53,7 +26,6 @@ export function filtersProjects(): FiltersProjects {
 
       this.categories = result;
       this.paramsFromUrl();
-      queueMicrotask(() => this.dispatch());
     },
 
     isActive(item) {
@@ -123,50 +95,5 @@ export function filtersProjects(): FiltersProjects {
 
       window.history.replaceState({}, "", newUrl);
     },
-
-    dispatch() {
-      window.dispatchEvent(
-        new CustomEvent("filters-changed", {
-          detail: {
-            category: this.category,
-            status: this.status,
-            city: this.city,
-            search: this.search,
-            order: this.order,
-            locale: this.locale,
-            mode: this.mode,
-          } satisfies Partial<Filter>,
-        }),
-      );
-    },
-
-    setStatus(status: StatusLang) {
-      this.status = status === "all" ? null : status;
-      this.mode = "all";
-      this.updateUrl();
-      this.dispatch();
-    },
-
-    // setMode(mode) {
-    //   if (mode === "group") {
-    //     this.mode = mode;
-    //     this.category = null;
-    //     this.status = null;
-    //   } else {
-    //     this.mode = "all";
-    //   }
-    //   this.updateUrl();
-    //   this.dispatch();
-    // },
-
-    setOrder(order) {
-      if (order in SORT_OPTIONS) {
-        this.order = order;
-      } else {
-        this.order = "newest";
-      }
-      this.updateUrl();
-      this.dispatch();
-    },
-  };
+  } satisfies FiltersStore);
 }

@@ -6,17 +6,37 @@
 .container-leaflet {
   width: 100%;
 
+  @media (min-width: 768px) {
+    max-width: 100%;
+  }
+
   @media (min-width: 1024px) {
     max-width: var(--container-width);
   }
 }
 
+.titleMap {
+  height: 23px;
+
+  @media (min-width: 1024px) {
+    height: 37px;
+  }
+}
+
+.textMap {
+  height: 52px;
+
+  @media (min-width: 768px) {
+    height: 26px;
+  }
+}
+
 #map {
-  aspect-ratio: 2 / 1;
+  position: relative;
   width: 100%;
   margin-top: 20px;
   margin-bottom: 10px;
-  min-height: 250px;
+  aspect-ratio: 2 / 1;
 }
 
 #map .leaflet-popup-content {
@@ -30,7 +50,25 @@
 }
 
 .map-prew {
-  aspect-ratio: 2 / 1;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  min-height: 250px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.note {
+  display: inline-block;
+  font-size: 12px;
+  text-align: left;
+  margin-left: 20px;
+  height: 72px;
+
+  @media (min-width: 768px) {
+    height: 34px;
+  }
+
+  @media (min-width: 1024px) {
+    height: 16px;
+  }
 }

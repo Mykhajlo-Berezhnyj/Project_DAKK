@@ -3,15 +3,14 @@ import { getProjects } from "../scripts/service/getProjects";
 import type { ProjectsStore } from "../scripts/type/project";
 
 export function initProjectsStore() {
-    document.addEventListener("alpine:init", () => {
-  Alpine.store("projects", {
+  Alpine.store<"projects">("projects", {
     projects: [],
     isReady: false,
     isLoading: false,
     error: null,
 
-    async init() {
-      if (this.isReady || this.isLoading) return;
+    async init(forse = false) {
+      if (!forse && (this.isReady || this.isLoading)) return;
       this.isLoading = true;
 
       try {
@@ -26,6 +25,5 @@ export function initProjectsStore() {
         this.isLoading = false;
       }
     },
-  } as ProjectsStore);
-});
+  } satisfies ProjectsStore);
 }

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uk" :lang="$store.locale.current" x-data="localization">
   <head>
     <meta charset="UTF-8" />
@@ -16,7 +16,7 @@
         this.rel = 'stylesheet';
       "
     />
-    <!-- <link rel="preload" href="/src/css/components/projects.css" as="style" /> -->
+    <link rel="preload" href="/src/css/components/projects.css" as="style" />
     <link rel="stylesheet" href="/src/css/components/projects.css" />
 
     <title x-text="t(projectsData.titleHead)">
@@ -32,29 +32,30 @@
   </head>
   <body
     data-page="projects"
-    x-data="filters"
+    x-data="$store.filters"
     x-init="$watch('$store.locale.current', () => init())"
   >
     <load src="/src/partials/header.html" />
 
-    <main x-data="loadProjects" x-init="init()">
+    <main
+      x-data="loadProjects"
+      x-init="$watch(()=>[$store.filters.search, $store.filters.category, $store.filters.status, $store.filters.city, $store.filters.order], 
+      ()=> {setFilters(); reload(); $store.filters.updateUrl()}), init()"
+    >
       <section id="filter" x-data="{open: false, show: false}" x-cloak>
         <load src="/src/partials/filters.html" />
       </section>
 
       <template x-if="mode === 'all'">
-        <section id="projects">
-          <template x-if="$store.projects.isLoading"
-            ><load src="/src/partials/projects-group.html"
-          /></template>
+        <section id="projects" x-cloak>
           <load src="/src/partials/projects.html" />
         </section>
       </template>
 
       <template x-if="mode === 'group'">
-        <load src="/src/partials/projects-group.html" />
-      </template>
-      <template x-if="!$store.projects.isLoading && $store.projects.projects.length>0">
+        <load src="/src/partials/projects-group.html" /> </template
+      >\
+      <template x-if="!$store.projects.isLoading && projects.length>0">
         <load src="/src/partials/leaflet.html" />
       </template>
     </main>

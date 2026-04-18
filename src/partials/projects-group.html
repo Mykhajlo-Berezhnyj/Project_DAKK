@@ -4,7 +4,18 @@
       <template x-for="item in group" :key="item.category">
         <li class="gallery-item item-group">
           <article class="gallery-card">
-            <a :href="l(`/projects/${item.category}`)" class="link-project"></a>
+            <a
+              :href="l(`/projects/${item.category}`)"
+              class="link-project"
+              :aria-label="`go
+              to
+              category
+              ${item.category}`"
+              :title="`go
+              to
+              category
+              ${item.category}`"
+            ></a>
             <img
               :src="item.project ? item.project.cover: '/images/logo.webp'"
               :alt="item.project?.projectName"
@@ -13,21 +24,10 @@
             <div class="hoverInfo groupгInfo">
               <img src="/images/logo.webp" class="logo-info" />
               <div class="info">
-                <h2 x-text="item.project.category.name" style="text-align: center"></h2>
-                <!-- <template x-if="item.project!==null">
-                  <h3 x-text="item.project?.projectName"></h3>
-                  <div class="wrap-info">
-                    <a
-                      class="city-name"
-                      :href="`/city/${item.project?.city?.slug}`"
-                      x-text="item.project?.city?.name"
-                    ></a>
-                    <p
-                      x-text="item.project?.timeline? (item.project?.timeline?.yearStart && item?.project?.timeline.yearEnd ? (item.project.timeline.yearStart + '-'+ item.project?.timeline.yearEnd) :  (item.project?.timeline.yearStart ?? item.project?.timeline.yearEnd)) : ''"
-                    ></p>
-                  </div>
-                  <p x-text="item.projects?.area + ' м2'"></p>
-                </template> -->
+                <h2
+                  x-text="item.project.category.name"
+                  style="text-align: center"
+                ></h2>
               </div>
             </div>
           </article>

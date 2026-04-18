@@ -1,4 +1,4 @@
-<div class="container container-gallery" x-cloak>
+<div class="container container-gallery">
   <template x-if="filtered.length===0 && !$store.projects.isLoading">
     <p class="not-projects" x-text="t(projectsData.notFound)">
       На жаль за Вашим запитом не знайшлося проектів. Спроуйте повторити пошук з
@@ -6,31 +6,15 @@
     </p>
   </template>
 
-  <!-- <ul
-    class="projects-gallery skeleton-gallery"
-    x-show="$store.projects.isLoading"
-  >
-    <template x-for="item, index in [1, 2 , 3, 4, 5, 6]" :key="item">
-      <li class="gallery-item">
-        <img
-          src="/images/logo.webp"
-          alt="preview loading picture"
-          class="preview-img"
-        />
-      </li>
-    </template>
-  </ul> -->
-  <!-- <div class="loading" x-text="t(projectsData.loading)"></div> -->
-
-  <ul class="projects-gallery" >
+  <ul class="projects-gallery">
     <template x-for="item, index in visible" :key="item._id">
       <li class="gallery-item">
         <article class="card">
           <a
             :href="l(`/projects/${item.category?.slug}/${item.slug}`)"
             class="link-project"
-            :aria-label="`link to page project ${item.projectName}`"
-            :title="`link to page project ${item.projectName}`"
+            :aria-label="`go to page project ${item.projectName}`"
+            :title="`go to page project ${item.projectName}`"
           >
           </a>
           <picture>
@@ -83,7 +67,7 @@
     </template>
   </ul>
   <div
-    x-intersect:enter="hasMore && currentFilters.mode === 'all' && load()"
+    x-intersect:enter="hasMore && mode === 'all' && load()"
     class="loader"
     role="status"
   >

@@ -1,4 +1,4 @@
-import type { Filter } from "./filters";
+import type { Filter } from "../type/filters";
 import {
   BASE_GROUP_BY_CATEGORY_PROJECTS_QUERY,
   BASE_PROJECTS_QUERY,

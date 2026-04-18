@@ -2,20 +2,20 @@ import Alpine from "alpinejs";
 import { fetchData } from "../core/api";
 import type { Project } from "../type/project";
 import { PROJECT_All_QUERY } from "./query";
-import type { LocaleStore } from "../type/lang";
+import type { Lang, LocaleStore } from "../type/lang";
 
-let cashedProjects: Project[] | null;
+let cashedProjects: Partial<Record<Lang, Project[]>> = {};
 export const CASHE_TTL = 24 * 60 * 60 * 1000;
 
 export async function getProjects(): Promise<Project[]> {
-  if (cashedProjects) return cashedProjects;
-  const locale = (Alpine.store("locale") as LocaleStore).current;
+    const locale = (Alpine.store("locale") as LocaleStore).current;
+  if (cashedProjects[locale]) return cashedProjects[locale];
 
   const cashed = localStorage.getItem(`projects_${locale}`);
   if (cashed) {
     const { data, timestamp } = JSON.parse(cashed);
-    if (Date.now() - timestamp > CASHE_TTL) {
-      cashedProjects = data;
+    if (Date.now() - timestamp < CASHE_TTL) {
+      cashedProjects[locale] = data;
       return data;
     }
   }
@@ -25,13 +25,13 @@ export async function getProjects(): Promise<Project[]> {
   const projects = await fetchData<Project[]>({ query });
   try {
     localStorage.setItem(
-      `projects_locale`,
+      `projects_${locale}`,
       JSON.stringify({
         data: projects,
         timestamp: Date.now(),
       }),
     );
   } catch (error) {}
-  cashedProjects = projects;
+  cashedProjects[locale] = projects;
   return projects;
 }

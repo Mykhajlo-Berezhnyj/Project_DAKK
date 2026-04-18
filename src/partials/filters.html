@@ -11,7 +11,7 @@
           title="search projects"
           x-model="search"
           class="search"
-          @input.debounce.600="updateUrl(); dispatch()"
+          @input.debounce.700="updateUrl()"
         />
         <svg class="icon-search" width="20" height="20">
           <use href="/images/sprite.svg#search"></use>
@@ -42,7 +42,7 @@
           :aria-label="t(projectsData.tiltup)"
           :title="t(projectsData.tiltup)"
           x-effect="document.body.style.overflow = open ? 'hidden' : ''"
-          x-text="category ? (categories.find(c=> c.slug ===category))?.name : 'Виберіть категорію'"
+          x-text="category ? (categories.find(c=> c.slug ===category))?.name : t(projectsData.tiltup)"
         >
           Виберіть категорію
         </button>
@@ -93,7 +93,7 @@
         class="select-sort input-select"
         id="sort"
         x-model="order"
-        @change="updateUrl(); dispatch()"
+        @change="order=$event.target.value; updateUrl();"
       >
         <option value="nameAsc" x-text="t(projectsData.nameAsc)"></option>
         <option value="nameDesc" x-text="t(projectsData.nameDesc)"></option>
@@ -125,7 +125,7 @@
         <template x-for="item in statusLang" :key="item.key">
           <li class="tab" role="tab">
             <button
-              @click="show = !show; setStatus(item.key);"
+              @click="show = !show; status= item.key=== 'all' ? null : item.key; updateUrl()"
               x-text="t(item.label)"
               :aria-label="t(item.label)"
               :title="t(item.label)"

@@ -1,18 +1,16 @@
 import Alpine from "alpinejs";
 import { getCategories } from "../scripts/service/getCategories";
-import type { CategoriesStore } from "../scripts/type/project";
+import type { CategoriesStore } from "../scripts/type/filters";
 
 export function initCategoriesStore() {
-  document.addEventListener("alpine:init", () => {
-    Alpine.store("categories", {
-      list: [],
-      isReady: false,
+  Alpine.store<"categories">("categories", {
+    list: [],
+    isReady: false,
 
-      async init() {
-        if (this.isReady) return;
-        this.list = await getCategories();
-        this.isReady = true;
-      },
-    } as CategoriesStore);
-  });
+    async init() {
+      if (this.isReady) return;
+      this.list = await getCategories();
+      this.isReady = true;
+    },
+  } satisfies CategoriesStore);
 }

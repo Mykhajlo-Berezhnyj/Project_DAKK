@@ -6,8 +6,6 @@ import { setLocaleUrl } from "./scripts/utils/setLocaleUrl";
 import intersect from "@alpinejs/intersect";
 import type { Lang, LocaleStore } from "./scripts/type/lang";
 import { renderMenu } from "./scripts/core/menu";
-import type { CategoriesStore, ProjectsStore } from "./scripts/type/project";
-
 
 interface PageModule {
   init: () => void;
@@ -48,8 +46,6 @@ Alpine.store("locale", {
 
   set(locale: Lang) {
     ((this.current = locale), setLocaleUrl(locale));
-    (Alpine.store("categories") as CategoriesStore).list = [];
-    (Alpine.store("projects") as ProjectsStore).projects = [];
   },
 } as LocaleStore);
 
