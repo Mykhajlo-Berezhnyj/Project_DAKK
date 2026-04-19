@@ -151,7 +151,11 @@
 
               <template x-if="galleryData.activeImage">
                 <div class="modal" @click="galleryData.closeModal()">
-                  <img :src="galleryData.activeImage" />
+                  <div class="image-wrapper">
+                    <button @click.stop = 'galleryData.prev()' class="arrow left" x.show="project?.photo?.length > 1">&lt;</button>
+                    <img :src="galleryData.activeImage" />
+                    <button @click.stop = 'galleryData.next()' class="arrow right" x.show="project?.photo?.length > 1">&gt;</button>
+                  </div>
                 </div>
               </template>
 
