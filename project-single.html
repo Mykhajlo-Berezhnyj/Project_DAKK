@@ -89,8 +89,8 @@
               <template x-if="project?.supplier?.length">
                 <div>
                   <p>
-                    <span x-text="project.supplier.length > 1 ? 'Замовники: ' : 'Замовник: '"></span>
-                    <span x-text="project.supplier.map(s => s.name).join(', ')"></span>
+                    <span x-text="project?.supplier.length > 1 ? 'Замовники: ' : 'Замовник: '"></span>
+                    <span x-text="project?.supplier.map(s => s.name).join(', ')"></span>
                   </p>
                   <!-- <template x-for="s in project.supplier">
                   <p x-text="s.name"></p>
@@ -100,13 +100,13 @@
 
               <p>
                 <span x-text="project?.generalDesigner?.name ? 'Генпроектувальник: ' : ''"></span>
-                <span><a x-show="project.generalDesigner" :href="project.generalDesigner.link" target="_blank" alt="">
+                <span><a x-show="project?.generalDesigner" :href="project.generalDesigner.link" target="_blank" alt="">
                     <span x-text="project?.generalDesigner.name"></span>
                   </a></span>
               </p>
 
               <div class="pdf-link">
-                <a x-show="project.linkDocuments" :href="project.linkDocuments" target="_blank" alt="">
+                <a x-show="project?.linkDocuments" :href="project.linkDocuments" target="_blank" alt="">
                   <img src="/images/pdf_icon.jpg" width="30px" />
                   <span>Паспорт об'єкта</span>
                 </a>
@@ -151,7 +151,11 @@
 
               <template x-if="galleryData.activeImage">
                 <div class="modal" @click="galleryData.closeModal()">
-                  <img :src="galleryData.activeImage" />
+                  <div class="image-wrapper">
+                    <button @click.stop = 'galleryData.prev()' class="arrow left" x.show="project?.photo?.length > 1">&lt;</button>
+                    <img :src="galleryData.activeImage" />
+                    <button @click.stop = 'galleryData.next()' class="arrow right" x.show="project?.photo?.length > 1">&gt;</button>
+                  </div>
                 </div>
               </template>
 
@@ -183,6 +187,7 @@
     </section>
 
 
+    <load src="./src/partials/projects-preview.html" />
     <load src="./src/partials/leaflet.html" />
 
   </main>
