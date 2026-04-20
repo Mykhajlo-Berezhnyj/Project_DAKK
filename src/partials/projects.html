@@ -50,11 +50,10 @@
               <h2 x-text="item.projectName"></h2>
               <h3 x-text="item.category?.name"></h3>
               <div class="wrap-info">
-                <a
+                <p
                   class="city-name"
-                  :href="l(`/city/${item.city?.slug}`)"
                   x-text="item.city?.name"
-                ></a>
+                ></p>
                 <p
                   x-text="item.timeline? (item.timeline.yearStart && item.timeline.yearEnd ? (item.timeline.yearStart + '-'+ item.timeline.yearEnd) :  (item.timeline.yearStart ?? item.timeline.yearEnd)) : ''"
                 ></p>

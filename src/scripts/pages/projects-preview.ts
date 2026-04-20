@@ -8,6 +8,7 @@ export function projectsPrev() {
     visible: [] as Partial<Project>[],
     current: 0,
     isMobileMatches: null as MediaQueryList | null,
+    step: 1,
 
     init() {
       const store = Alpine.store("projects") as ProjectsStore;
@@ -24,7 +25,7 @@ export function projectsPrev() {
           "change",
           (e: MediaQueryListEvent) => {
             this.updateVisible(e.matches);
-          }
+          },
         );
       });
     },
@@ -38,33 +39,26 @@ export function projectsPrev() {
             this.projects[this.current],
             this.projects[(this.current + 1) % this.projects.length],
           ];
+      this.step = matches ? 1 : 2;
     },
 
     async next() {
-      this.current = (this.current + 1) % this.projects.length;
-      await Alpine.nextTick();
-      const index =
-        (this.current - 1 + this.projects.length) % this.projects.length;
-      this.visible = [this.projects[index], ...this.visible];
-
+      const index = (this.current + this.step) % this.projects.length;
+      this.visible = [...this.visible, this.projects[index]];
       await Alpine.nextTick();
       const items = document.querySelectorAll(".item-prev");
       items.forEach((el) => el.classList.add("next"));
-      await Alpine.nextTick();
 
       await Promise.race([
         new Promise<void>((resolve) =>
           items[0]?.addEventListener("transitionend", () => resolve(), {
             once: true,
-          })
+          }),
         ),
         new Promise((resolve) => setTimeout(resolve, 350)),
       ]);
 
-      await Alpine.nextTick();
-      this.visible.shift();
-      await Alpine.nextTick();
-      this.updateVisible();
+      this.current = (this.current + 1) % this.projects.length;
       items.forEach((el) => el.classList.remove("next"));
     },
 
@@ -83,7 +77,7 @@ export function projectsPrev() {
       await new Promise<void>((resolve) =>
         items[0]?.addEventListener("transitionend", () => resolve(), {
           once: true,
-        })
+        }),
       );
 
       items.forEach((el) => el.classList.remove("prev"));
