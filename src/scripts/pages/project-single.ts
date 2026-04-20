@@ -5,11 +5,15 @@ import type { Project } from "../type/project";
 import { getPartsPath } from "../utils/getPartsPath";
 import { projectsPrev } from "./projects-preview";
 import { leaflet } from "./leaflet";
+import { initCategoriesStore } from "../../stores/initCategoriesStore";
+import { initProjectsStore } from "../../stores/initProjectsStore";
 
 export function init() {
+  initCategoriesStore();
+  initProjectsStore();
   Alpine.data("loadSingleProject", () => loadSingleProject());
   Alpine.data("projectsPrev", projectsPrev);
-   Alpine.data("leaflet", leaflet);
+  Alpine.data("leaflet", leaflet);
 }
 
 type ActiveImage = string | null;

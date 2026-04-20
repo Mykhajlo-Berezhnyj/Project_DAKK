@@ -103,5 +103,5 @@ header {
 .logo-img {
   display: block;
   max-width: 150px;
-  height: 50px;
+  min-height: 50px;
 }

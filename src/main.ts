@@ -6,9 +6,7 @@ import { setLocaleUrl } from "./scripts/utils/setLocaleUrl";
 import intersect from "@alpinejs/intersect";
 import type { Lang, LocaleStore } from "./scripts/type/lang";
 import { renderMenu } from "./scripts/core/menu";
-import { getCategories } from "./scripts/service/getCategories";
 import type { CategoriesStore, ProjectsStore } from "./scripts/type/project";
-import { getProjects } from "./scripts/service/getProjects";
 
 
 interface PageModule {
@@ -42,7 +40,6 @@ if (page && routes[page]) {
 
 Alpine.data("localization", localization);
 Alpine.data("renderMenu", renderMenu);
-// Alpine.data("leaflet", leaflet);
 
 Alpine.plugin(intersect);
 
@@ -55,44 +52,5 @@ Alpine.store("locale", {
     (Alpine.store("projects") as ProjectsStore).projects = [];
   },
 } as LocaleStore);
-
-document.addEventListener("alpine:init", () => {
-  Alpine.store("categories", {
-    list: [],
-    isReady: false,
-
-    async init() {
-      if (this.isReady) return;
-      this.list = await getCategories();
-      this.isReady = true;
-    },
-  } as CategoriesStore);
-});
-
-document.addEventListener("alpine:init", () => {
-  Alpine.store("projects", {
-    projects: [],
-    isReady: false,
-    isLoading: false,
-    error: null,
-
-    async init() {
-      if (this.isReady || this.isLoading) return;
-      this.isLoading = true;
-
-      try {
-        this.projects = await getProjects();
-        this.isReady = true;
-      } catch (error) {
-        if (error instanceof Error) {
-          this.error = error.message;
-        }
-        this.error = "Unknown error";
-      } finally {
-        this.isLoading = false;
-      }
-    },
-  } as ProjectsStore);
-});
 
 window.Alpine = Alpine;

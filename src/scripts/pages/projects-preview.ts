@@ -15,8 +15,9 @@ export function projectsPrev() {
       Alpine.effect(() => {
         if (!store.isReady || store.projects.length === 0) return;
         const projects = store.projects;
-        this.projects = getRandomProjects(projects);
-
+        if (this.projects.length === 0) {
+          this.projects = getRandomProjects(projects);
+        }
         this.isMobileMatches = window.matchMedia("(max-width: 767px)");
         this.updateVisible();
         this.isMobileMatches.addEventListener(
@@ -39,15 +40,47 @@ export function projectsPrev() {
           ];
     },
 
-    next() {
+    async next() {
       this.current = (this.current + 1) % this.projects.length;
-      this.updateVisible();
+      await Alpine.nextTick();
+      const index =
+        (this.current - 1 + this.projects.length) % this.projects.length;
+      this.visible = [this.projects[index], ...this.visible];
+
+      await Alpine.nextTick();
+      const items = document.querySelectorAll(".item-prev");
+      items.forEach((el) => el.classList.add("next"));
+      await Alpine.nextTick();
+
+      await new Promise<void>((resolve) =>
+        items[0]?.addEventListener("transitionend", () => resolve(), {
+          once: true,
+        }),
+      );
+
+      this.visible.shift();
+      items.forEach((el) => el.classList.remove("next"));
     },
 
-    prev() {
+    async prev() {
       this.current =
         (this.current - 1 + this.projects.length) % this.projects.length;
       this.updateVisible();
+      await Alpine.nextTick();
+      const index = (this.current + 1) % this.projects.length;
+      this.visible = [...this.visible, this.projects[index]];
+      await Alpine.nextTick();
+
+      const items = document.querySelectorAll(".item-prev");
+      items.forEach((el) => el.classList.add("prev"));
+
+      await new Promise<void>((resolve) =>
+        items[0]?.addEventListener("transitionend", () => resolve(), {
+          once: true,
+        }),
+      );
+
+      items.forEach((el) => el.classList.remove("prev"));
     },
   };
 }

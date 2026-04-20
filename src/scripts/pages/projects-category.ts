@@ -6,9 +6,13 @@ import type { CategoriesStore } from "../type/project.ts";
 import { filtersProjects } from "../service/filters.ts";
 import { loadProjects } from "./projects.ts";
 import { leaflet } from "./leaflet.ts";
+import { initCategoriesStore } from "../../stores/initCategoriesStore.ts";
+import { initProjectsStore } from "../../stores/initProjectsStore.ts";
 
 export function init() {
-  Alpine.data("leaflet", leaflet)
+  initCategoriesStore();
+  initProjectsStore();
+  Alpine.data("leaflet", leaflet);
   Alpine.data("filters", filtersProjects);
   Alpine.data("loadProjects", () => loadProjects());
   Alpine.data("pageCategoryProject", () => pageCategoryProject());
@@ -22,20 +26,23 @@ export function pageCategoryProject() {
     async init() {
       const { category } = getPartsPath();
       const locale = localization();
-
       const store = await (Alpine.store("categories") as CategoriesStore);
 
-      const isValid = store.list.some((c) => c.slug === category);
+      Alpine.effect(() => {
+        if (!store.isReady) return;
 
-      if (!isValid) {
-        this.is404 = true;
-        this.isReady = true;
-        const url = `${locale.l("/projects")}`;
+        const isValid = store.list.some((c) => c.slug === category);
 
-        redirect({ url, time: 5 });
-      } else {
-        this.isReady = true;
-      }
+        if (!isValid) {
+          this.is404 = true;
+          this.isReady = true;
+          const url = `${locale.l("/projects")}`;
+
+          redirect({ url, time: 5 });
+        } else {
+          this.isReady = true;
+        }
+      });
     },
   };
 }

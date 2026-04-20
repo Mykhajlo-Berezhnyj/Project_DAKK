@@ -20,12 +20,12 @@
     </template>
 
     <div class="categories">
-      <h4
+      <h2
         class="title-filter visually-hidden"
         x-text="t(projectsData.titleCategory)"
       >
         Категорія
-      </h4>
+      </h2>
       <a
         :href="l('/projects')"
         class="btnMode btnAll"
@@ -114,13 +114,13 @@
       </svg>
     </div>
     <div class="status">
-      <h4
+      <h2
         for="filterTab"
         class="title-filter visually-hidden"
         x-text="t(projectsData.titleStatus)"
       >
         Статус
-      </h4>
+      </h2>
       <ul class="filterTab" role="tablist">
         <template x-for="item in statusLang" :key="item.key">
           <li class="tab" role="tab">

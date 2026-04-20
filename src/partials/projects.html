@@ -6,21 +6,6 @@
     </p>
   </template>
 
-  <!-- <ul
-    class="projects-gallery skeleton-gallery"
-    x-show="$store.projects.isLoading"
-  >
-    <template x-for="item, index in [1, 2 , 3, 4, 5, 6]" :key="item">
-      <li class="gallery-item">
-        <img
-          src="/images/logo.webp"
-          alt="preview loading picture"
-          class="preview-img"
-        />
-      </li>
-    </template>
-  </ul> -->
-  <!-- <div class="loading" x-text="t(projectsData.loading)"></div> -->
 
   <ul class="projects-gallery" >
     <template x-for="item, index in visible" :key="item._id">
@@ -66,11 +51,11 @@
               <h2 x-text="item.projectName"></h2>
               <h3 x-text="item.category?.name"></h3>
               <div class="wrap-info">
-                <a
+                <p
                   class="city-name"
-                  :href="l(`/city/${item.city?.slug}`)"
+                 
                   x-text="item.city?.name"
-                ></a>
+                ></p>
                 <p
                   x-text="item.timeline? (item.timeline.yearStart && item.timeline.yearEnd ? (item.timeline.yearStart + '-'+ item.timeline.yearEnd) :  (item.timeline.yearStart ?? item.timeline.yearEnd)) : ''"
                 ></p>

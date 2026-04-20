@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy:"
+      content="default-src 'self'; 
+               script-src 'self' https://cdn.jsdelivr.net ';
+               style-src 'self' https://fonts.googleapis.com ;
+               font-src https://fonts.gstatic.com;
+               img-src 'self' data: https://cdn.sanity.io;
+               connect-src 'self' https://3o5bf3fb.apicdn.sanity.io;
+               object-src 'none';
+               base-uri 'self';
+               frame-ancestors 'none';"
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -54,7 +66,9 @@
       <template x-if="mode === 'group'">
         <load src="/src/partials/projects-group.html" />
       </template>
-      <template x-if="!$store.projects.isLoading && $store.projects.projects.length>0">
+      <template
+        x-if="!$store.projects.isLoading && $store.projects.projects.length>0"
+      >
         <load src="/src/partials/leaflet.html" />
       </template>
     </main>

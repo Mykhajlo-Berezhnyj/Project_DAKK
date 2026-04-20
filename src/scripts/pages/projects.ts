@@ -7,6 +7,8 @@ import type { LocaleStore } from "../type/lang";
 import { getGroupByCategory } from "../utils/getGroupByCategory";
 import { getRandomProjectsFromCategory } from "../utils/getRandomProjectsFromCategory";
 import { animationEnter, waitTransition } from "../core/animations";
+import { initCategoriesStore } from "../../stores/initCategoriesStore";
+import { initProjectsStore } from "../../stores/initProjectsStore";
 
 type CategoryGroup = {
   category: CategorySlug;
@@ -33,6 +35,8 @@ interface loadProjects {
 }
 
 export function init() {
+  initCategoriesStore();
+  initProjectsStore();
   Alpine.data("filters", filtersProjects);
   Alpine.data("loadProjects", () => loadProjects());
   Alpine.data("leaflet", leaflet);
