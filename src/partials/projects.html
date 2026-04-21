@@ -1,5 +1,7 @@
 <div class="container container-gallery">
-  <template x-if="filtered.length===0 && !$store.projects.isLoading && !$store.projects.error">
+  <template
+    x-if="filtered.length===0 && !$store.projects.isLoading && !$store.projects.error"
+  >
     <p class="not-projects" x-text="t(projectsData.notFound)">
       На жаль за Вашим запитом не знайшлося проектів. Спроуйте повторити пошук з
       іншими параметрами
@@ -8,7 +10,7 @@
 
   <ul class="projects-gallery">
     <template x-for="item, index in visible" :key="item._id">
-      <li class="gallery-item">
+      <li class="gallery-item anim">
         <article class="card">
           <a
             :href="l(`/projects/${item.category?.slug}/${item.slug}`)"
@@ -50,10 +52,7 @@
               <h2 x-text="item.projectName"></h2>
               <h3 x-text="item.category?.name"></h3>
               <div class="wrap-info">
-                <p
-                  class="city-name"
-                  x-text="item.city?.name"
-                ></p>
+                <p class="city-name" x-text="item.city?.name"></p>
                 <p
                   x-text="item.timeline? (item.timeline.yearStart && item.timeline.yearEnd ? (item.timeline.yearStart + '-'+ item.timeline.yearEnd) :  (item.timeline.yearStart ?? item.timeline.yearEnd)) : ''"
                 ></p>
@@ -66,7 +65,7 @@
     </template>
   </ul>
   <div
-    x-intersect:enter="hasMore && mode === 'all' && load()"
+    x-intersect:enter="hasMore && $store.filters.mode === 'all' && loadMore()"
     class="loader"
     role="status"
   >

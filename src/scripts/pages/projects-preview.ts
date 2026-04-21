@@ -16,6 +16,7 @@ export function projectsPrev() {
       Alpine.effect(() => {
         if (!store.isReady || store.projects.length === 0) return;
         const projects = store.projects;
+  
         if (this.projects.length === 0) {
           this.projects = getRandomProjects(projects);
         }

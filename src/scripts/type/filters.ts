@@ -12,7 +12,7 @@ export type Mode = "all" | "group";
 export type CategoriesStore = {
   list: Categories[];
   isReady: boolean;
-  init: () => Promise<Categories[]>;
+  set: (data: Categories[]) => void;
 };
 
 export interface Filter {

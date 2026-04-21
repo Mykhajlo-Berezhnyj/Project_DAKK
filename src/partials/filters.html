@@ -1,4 +1,4 @@
-<div class="container container-filter">
+<div class="container container-filter"  x-data="{open: false, show: false}">
   <h1 x-text="t(projectsData.title)" class="title1">Наші проекти</h1>
   <div class="filters">
     <template x-if="mode === 'all'">
@@ -38,11 +38,11 @@
           class="input-select"
           :class="{activeCategory: category}"
           :aria-pressed="category ? 'true' : 'false'"
-          @click="open=!open"
+          @click="open=!open; console.log('category', category)"
           :aria-label="t(projectsData.tiltup)"
           :title="t(projectsData.tiltup)"
           x-effect="document.body.style.overflow = open ? 'hidden' : ''"
-          x-text="category ? (categories.find(c=> c.slug ===category))?.name : t(projectsData.tiltup)"
+          x-text="category ? ($store.categories.list.find(c=> c.slug ===category))?.name : t(projectsData.tiltup)"
         >
           Виберіть категорію
         </button>
@@ -52,7 +52,7 @@
         <template x-if="open">
           <div class="dropdown">
             <ul class="category-list">
-              <template x-for="item in categories">
+              <template x-for="item in $store.categories.list">
                 <li class="category-item">
                   <a
                     :href="l(`/projects/${item.slug}`)"
@@ -76,16 +76,10 @@
     </div>
   </div>
   <div class="groupWrap" x-show="mode==='group'">
-    <h2
-      class="title-group"
-      x-text="t(projectsData.titleGroup)"
-    >
+    <h2 class="title-group" x-text="t(projectsData.titleGroup)">
       Категорії проектів
     </h2>
-    <p
-      class="text-group"
-      x-text="t(projectsData.textGroup)"
-    >
+    <p class="text-group" x-text="t(projectsData.textGroup)">
       Оберіть категорію, щоб переглянути відповідні проєкти.
     </p>
   </div>
@@ -103,7 +97,7 @@
         class="select-sort input-select"
         id="sort"
         x-model="order"
-        @change="order=$event.target.value; updateUrl();"
+        @change="order=$event.target.value; updateUrl(); reload()"
       >
         <option value="nameAsc" x-text="t(projectsData.nameAsc)"></option>
         <option value="nameDesc" x-text="t(projectsData.nameDesc)"></option>
@@ -135,7 +129,7 @@
         <template x-for="item in statusLang" :key="item.key">
           <li class="tab" role="tab">
             <button
-              @click="show = !show; status= item.key=== 'all' ? null : item.key; updateUrl()"
+              @click="show = !show; status= item.key=== 'all' ? null : item.key; updateUrl(); reload()"
               x-text="t(item.label)"
               :aria-label="t(item.label)"
               :title="t(item.label)"

@@ -6,6 +6,7 @@
 @import "../components/projects-gallery.css";
 @import "../components/footer.css";
 @import "../components/leaflet.css";
+@import "../components/404.css";
 
 body {
   background-color: var(--clr-bg-main);

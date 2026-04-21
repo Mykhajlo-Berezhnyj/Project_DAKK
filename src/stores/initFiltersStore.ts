@@ -1,11 +1,9 @@
 import Alpine from "alpinejs";
-import { getLocaleFromURL } from "../scripts/utils/getLocaleFromURL";
 import type { CategoriesStore, FiltersStore } from "../scripts/type/filters";
 import { getPartsPath } from "../scripts/utils/getPartsPath";
 import type { CategorySlug } from "../scripts/type/project";
 import { SORT_OPTIONS, type SortKey } from "../data/sortOptions";
-
-let initPromise: Promise<void> | null = null;
+import type { LocaleStore } from "../scripts/type/lang";
 
 export function initFiltersStore() {
   Alpine.store<"filters">("filters", {
@@ -15,19 +13,11 @@ export function initFiltersStore() {
     search: "",
     mode: null,
     order: "newest",
-    locale: getLocaleFromURL(),
+    locale: "uk",
     categories: [],
 
     async init() {
-      if (initPromise) return initPromise;
-
-      initPromise = (async () => {
-        const store = Alpine.store("categories") as CategoriesStore;
-        this.categories = await store.init();
-        this.paramsFromUrl();
-        initPromise = null;
-      })();
-      return initPromise;
+      this.paramsFromUrl();
     },
 
     isActive(item) {
@@ -58,21 +48,25 @@ export function initFiltersStore() {
       const { category: categoryFromUrl } = getPartsPath();
 
       if (
+        (Alpine.store("categories") as CategoriesStore).isReady &&
         categoryFromUrl &&
-        this.categories.find((c) => c.slug === categoryFromUrl)
+        (Alpine.store("categories") as CategoriesStore).list.find(
+          (c) => c.slug === categoryFromUrl,
+        )
       ) {
         this.category = categoryFromUrl as CategorySlug;
         this.mode = "all";
       } else {
         this.category = null;
       }
-      
+
       const orderFromParams = params.get("order");
       if (orderFromParams && orderFromParams in SORT_OPTIONS) {
         this.order = orderFromParams as SortKey;
       } else {
         this.order = "newest";
       }
+      this.locale = (Alpine.store("locale") as LocaleStore).current;
     },
 
     updateUrl() {

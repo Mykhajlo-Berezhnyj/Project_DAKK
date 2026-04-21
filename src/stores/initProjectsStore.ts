@@ -1,8 +1,5 @@
 import Alpine from "alpinejs";
-import { getProjects } from "../scripts/service/getProjects";
 import type { ProjectsStore } from "../scripts/type/project";
-
-let initPromise: Promise<any[]> | null = null;
 
 export function initProjectsStore() {
   Alpine.store<"projects">("projects", {
@@ -11,29 +8,17 @@ export function initProjectsStore() {
     isLoading: false,
     error: null,
 
-    async init(force = false) {
-      if (!force && (this.isReady || this.isLoading)) return this.projects;
+    set(data) {
+      this.projects = data;
+      this.isReady = true;
+    },
 
-      if (!force && initPromise) return initPromise;
+    setError(error) {
+      this.error = error;
+    },
 
-      initPromise = (async () => {
-        this.isLoading = true;
-        try {
-          const data = await getProjects();
-
-          this.projects = data;
-          this.isReady = true;
-          return data;
-        } catch (error) {
-          this.error = (error as Error).message;
-          return [];
-        } finally {
-          this.isLoading = false;
-          initPromise = null;
-        }
-      })();
-
-      return initPromise;
+    setloading(isLoading) {
+      this.isLoading = isLoading;
     },
   } satisfies ProjectsStore);
 }

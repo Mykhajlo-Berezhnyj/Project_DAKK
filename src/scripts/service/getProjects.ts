@@ -32,20 +32,24 @@ export async function getProjects(): Promise<Project[]> {
 
   const query = PROJECT_All_QUERY;
 
-  const projects = await fetchData<Project[]>({ query });
+  try {
+    const projects = await fetchData<Project[]>({ query });
 
-  if (!Array.isArray(projects)) {
-    throw new Error("Invalid projects response");
+    if (!Array.isArray(projects)) {
+      throw new Error("Invalid projects response");
+    }
+
+    localStorage.setItem(
+      `projects_${locale}`,
+      JSON.stringify({
+        data: projects,
+        timestamp: Date.now(),
+      }),
+    );
+
+    cashedProjects[locale] = projects;
+    return projects;
+  } catch (error) {
+    throw error;
   }
-
-  localStorage.setItem(
-    `projects_${locale}`,
-    JSON.stringify({
-      data: projects,
-      timestamp: Date.now(),
-    })
-  );
-
-  cashedProjects[locale] = projects;
-  return projects;
 }

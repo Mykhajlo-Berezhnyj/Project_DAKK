@@ -249,13 +249,13 @@
 }
 
 .gallery-item.loading:nth-child(4n + 1) {
-  transform: translateX(100%) scale(0.9);
-}
-.gallery-item.loading:nth-child(4n + 2) {
   transform: translateY(100%) scale(0.9);
 }
-.gallery-item.loading:nth-child(4n + 3) {
+.gallery-item.loading:nth-child(4n + 2) {
   transform: translateX(-100%) scale(0.9);
+}
+.gallery-item.loading:nth-child(4n + 3) {
+  transform: translateX(100%) scale(0.9);
 }
 .gallery-item.loading:nth-child(4n + 4) {
   transform: translateY(-100%) scale(0.9);
@@ -277,4 +277,58 @@
 .error {
   text-align: center;
   color: rgba(255, 0, 0, 0.719);
+}
+
+@keyframes fromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0) scale(1);
+  }
+}
+@keyframes fromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0) scale(1);
+  }
+}
+@keyframes fromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0) scale(1);
+  }
+}
+@keyframes fromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-100%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0) scale(1);
+  }
+}
+
+.anim-item:nth-child(4n + 1) {
+  animation: fromRight 0.6s ease forwards;
+}
+.anim-item:nth-child(4n + 2) {
+  animation: fromBottom 0.6s ease forwards;
+}
+.anim-item:nth-child(4n + 3) {
+  animation: fromLeft 0.6s ease forwards;
+}
+.anim-item:nth-child(4n + 4) {
+  animation: fromTop 0.6s ease forwards;
 }

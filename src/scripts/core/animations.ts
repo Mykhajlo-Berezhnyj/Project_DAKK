@@ -1,3 +1,5 @@
+import Alpine from "alpinejs";
+
 export function waitTransition(el: Element, time = 300) {
   return new Promise((resolve) => {
     if (!el) {
@@ -25,10 +27,11 @@ export function waitTransition(el: Element, time = 300) {
   });
 }
 
-export function animationEnter() {
-  const items = document.querySelectorAll(".gallery-item");
-  items.forEach((el) => el.classList.add("loading"));
+export async function animationEnter() {
+  const items = document.querySelectorAll(".anim");
+  items.forEach((el) => el.classList.add("anim-item"));
 
+  await Alpine.nextTick();
   requestAnimationFrame(() => {
     items.forEach((el) => el.classList.remove("loading"));
   });

@@ -1,6 +1,7 @@
 import type { categorySlugs } from "../../data/category";
 import type { statusLang } from "../../data/dictionary/statusLang";
 import type { CategoriesStore, FiltersStore } from "./filters";
+import type { NewsStore } from "./news";
 
 export interface Timeline {
   yearStart?: number;
@@ -107,11 +108,14 @@ export type ProjectsStore = {
   isReady: boolean;
   isLoading: boolean;
   error: unknown;
-  init: (force?: boolean) => Promise<Project[]>;
+  set: (data: Project[]) => void;
+  setError: (error: unknown) => void;
+  setloading: (isLoading: boolean) => void;
 };
 
 export interface Store {
   filters: FiltersStore;
   categories: CategoriesStore;
   projects: ProjectsStore;
+  news: NewsStore;
 }

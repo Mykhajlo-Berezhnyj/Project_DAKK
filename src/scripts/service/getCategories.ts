@@ -30,7 +30,8 @@ export async function getCategories(): Promise<Categories[]> {
     }
   }
 
-  const result = await fetchData<Categories[]>({
+  try {
+      const result = await fetchData<Categories[]>({
     query: CATEGORY_QUERY,
     options: { locale },
   });
@@ -45,4 +46,8 @@ export async function getCategories(): Promise<Categories[]> {
     JSON.stringify({ data: result, timestamp: Date.now() })
   );
   return result;
+  } catch (error) {
+    throw error;
+  }
+
 }
