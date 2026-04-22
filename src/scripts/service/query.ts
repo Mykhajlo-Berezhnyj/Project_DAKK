@@ -86,7 +86,13 @@ export const VIDEOS_QUERY = `{
  "total": count(*[_type == "video"]),
  }`;
 
-export const PARTNERS_QUERY = `*[_type == "partners"] | [$start...$end]`;
+export const PARTNERS_QUERY = `*[_type == "partner"] {
+_id,
+"name": coalesce(name[$locale], name.uk),
+"location": coalesce(location[$locale], location.uk),
+link,
+"logo": logo.asset->url,
+}`;
 
 export const BASE_GROUP_BY_CATEGORY_PROJECTS_QUERY = `*[_type == "category"]{
 "name": coalesce(name[$locale], name.uk),

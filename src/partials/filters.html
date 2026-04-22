@@ -1,4 +1,4 @@
-<div class="container container-filter"  x-data="{open: false, show: false}">
+<div class="container container-filter" x-data="{open: false, show: false}">
   <h1 x-text="t(projectsData.title)" class="title1">Наші проекти</h1>
   <div class="filters">
     <template x-if="mode === 'all'">
@@ -26,13 +26,25 @@
       >
         Категорія
       </h2>
-      <a
-        :href="l('/projects')"
-        class="btnMode btnAll"
-        :class="{activeCategory: !category && mode !== 'group'}"
-        x-text="t(projectsData.titleAll)"
-        >Всі категорії</a
-      >
+      <template x-if="category">
+        <a
+          :href="l('/projects')"
+          class="btnMode btnAll"
+          :class="{activeCategory: !category && mode !== 'group'}"
+          x-text="t(projectsData.titleAll)"
+          >Всі категорії
+        </a>
+      </template>
+      <template x-if="!category">
+        <button
+          @click="setMode('all')"
+          class="btnMode btnAll"
+          :class="{activeCategory: !category && mode !== 'group'}"
+          x-text="t(projectsData.titleAll)"
+        >
+          Всі категорії
+        </button>
+      </template>
       <div class="custom-select" @click.outside="open=false">
         <button
           class="input-select"
@@ -65,14 +77,26 @@
           </div>
         </template>
       </div>
-      <a
-        :href="l('/projects?mode=group')"
-        class="btnMode"
-        x-text="t(projectsData.btnTab)"
-        :class="{'activeCategory' : mode === 'group'}"
-        :disabled="mode==='group'"
-        >Групувати за категоріями</a
-      >
+      <template x-if="category">
+        <a
+          :href="l('/projects?mode=group')"
+          class="btnMode"
+          x-text="t(projectsData.btnTab)"
+          :class="{'activeCategory' : mode === 'group'}"
+          :disabled="mode==='group'"
+          >Групувати за категоріями
+        </a>
+      </template>
+      <template x-if="!category">
+        <button
+          @click="setMode('group')"
+          class="btnMode btnAll"
+          :class="{activeCategory: mode === 'group'}"
+          x-text="t(projectsData.titleAll)"
+        >
+          Групувати за категоріями
+        </button>
+      </template>
     </div>
   </div>
   <div class="groupWrap" x-show="mode==='group'">

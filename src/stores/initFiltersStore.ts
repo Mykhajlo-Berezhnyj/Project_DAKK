@@ -94,5 +94,10 @@ export function initFiltersStore() {
 
       window.history.replaceState({}, "", newUrl);
     },
+
+    setMode(mode) {
+      this.mode = mode;
+      this.category = null;
+    }
   } satisfies FiltersStore);
 }

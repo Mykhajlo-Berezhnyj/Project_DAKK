@@ -31,4 +31,5 @@ export interface FiltersStore extends Filter {
   paramsFromUrl: () => void;
   updateUrl: () => void;
   isActive: (item: StatusItem) => void;
+  setMode: (mode: Mode) => void;
 }
