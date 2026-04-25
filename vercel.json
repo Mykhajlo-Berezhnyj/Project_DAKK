@@ -37,29 +37,23 @@
       ]
     }
   ],
-  "redirects": [
-    { "source": "/projects/:a/:b/:c", "destination": "/projects" },
-    { "source": "/en/projects/:a/:b/:c", "destination": "/en/projects" },
-    { "source": "/news/:a/:b/", "destination": "/news" },
-    { "source": "/en/news/:a/:b/", "destination": "/news" }
-  ],
   "rewrites": [
     {
-      "source": "/projects/:category/:id",
-      "destination": "/project.html"
+      "source": "/projects/:category/:id/:a*",
+      "destination": "/project-single.html"
     },
     {
       "source": "/projects/:category",
       "destination": "/projects-category.html"
     },
     { "source": "/projects", "destination": "/projects.html" },
-    { "source": "/news/:id", "destination": "/news.html" },
+    { "source": "/news/:id*", "destination": "/news.html" },
     { "source": "/news", "destination": "/news.html" },
     { "source": "/videos", "destination": "/videos.html" },
     { "source": "/about", "destination": "/about.html" },
     { "source": "/contacts", "destination": "/contacts.html" },
     {
-      "source": "/en/projects/:category/:id",
+      "source": "/en/projects/:category/:id/:a*",
       "destination": "/project-single.html"
     },
     {
@@ -67,11 +61,12 @@
       "destination": "/projects-category.html"
     },
     { "source": "/en/projects", "destination": "/projects.html" },
-    { "source": "/en/news/:id", "destination": "/news.html" },
+    { "source": "/en/news/:id*", "destination": "/news.html" },
     { "source": "/en/news", "destination": "/news.html" },
     { "source": "/en/videos", "destination": "/videos.html" },
     { "source": "/en/about", "destination": "/about.html" },
     { "source": "/en/contacts", "destination": "/contacts.html" },
-    { "source": "/en", "destination": "/index.html" }
+    { "source": "/en", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/404.html" }
   ]
 }
