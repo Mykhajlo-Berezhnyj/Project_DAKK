@@ -7,44 +7,7 @@
 @import "../components/footer.css";
 @import "../components/leaflet.css";
 @import "../components/404.css";
-
-body {
-  background-color: var(--clr-bg-main);
-  cursor: default;
-}
-
-button {
-  cursor: pointer;
-}
-
-[x-cloak] {
-  display: none !important;
-}
-
-.title1 {
-  text-align: center;
-  letter-spacing: -0.2px;
-  min-height: 48px;
-  margin-bottom: 20px;
-}
-
-h2 {
-  font-size: 20px;
-  line-height: 1.15;
-
-  @media (min-width: 1024px) {
-    font-size: var(--fs-h2);
-  }
-}
-
-h3 {
-  font-size: 18px;
-  line-height: 1;
-
-  @media (min-width: 1024px) {
-    font-size: var(--fs-h3);
-  }
-}
+@import "../components/btnUpp.css";
 
 #filter {
   padding: calc(var(--mb-section) / 2) 0;
@@ -470,53 +433,6 @@ input {
   text-align: center;
 }
 
-
-.btnUp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: fixed;
-  bottom: 10px;
-  right: 4px;
-  width: 30px;
-  height: 30px;
-  padding: 4px;
-  border-radius: 50%;
-  border: 2px solid var(--clr-accent);
-  background-color: rgba(255, 255, 255, 0.5);
-  z-index: 999;
-
-  @media (min-width: 768px) {
-    bottom: 20px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    padding: 6px;
-  }
-
-  &:hover {
-    border: 2px solid var(--clr-accent-hover);
-    background-color: var(--clr-divider);
-  }
-}
-
-.icon-btnUp {
-  width: 20px;
-  height: 20px;
-  fill: var(--clr-accent);
-  stroke: var(--clr-accent);
-
-  @media (min-width: 768px) {
-    width: 34px;
-    height: 34px;
-  }
-}
-
-.btnUp:hover {
-  fill: var(--clr-accent-hover);
-  stroke: var(--clr-accent-hover);
-}
 
 main {
   min-height: calc(100vh - 56px);
