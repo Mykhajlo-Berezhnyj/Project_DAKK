@@ -30,7 +30,11 @@
       </li>
     </template>
   </ul>
-  <button type="button" @click="resetPost()" class="news-more-btn-back">
+  <button
+    type="button"
+    @click="resetPost(), window.history.pushState({}, '', '/news')"
+    class="news-more-btn-back"
+  >
     Ще публікації
   </button>
 </div>

@@ -1,0 +1,50 @@
+[x-cloak] {
+  display: none !important;
+}
+
+.btnUp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  bottom: 10px;
+  right: 4px;
+  width: 30px;
+  height: 30px;
+  padding: 4px;
+  border-radius: 50%;
+  border: 2px solid var(--clr-accent);
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 999;
+
+  @media (min-width: 768px) {
+    bottom: 20px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+  }
+
+  &:hover {
+    border: 2px solid var(--clr-accent-hover);
+    background-color: var(--clr-divider);
+  }
+}
+
+.icon-btnUp {
+  width: 20px;
+  height: 20px;
+  fill: var(--clr-accent);
+  stroke: var(--clr-accent);
+
+  @media (min-width: 768px) {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.btnUp:hover {
+  fill: var(--clr-accent-hover);
+  stroke: var(--clr-accent-hover);
+}

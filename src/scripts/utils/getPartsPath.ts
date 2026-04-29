@@ -30,19 +30,20 @@ export function getPartsPath(): PageInfo {
   }
 
   switch (parts[0]) {
-    case "projects": {
-      if (parts.length === 1)
-        return { page: "projects", category: null, slug: null };
-      if (parts.length === 2)
-        return { page: "project-category", category: parts[1], slug: null };
-      if (parts.length === 3)
-        return { page: "project-single", category: parts[1], slug: parts[2] };
-      return { page: "projects", category: null, slug: null };
-    }
+    case "projects":
+      {
+        if (parts.length === 1)
+          return { page: "projects", category: null, slug: null };
+        if (parts.length === 2)
+          return { page: "project-category", category: parts[1], slug: null };
+        if (parts.length === 3)
+          return { page: "project-single", category: parts[1], slug: parts[2] };
+        return { page: "404", category: null, slug: null };
+      }
     case "news": {
       if (parts.length === 1) return { page: "news", slug: null };
-      if (parts.length === 2) return { page: "news-single", slug: parts[1] };
-      return { page: "news", slug: null };
+      if (parts.length === 2) return { page: "news", slug: parts[1] };
+      return { page: "404", slug: null };
     }
     case "videos":
       return { page: "videos" };

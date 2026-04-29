@@ -3,6 +3,7 @@ import type { NewsStore, New } from "../type/news";
 import { scrollToTopOfPublication } from "./news";
 import { getPartsPath } from "../utils/getPartsPath";
 import { localization } from "../core/localization";
+import { redirect } from "../utils/redirect";
 
 export function getPost() {
   const newsStore = Alpine.store("news") as NewsStore;
@@ -30,15 +31,23 @@ export function getActuellPosts(quantity: number = 3) {
 export function validationNew() {
   const newsStore = Alpine.store("news") as NewsStore;
   const posts = newsStore.getNews();
-  const { slug } = getPartsPath();
-  if (!slug) return;
+  const { page, slug } = getPartsPath();
   const locale = localization();
   const url = `${locale.l("/news")}`;
+
+  if (page === "404") {
+    console.log("🚀 ~ if ~ page:", page);
+    redirect({ url, message: "newsPage", type: "push" });
+    // newsStore.setCurrent(null);
+    resetCurrentPost();
+  }
+  if (!slug) return;
 
   const post = posts.find((n) => String(n._id) === slug) ?? null;
 
   if (!post) {
-    window.history.replaceState({}, "", url);
+    console.log("🚀 ~ if ~ page:", page);
+    redirect({ url, message: "newsPage", type: "push" });
     // newsStore.setCurrent(null);
     resetCurrentPost();
   } else {

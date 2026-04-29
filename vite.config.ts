@@ -73,18 +73,26 @@ export default defineConfig({
               return next();
             }
             if (
-              parts.length === 3 &&
+              parts.length >= 2 &&
+              dynamic.segment === "news" &&
+              dynamic.depth2
+            ) {
+              req.url = dynamic.depth2;
+              return next();
+            }
+            if (
+              parts.length >= 3 &&
               dynamic.segment === "projects" &&
               dynamic.depth3
             ) {
               req.url = dynamic.depth3;
               return next();
             }
-            res.writeHead(302, { Location: `/${dynamic.segment}` });
-            res.end();
-            return;
+            // res.writeHead(302, { Location: `/${dynamic.segment}` });
+            // res.end();
+            // return;
           }
-          next();
+         return next();
         });
       },
     },

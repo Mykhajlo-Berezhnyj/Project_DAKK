@@ -11,6 +11,44 @@
   }
 }
 
+body {
+  background-color: var(--clr-bg-main);
+  cursor: default;
+}
+
+button {
+  cursor: pointer;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+.title1 {
+  text-align: center;
+  letter-spacing: -0.2px;
+  min-height: 48px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 20px;
+  line-height: 1.15;
+
+  @media (min-width: 1024px) {
+    font-size: var(--fs-h2);
+  }
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1;
+
+  @media (min-width: 1024px) {
+    font-size: var(--fs-h3);
+  }
+}
+
 .gallery-item {
   border-radius: 10px;
   width: 100%;

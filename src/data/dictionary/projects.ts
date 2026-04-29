@@ -92,8 +92,16 @@ export const projectsData = {
     en: "Not found",
   },
   redirect: {
-    uk: "Ви будуте перенаправлені на сторінку проектів через",
-    en: "You will be redirected to the projects page after",
+    uk: "Ви будуте перенаправлені на",
+    en: "You will be redirected to the ",
+  },
+  projectPage: {
+    uk: "сторінку проектів через",
+    en: "projects page after",
+  },
+  newsPage: {
+    uk: "сторінку новин через",
+    en: "news page after",
   },
   more: {
     uk: "Більше проектів",
@@ -107,20 +115,20 @@ export const projectsData = {
     uk: "Переключити мову на",
     en: "Langswitch to",
   },
-    page: {
+  page: {
     uk: "сторінка категорії",
     en: "page category",
   },
-    descriptionHeadCategories: {
+  descriptionHeadCategories: {
     uk: "Ознайомтесь із галереєю проектів ДАКК. Від концептуальних ідей до реалізованих будівель — сучасна архітектура з увагою до деталей. На даній сторінці ви знайдете проекти в категорії ",
     en: "Explore the project gallery of Dnipro Architectural Design Company (DAKK). From conceptual ideas to completed buildings — modern architecture with attention to detail. On this page you will find projects in the category",
   },
   titleGroup: {
     uk: "Категорії проектів",
-    en: "Project Categories"
+    en: "Project Categories",
   },
   textGroup: {
     uk: "Оберіть категорію, щоб переглянути відповідні проєкти.",
-    en: "Select a category to view relevant projects."
-  }
+    en: "Select a category to view relevant projects.",
+  },
 };

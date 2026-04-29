@@ -65,6 +65,7 @@
             <template x-for="page in pages" :key="page.link">
               <li>
                 <a
+                  class="nav-link"
                   :href="page.link"
                   @click="closeMenu()"
                   x-text="page.name"

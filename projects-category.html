@@ -30,31 +30,24 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
   <body data-page="projects-category" x-data="pageCategoryProject()">
-    <template x-if="!is404">
-      <fragment>
-        <load src="/src/partials/header.html" />
-        <main x-data="loadProjects" x-init="init()">
-          <section
-            id="filter"
-            x-data="$store.filters"
-            x-init="$watch('$store.locale.current', () => init())"
-            x-cloak
-          >
-            <load src="/src/partials/filters.html" />
-          </section>
-          <section id="projects">
-            <load src="/src/partials/projects.html" />
-          </section>
-          <template x-if="!$store.projects.isLoading && projects.length>0">
-            <load src="/src/partials/leaflet.html" />
-          </template>
-        </main>
-        <load src="/src/partials/footer.html" />
-      </fragment>
-    </template>
-    <template x-if="is404">
-      <load src="/src/partials/404.html" />
-    </template>
+    <load src="/src/partials/header.html" />
+    <main x-data="loadProjects" x-init="init()">
+      <section
+        id="filter"
+        x-data="$store.filters"
+        x-init="$watch('$store.locale.current', () => init())"
+        x-cloak
+      >
+        <load src="/src/partials/filters.html" />
+      </section>
+      <section id="projects">
+        <load src="/src/partials/projects.html" />
+      </section>
+      <template x-if="!$store.projects.isLoading && projects.length>0">
+        <load src="/src/partials/leaflet.html" />
+      </template>
+    </main>
+    <load src="/src/partials/footer.html" />
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
