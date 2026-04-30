@@ -1,200 +1,279 @@
 <!doctype html>
 <html lang="en" :lang="$store.locale.current" x-data="localization">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project</title>
-</head>
+  <body data-page="project-single">
+    <load src="./src/partials/header.html" />
 
-<body data-page="project-single">
-  <load src="./src/partials/header.html" />
+    <main
+      class="single"
+      id="singleProject"
+      x-data="loadSingleProject"
+      x-init="$watch('$store.locale.current', () => init())"
+    >
+      <!-- Cover -->
+      <!--  <img x-show="project?.cover" :src="project?.cover" /> -->
 
+      <!-- Hero -->
 
-   <main id="singleProject" x-data="loadSingleProject" x-init="$watch('$store.locale.current', () => init())">
+      <section
+        class="hero container-100 grey"
+        :style="project?.cover 
+    ? `background-image: image-set(
+         url(${project.cover}?w=320&fm=webp) type('image/webp') 1x,
+         url(${project.cover}?w=640&fm=webp) type('image/webp') 2x,
+         url(${project.cover}?w=320&fm=jpeg) type('image/jpeg') 1x,
+         url(${project.cover}?w=640&fm=jpeg) type('image/jpeg') 2x
+       )` 
+    : ''"
+      ></section>
 
+      <!-- Main Details -->
+      <section class="main-details grey">
+        <div class="container grey">
+          <div class="main-details-content">
+            <div class="main-details-content-1">
+              <h1 x-text="project?.projectName"></h1>
+              <ul class="meta-info">
+                <li x-text="project?.category?.name"></li>
+                <li x-text="project?.city?.name+ ', '+project?.country"></li>
+              </ul>
+            </div>
 
-    <section>
-
-      <div class="container container-100">
-
-        <!-- Cover -->
-        <!--  <img x-show="project?.cover" :src="project?.cover" /> -->
-
-        <!-- Hero -->
-        <div class="container container-100 grey">
-          <section class="hero" :style="project?.cover ? `background-image: url(${project.cover})` : ''">
-
-          </section>
-
-
-          <!-- Main Details -->
-          <section class="main-details">
-            <div class="main-details-content">
-              <div class="container main-details-content-1">
-                <h1 x-text="project?.projectName"></h1>
-                <h4><a x-show="project?.siteUrl" :href="project?.siteUrl" x-text="project?.siteUrl"></a></h4>
-                <h2 x-text="project?.category?.name"></h2>
+            <dl class="main-details-content-2">
+              <div class="description-group">
+                <dt x-text="project?.area ? 'Площа:' : ''"></dt>
+                <dd x-text="project?.area ? project.area + ' м²' : ''"></dd>
               </div>
 
-              <div class="container main-details-content-2">
-                <div class="details-column">
-                  <div>
-                    <p x-text="project?.country"></p>
-                    <p x-text="project?.city?.name"></p>
-                  </div>
-                  <div>
-                    <p x-text="project?.area ? 'Площа' : ''"></p>
-                    <p x-text="project?.area ? project.area + ' м²' : ''"></p>
-                  </div>
-                </div>
-
-                <div class="details-column">
-                  <div>
-                    <p x-text="project?.timeline ? 'Рік роботи' : ''"></p>
-                    <p x-text="project?.timeline
+              <div class="description-group">
+                <dt x-text="project?.timeline ? 'Рік роботи:' : ''"></dt>
+                <dd
+                  x-text="project?.timeline
                   ? (project.timeline.yearStart && project.timeline.yearEnd
                   ? project.timeline.yearStart + ' - ' + project.timeline.yearEnd
                   : (project.timeline.yearStart ?? project.timeline.yearEnd))
-                  : ''"></p>
-                  </div>
-                  <div>
-                    <p x-text="project?.status ? 'Статус' : ''"></p>
-                    <p x-text="project?.status ? project.status : ''"></p>
-                  </div>
-                </div>
-
+                  : ''"
+                ></dd>
               </div>
-            </div>
-          </section>
-        </div>
 
-
-        <!-- Description -->
-        <div class="container container-100">
-          <section class="description p-40-50">
-            <p x-text="project?.description"></p>
-          </section>
-        </div>
-
-        <div class="divider">
-          <p></p>
-        </div>
-
-        <!-- Deatils -->
-        <div class="container container-100">
-          <section class="details p-40-50">
-            <div class="details-1">
-
-              <template x-if="project?.supplier?.length">
-                <div>
-                  <p>
-                    <span x-text="project?.supplier.length > 1 ? 'Замовники: ' : 'Замовник: '"></span>
-                    <span x-text="project?.supplier.map(s => s.name).join(', ')"></span>
-                  </p>
-                  <!-- <template x-for="s in project.supplier">
-                  <p x-text="s.name"></p>
-                </template> -->
-                </div>
-              </template>
-
-              <p>
-                <span x-text="project?.generalDesigner?.name ? 'Генпроектувальник: ' : ''"></span>
-                <span><a x-show="project?.generalDesigner" :href="project?.generalDesigner?.link" target="_blank" alt="">
-                    <span x-text="project?.generalDesigner?.name"></span>
-                  </a></span>
-              </p>
-
-              <div class="pdf-link">
-                <a x-show="project?.linkDocuments" :href="project?.linkDocuments" target="_blank" alt="">
-                  <img src="/images/pdf_icon.jpg" width="30px" />
-                  <span>Паспорт об'єкта</span>
-                </a>
+              <div class="description-group">
+                <dt x-text="project?.status ? 'Статус:' : ''"></dt>
+                <dd
+                  x-text="project?.status ? statusLang.find(s => s.key === project?.status)?.label[$store.locale.current] : ''"
+                ></dd>
               </div>
-            </div>
+            </dl>
 
-            <div class="details-2">
-              <p x-text="'Код категорії: ' + project?.consequenceClass"></p>
-              <p x-text="'Конструктив: ' + project?.constructive"></p>
-            </div>
-
-            <div class="details-3">
-              <p x-show="project?.award" x-text="'Нагороди: ' + project?.award"></p>
-            </div>
-          </section>
-        </div>
-
-        <!--Web and Gallery-->
-        <div class="container container-100 light-grey" x-show="project?.siteUrl || project?.photo?.length">
-          <section class="website p-40-50">
-            <a x-show="project?.siteUrl" :href="project?.siteUrl">
-              Перейти на сайт: <span x-text="project?.siteUrl"></span>
+            <a
+              class="project-link"
+              x-show="project?.siteUrl"
+              :href="project?.siteUrl"
+            >
+              Перейти на сайт проекту: <span x-text="project?.siteUrl"></span>
             </a>
+          </div>
+        </div>
+      </section>
 
-            <!-- Gallery -->
+      <!-- Description -->
+      <template x-if="project?.description">
+        <section class="divider">
+          <div class="container">
+            <p x-text="project?.description"></p>
+          </div>
+        </section>
+      </template>
 
+      <!-- Deatils -->
+      <section class="tech-details">
+        <div class="container tech-container">
+          <h3 x-text="'Технічна інформація'" class="tech-title"></h3>
+          <dl class="details-1">
+            <template x-if="project?.typeOfServices?.length">
+              <div class="description-group">
+                <dt
+                  x-text="project?.typeOfServices.length > 1 ? 'Надані послуги: ' : 'Надана послуга: '"
+                ></dt>
+                <dd>
+                  <ul>
+                    <template
+                      x-for="(item, index) in project?.typeOfServices"
+                      :key="index"
+                    >
+                      <li x-text="item.name"></li>
+                    </template>
+                  </ul>
+                </dd>
+              </div>
+            </template>
 
-            <section class="gallery" x-show="project?.photo?.length">
-              <div class="gallery-wrapper">
-                <button @click="galleryData.prev()" class="arrow left" x-show="project?.photo?.length > 1 && galleryData?.activeIndex !== 0">&lt;</button>
+            <template x-if="project?.supplier?.length">
+              <div class="description-group">
+                <dt
+                  x-text="project?.supplier.length > 1 ? 'Замовники: ' : 'Замовник: '"
+                ></dt>
+                <dd>
+                  <ul>
+                    <template x-for="item in project?.supplier" :key="item._id">
+                      <li x-text="item.name"></li>
+                    </template>
+                  </ul>
+                </dd>
+              </div>
+            </template>
 
-                <div class="gallery-track" x-ref="track">
-                  <template x-for="(img, index) in galleryData.photos" :key="index">
-                    <img class="thumbnail" :src="img" :class="{'active': index === galleryData.activeIndex}"
-                      @click="galleryData.openModal(img)" />
-                  </template>
-                </div>
+            <div class="description-group">
+              <dt
+                x-text="project?.generalDesigner?.name ? 'Генпроектувальник: ' : ''"
+              ></dt>
+              <dd>
+                <a
+                  x-show="project?.generalDesigner"
+                  :href="project?.generalDesigner?.link"
+                  target="_blank"
+                  alt=""
+                >
+                  <span x-text="project?.generalDesigner?.name"></span>
+                </a>
+              </dd>
+            </div>
 
-                <button @click="galleryData.next()" class="arrow right"
-                  x-show="project?.photo?.length > 1 && galleryData?.activeIndex < (project?.photo?.length -1)">&gt;</button>
+            <div class="description-group">
+              <dt x-text="'Код категорії:'"></dt>
+              <dd x-text="project?.consequenceClass"></dd>
+            </div>
+            <div class="description-group">
+              <dt x-text="'Конструктив:'"></dt>
+              <dd x-text="project?.constructive"></dd>
+            </div>
+            <div class="description-group" x-show="project?.award">
+              <dt x-text="'Нагороди:'"></dt>
+              <dd x-text="project?.award"></dd>
+            </div>
+          </dl>
+
+          <!-- Partners -->
+          <!-- <template x-if="project?.partners?.length">
+              <div class="description-group">
+                <dt
+                  x-text="project?.partners.length > 1 ? 'Партнери по проекту: ' : 'Партнер по проекту: '"
+                ></dt>
+                <dd>
+                  <ul>
+                    <template x-for="item in project?.partners" :key="item._id">
+                      <li x-text="item.name"></li>
+                    </template>
+                  </ul>
+                </dd>
+              </div>
+            </template> -->
+
+          <div class="pdf-link">
+            <a
+              x-show="project?.linkDocuments"
+              :href="project?.linkDocuments"
+              target="_blank"
+              alt=""
+            >
+              <img src="/images/pdf_icon.jpg" width="30px" />
+              <span>Паспорт об'єкта</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!--Web and Gallery-->
+      <section class="light-grey" x-show="project?.photo?.length">
+        <div class="container">
+          <div class="gallery" x-show="project?.photo?.length">
+            <div class="gallery-wrapper">
+              <button
+                @click="galleryData.prev()"
+                class="arrow left"
+                x-show="galleryData.isSlaider"
+              >
+                &lt;
+              </button>
+
+              <div class="gallery-track" x-ref="track">
+                <template
+                  x-for="(img, index) in galleryData.isSlaider ? [...galleryData.photos, ...galleryData.photos, ...galleryData.photos] : galleryData.photos"
+                  :key="index"
+                >
+                  <img
+                    class="thumbnail"
+                    :src="img"
+                    :class="{'active': index === galleryData.activeIndex}"
+                    @click="galleryData.openModal(img)"
+                  />
+                </template>
               </div>
 
-              <template x-if="galleryData.activeImage">
-                <div class="modal" @click="galleryData.closeModal()">
-                  <div class="image-wrapper">
-                    <button @click.stop = 'galleryData.prev()' class="arrow left" x.show="project?.photo?.length > 1">&lt;</button>
-                    <img :src="galleryData.activeImage" />
-                    <button @click.stop = 'galleryData.next()' class="arrow right" x.show="project?.photo?.length > 1">&gt;</button>
-                  </div>
+              <button
+                @click="galleryData.next()"
+                class="arrow right"
+                x-show="galleryData.isSlaider"
+              >
+                &gt;
+              </button>
+            </div>
+
+            <template x-if="galleryData.activeImage">
+              <div class="modal" @click="galleryData.closeModal()">
+                <div class="image-wrapper">
+                  <button
+                    @click.stop="galleryData.prev()"
+                    class="arrow left"
+                    x.show="project?.photo?.length > 1"
+                  >
+                    &lt;
+                  </button>
+                  <img :src="galleryData.activeImage" />
+                  <button
+                    @click.stop="galleryData.next()"
+                    class="arrow right"
+                    x.show="project?.photo?.length > 1"
+                  >
+                    &gt;
+                  </button>
                 </div>
-              </template>
-
-            </section>
-
-
-          </section>
+              </div>
+            </template>
+          </div>
         </div>
+      </section>
 
-        <!-- Partners -->
-        <template x-if="project?.partners?.length">
-          <div class="container container-100">
-            <section class="partners p-40-50">
-              <h3>Партнери</h3>
-
+      <!-- Partners -->
+      <template x-if="project?.partners?.length">
+        <section>
+          <div class="container partners">
+            <h3>Партнери</h3>
+            <ul>
               <template x-for="p in project.partners" :key="p._id">
-                <div class="partners-items">
+                <li class="partners-items">
                   <a x-show="p.link" :href="p.link" target="_blank">
                     <div>
                       <img x-show="p.logo" :src="p.logo" />
                       <span x-text="p.name"></span>
                     </div>
                   </a>
-                </div>
+                </li>
               </template>
-            </section>
+            </ul>
           </div>
-        </template>
-    </section>
+        </section>
+      </template>
 
-    
-    <load src="./src/partials/projects-preview.html" />
+      <load src="./src/partials/projects-preview.html" />
       <load src="./src/partials/leaflet.html" />
+    </main>
 
-  </main>
-
-
-  <load src="./src/partials/footer.html" />
-  <script type="module" src="/src/main.ts"></script>
-</body>
-
+    <load src="./src/partials/footer.html" />
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
