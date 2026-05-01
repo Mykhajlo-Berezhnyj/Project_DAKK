@@ -20,62 +20,74 @@
 
       <!-- Hero -->
 
-      <section
-        class="hero container-100 grey"
-        :style="project?.cover 
-    ? `background-image: image-set(
-         url(${project.cover}?w=320&fm=webp) type('image/webp') 1x,
-         url(${project.cover}?w=640&fm=webp) type('image/webp') 2x,
-         url(${project.cover}?w=320&fm=jpeg) type('image/jpeg') 1x,
-         url(${project.cover}?w=640&fm=jpeg) type('image/jpeg') 2x
-       )` 
+      <section class="hero-section grey" x-cloak>
+        <div
+          x-show="project?.cover"
+          class="hero grey"
+          :style="project?.cover
+    ? `
+      --hero-mobile: image-set(
+        url(${project.cover}?w=320&fm=webp) type('image/webp') 1x,
+        url(${project.cover}?w=640&fm=webp) type('image/webp') 2x
+      );
+
+      --hero-tablet: image-set(
+        url(${project.cover}?w=768&fm=webp) type('image/webp') 1x,
+        url(${project.cover}?w=1536&fm=webp) type('image/webp') 2x
+      );
+
+      --hero-desktop: image-set(
+        url(${project.cover}?w=1400&fm=webp) type('image/webp') 1x,
+        url(${project.cover}?w=2800&fm=webp) type('image/webp') 2x
+      );
+    `
     : ''"
-      ></section>
-
-      <!-- Main Details -->
-      <section class="main-details grey">
-        <div class="container grey">
-          <div class="main-details-content">
-            <div class="main-details-content-1">
-              <h1 x-text="project?.projectName"></h1>
-              <ul class="meta-info">
-                <li x-text="project?.category?.name"></li>
-                <li x-text="project?.city?.name+ ', '+project?.country"></li>
-              </ul>
-            </div>
-
-            <dl class="main-details-content-2">
-              <div class="description-group">
-                <dt x-text="project?.area ? 'Площа:' : ''"></dt>
-                <dd x-text="project?.area ? project.area + ' м²' : ''"></dd>
+        ></div>
+        <!-- Main Details -->
+        <div class="main-details container grey">
+          <div class="grey">
+            <div class="main-details-content">
+              <div class="main-details-content-1">
+                <h1 x-text="project?.projectName"></h1>
+                <ul class="meta-info">
+                  <li x-text="project?.category?.name"></li>
+                  <li x-text="project?.city?.name+ ', '+project?.country"></li>
+                </ul>
               </div>
 
-              <div class="description-group">
-                <dt x-text="project?.timeline ? 'Рік роботи:' : ''"></dt>
-                <dd
-                  x-text="project?.timeline
+              <dl class="main-details-content-2">
+                <div class="description-group">
+                  <dt x-text="project?.area ? 'Площа:' : ''"></dt>
+                  <dd x-text="project?.area ? project.area + ' м²' : ''"></dd>
+                </div>
+
+                <div class="description-group">
+                  <dt x-text="project?.timeline ? 'Рік роботи:' : ''"></dt>
+                  <dd
+                    x-text="project?.timeline
                   ? (project.timeline.yearStart && project.timeline.yearEnd
                   ? project.timeline.yearStart + ' - ' + project.timeline.yearEnd
                   : (project.timeline.yearStart ?? project.timeline.yearEnd))
                   : ''"
-                ></dd>
-              </div>
+                  ></dd>
+                </div>
 
-              <div class="description-group">
-                <dt x-text="project?.status ? 'Статус:' : ''"></dt>
-                <dd
-                  x-text="project?.status ? statusLang.find(s => s.key === project?.status)?.label[$store.locale.current] : ''"
-                ></dd>
-              </div>
-            </dl>
+                <div class="description-group">
+                  <dt x-text="project?.status ? 'Статус:' : ''"></dt>
+                  <dd
+                    x-text="project?.status ? statusLang.find(s => s.key === project?.status)?.label[$store.locale.current] : ''"
+                  ></dd>
+                </div>
+              </dl>
 
-            <a
-              class="project-link"
-              x-show="project?.siteUrl"
-              :href="project?.siteUrl"
-            >
-              Перейти на сайт проекту: <span x-text="project?.siteUrl"></span>
-            </a>
+              <a
+                class="project-link"
+                x-show="project?.siteUrl"
+                :href="project?.siteUrl"
+              >
+                Перейти на сайт проекту: <span x-text="project?.siteUrl"></span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -92,7 +104,7 @@
       <!-- Deatils -->
       <section class="tech-details">
         <div class="container tech-container">
-          <h3 x-text="'Технічна інформація'" class="tech-title"></h3>
+          <h2 x-text="'Технічна інформація'" class="tech-title"></h2>
           <dl class="details-1">
             <template x-if="project?.typeOfServices?.length">
               <div class="description-group">
@@ -157,22 +169,6 @@
             </div>
           </dl>
 
-          <!-- Partners -->
-          <!-- <template x-if="project?.partners?.length">
-              <div class="description-group">
-                <dt
-                  x-text="project?.partners.length > 1 ? 'Партнери по проекту: ' : 'Партнер по проекту: '"
-                ></dt>
-                <dd>
-                  <ul>
-                    <template x-for="item in project?.partners" :key="item._id">
-                      <li x-text="item.name"></li>
-                    </template>
-                  </ul>
-                </dd>
-              </div>
-            </template> -->
-
           <div class="pdf-link">
             <a
               x-show="project?.linkDocuments"
@@ -180,7 +176,7 @@
               target="_blank"
               alt=""
             >
-              <img src="/images/pdf_icon.jpg" width="30px" />
+              <img src="/images/pdf_icon.webp" width="30px" />
               <span>Паспорт об'єкта</span>
             </a>
           </div>
@@ -190,6 +186,7 @@
       <!--Web and Gallery-->
       <section class="light-grey" x-show="project?.photo?.length">
         <div class="container">
+          <h2 x-text="'Фото об\'єкту'"></h2>
           <div class="gallery" x-show="project?.photo?.length">
             <div class="gallery-wrapper">
               <button
@@ -207,8 +204,11 @@
                 >
                   <img
                     class="thumbnail"
-                    :src="img"
-                    :class="{'active': index === galleryData.activeIndex}"
+                    class="thumbnail"
+                    :src="`${img}?w=320&fm=webp&q=80`"
+                    :srcset="`${img}?w=320&fm=webp&q=80 1x,
+                              ${img}?w=640&fm=webp&q=80 2x`"
+                    :class="{'active': index === galleryData.activeIndex+1}"
                     @click="galleryData.openModal(img)"
                   />
                 </template>
@@ -229,15 +229,22 @@
                   <button
                     @click.stop="galleryData.prev()"
                     class="arrow left"
-                    x.show="project?.photo?.length > 1"
+                    x-show="project?.photo?.length > 1"
                   >
                     &lt;
                   </button>
-                  <img :src="galleryData.activeImage" />
+                  <img
+                    :src="`${galleryData.activeImage}?w=1200&fm=webp&q=85`"
+                    :srcset="`${galleryData.activeImage}?w=800&fm=webp&q=85 800w,
+                              ${galleryData.activeImage}?w=1200&fm=webp&q=85 1200w,
+                              ${galleryData.activeImage}?w=1800&fm=webp&q=85 1800w
+                            `"
+                    sizes="90vw"
+                  />
                   <button
                     @click.stop="galleryData.next()"
                     class="arrow right"
-                    x.show="project?.photo?.length > 1"
+                    x-show="project?.photo?.length > 1"
                   >
                     &gt;
                   </button>
@@ -252,16 +259,21 @@
       <template x-if="project?.partners?.length">
         <section>
           <div class="container partners">
-            <h3>Партнери</h3>
+            <h2>Партнери</h2>
             <ul>
               <template x-for="p in project.partners" :key="p._id">
                 <li class="partners-items">
-                  <a x-show="p.link" :href="p.link" target="_blank">
-                    <div>
-                      <img x-show="p.logo" :src="p.logo" />
-                      <span x-text="p.name"></span>
-                    </div>
-                  </a>
+                  <article>
+                    <img x-show="p.logo" :src="p.logo" />
+                    <h3 x-text="p.name"></h3>
+                    <p x-text="'Адреса:' + p.location"></p>
+                    <a
+                      :href="p.link"
+                      x-text="'Веб-сайт:' + p.link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    ></a>
+                  </article>
                 </li>
               </template>
             </ul>

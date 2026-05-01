@@ -34,6 +34,7 @@ export function loadSingleProject() {
         this.galleryData.setPhotos(this.project.photo);
         console.log("photos:", this.project?.photo);
       }
+      window.scrollTo({top:60, behavior: 'auto'})
     },
 
     async load() {
