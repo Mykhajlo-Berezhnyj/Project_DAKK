@@ -37,7 +37,7 @@
     <button
       class="actionsButton"
       @click="sendAlarm()"
-      x-show="!!identityUser()"
+      x-show="!!user?.name?.trim() && !!user?.phone?.trim()"
       :disabled="!alarm.active || requestId"
       :class="!alarm.active ? 'disabled' : ''"
     >
@@ -128,7 +128,7 @@
           Форма зворотного зв'язку
         </h2>
         <p
-          x-text="mode==='chat' ? 'Щоб розпочати чат вкажіть ваші дані' : (user.email && user.phone) ? 'Перевітре свої дані для зв\'язку' : 'Вкажіть ваші дані для зв\'язку з вами'"
+          x-text="mode==='chat' ? 'Щоб розпочати чат вкажіть ваші дані' : (user?.email && user?.phone) ? 'Перевітре свої дані для зв\'язку' : 'Вкажіть ваші дані для зв\'язку з вами'"
         ></p>
       </div>
       <div>

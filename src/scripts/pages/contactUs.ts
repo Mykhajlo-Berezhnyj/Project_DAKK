@@ -1,5 +1,4 @@
 import { Crisp } from "crisp-sdk-web";
-import { CASHE_TTL } from "../service/getCashed";
 import { getStorage } from "../utils/getStorage";
 import { setStorage } from "../utils/setStorage";
 
@@ -51,7 +50,7 @@ interface ContactUs {
   validationForm: () => boolean;
   submitForm: () => void;
   sendForm: (alarm?: boolean, retry?: number) => void;
-  identityUser: () => Partial<User> | null;
+  identityUser: () => Partial<User>;
   refreshUser: () => void;
   getUserThisCrisp: () => Partial<UserBase> | null;
   getAlarm: () => boolean;
@@ -184,6 +183,7 @@ export function contactUs(): ContactUs {
         Crisp.chat.show();
         this.formOpen = false;
         this.openCrisp();
+        Crisp.chat.open();
       }
       this.requestId = Date.now();
 
@@ -266,6 +266,7 @@ export function contactUs(): ContactUs {
         if (retry === 0) {
           Crisp.chat.show();
           this.openCrisp();
+          Crisp.chat.open();
           this.error = alarm
             ? "Не вдалося відправити дзвінок оператору, залишайтеся в чаті, попробуйте пізніше"
             : "Не вдалося відправити форму, тому ми перевели вас у чат для зв’язку з нами.";
@@ -281,14 +282,20 @@ export function contactUs(): ContactUs {
         }
         console.log("🚀 ~ contactUs ~ .this.requestId:", this.requestId);
       } finally {
+        this.openCrisp();
         if (retry === 0) {
           this.actionsOpen = false;
           this.formOpen = false;
           const reversFromCashe = getStorage("contact-revers");
           if (reversFromCashe && typeof reversFromCashe === "boolean") {
-            return (this.revers = reversFromCashe);
+            this.revers = reversFromCashe
+              ? reversFromCashe
+              : this.mode === "chat"
+                ? false
+                : true;
           }
-          this.mode === "chat" && (this.revers = false);
+          if (this.mode === "chat") {
+          }
         }
       }
       this.isloading = false;
@@ -346,25 +353,17 @@ export function contactUs(): ContactUs {
     },
 
     identityUser() {
-      if (
-        this.user.name.trim() !== "" &&
-        this.user.phone.trim() !== "" &&
-        Date.now() - this.user.timeLastActive < CASHE_TTL
-      ) {
+      if (this.user.name.trim() !== "" && this.user.phone.trim() !== "") {
         return this.user;
       } else {
-        const user = getStorage("contact-user") as User;
+        const user = getStorage("contact-user") as Partial<User> | null;
         console.log("🚀 ~ contactUs getStorage ~ user:", user);
-        if (
-          typeof user?.timeLastActive === "number" &&
-          Date.now() - user?.timeLastActive < CASHE_TTL
-        ) {
-          this.user = user;
-          return user;
+        if (!!user?.name?.trim() && !!user?.phone?.trim()) {
+          this.user = { ...this.user, ...user };
+          return this.user;
         } else {
-          localStorage.removeItem("contact-user");
           const user = this.getUserThisCrisp();
-          if (!user) return null;
+          if (!user) return this.user;
           this.user = { ...this.user, ...user };
           return this.user;
         }
@@ -378,8 +377,13 @@ export function contactUs(): ContactUs {
         phone: Crisp.user.getPhone() || "",
       };
       console.log("getUserThisCrisp ~user:", user);
+      console.log("getUserThisCrisp ~ser?.name?.trim():", user?.name?.trim());
+      console.log(
+        "getUserThisCrisp ~ser?.phone?.trim():",
+        !!user?.phone?.trim(),
+      );
 
-      if (user.name?.trim() && user.phone?.trim()) {
+      if (!!user?.name?.trim() && !!user?.phone?.trim()) {
         return user;
       } else {
         return null;
@@ -389,12 +393,10 @@ export function contactUs(): ContactUs {
     refreshUser() {
       const user = this.identityUser();
       console.log("🚀 ~ contactUs~refreshUser ~ user:", user);
-      if (!user) return;
+      if (!user.name?.trim() && user.phone?.trim()) return;
 
-      if (user.name?.trim() && user.phone?.trim()) {
-        this.user = { ...this.user, ...user, timeLastActive: Date.now() };
-        setStorage("contact-user", this.user);
-      }
+      this.user = { ...this.user, ...user, timeLastActive: Date.now() };
+      setStorage("contact-user", this.user);
     },
 
     openChat() {
@@ -406,7 +408,7 @@ export function contactUs(): ContactUs {
         "🚀 ~ contactUs ~  this.user.timeLastActive:",
         this.user.timeLastActive,
       );
-      if (!user) {
+      if (!user.name && !user.phone) {
         this.formOpen = true;
       } else if (Date.now() - this.user.timeLastActive > 2 * 60 * 60 * 1000) {
         this.formOpen = true;
@@ -496,7 +498,6 @@ export function contactUs(): ContactUs {
         email: emailLocal,
         message: this.message,
       });
-      Crisp.chat.open();
     },
 
     adaptiveClick() {
