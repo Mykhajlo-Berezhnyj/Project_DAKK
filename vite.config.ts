@@ -43,6 +43,7 @@ export default defineConfig({
         "news-single": resolve(__dirname, "news-single.html"),
         videos: resolve(__dirname, "videos.html"),
         contacts: resolve(__dirname, "contacts.html"),
+        "404": resolve(__dirname, "404.html"),
       },
     },
   },
@@ -53,6 +54,24 @@ export default defineConfig({
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
           if (!req.url) return next();
+
+          if (
+            req.url.startsWith("./") ||
+            req.url.startsWith("/")
+            // req.url.startsWith("/@vite") ||
+            // req.url.startsWith("/node_modules/") ||
+            // req.url.startsWith("/src/") ||
+            // req.url.includes(".js") ||
+            // req.url.includes(".css") ||
+            // req.url.includes(".png") ||
+            // req.url.includes(".jpg") ||
+            // req.url.includes(".svg") ||
+            // req.url.includes(".webp") ||
+            // req.url.includes(".html")
+          ) {
+            return next();
+          }
+
           const pathname = req.url.split("?")[0].replace(/\/$/, "") || "/";
 
           const staticRoute = ROUTES.find((r) => r.match.includes(pathname));
@@ -88,11 +107,9 @@ export default defineConfig({
               req.url = dynamic.depth3;
               return next();
             }
-            // res.writeHead(302, { Location: `/${dynamic.segment}` });
-            // res.end();
-            // return;
           }
-         return next();
+          req.url = "/404.html";
+          return next();
         });
       },
     },

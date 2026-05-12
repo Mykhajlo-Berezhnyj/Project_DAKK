@@ -1,0 +1,27 @@
+<section class="video-page">
+  <div class="container">
+    <ul class="videos-list">
+      <template x-data x-for="data in $store.videos.items" :key="data._id">
+        <li class="videos-item">
+          <button
+            class="videos-card-btn"
+            type="button"
+            @click="$store.videos.openModal(data._id)"
+          >
+            <article class="videos-card">
+              <img
+                class="videos-img"
+                :src="data.cover"
+                :alt="data.title"
+                referrerpolicy="no-referrer"
+                width="300"
+                loading="lazy"
+              />
+              <p class="videos-title" x-text="data.title"></p>
+            </article>
+          </button>
+        </li>
+      </template>
+    </ul>
+  </div>
+</section>

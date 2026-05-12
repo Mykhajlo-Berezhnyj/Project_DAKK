@@ -1,0 +1,85 @@
+@import "../components/videoModal.css";
+
+.video-main-title {
+  text-align: center;
+}
+
+.video-page {
+  text-align: center;
+}
+
+.videos-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.videos-item {
+  flex-basis: 100%;
+}
+
+.videos-card-btn {
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  display: block;
+  transition: transform 0.2s ease-in-out;
+}
+
+.videos-card-btn:hover .videos-card,
+.videos-card-btn:focus .videos-card {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.videos-card {
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.videos-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.videos-title {
+  margin: 0;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  color: var(--clr-bg-dark);
+  line-height: 1.3;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+/*------------------ Tablet styles----------------- */
+
+@media (min-width: 768px) {
+  .videos-item {
+    flex-basis: calc((100% - 24px) / 2);
+  }
+}
+
+/*------------------ Desc styles----------------- */
+
+@media (min-width: 1024px) {
+  .videos-item {
+    flex-basis: calc((100% - 48px) / 3);
+  }
+}

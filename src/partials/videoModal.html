@@ -1,0 +1,36 @@
+<div
+  x-data
+  x-cloak
+  x-show="$store.videos.isItemOpened"
+  x-transition.opacity
+  @keydown.escape.window="$store.videos.closeModal()"
+  class="v-modal-overlay"
+>
+  <div class="v-modal-backdrop" @click="$store.videos.closeModal()"></div>
+
+  <div class="v-modal-container">
+    <button
+      class="v-modal-close-btn"
+      @click="$store.videos.closeModal()"
+      type="button"
+    >
+      X
+    </button>
+
+    <div class="v-modal-video-wrapper">
+      <template x-if="$store.videos.isItemOpened && $store.videos.openedVideo">
+        <iframe
+          class="v-modal-iframe"
+          :src="$store.videos.embedUrl"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </template>
+    </div>
+
+    <div class="v-modal-info">
+      <h3 class="v-modal-title" x-text="$store.videos.openedVideo?.title"></h3>
+    </div>
+  </div>
+</div>

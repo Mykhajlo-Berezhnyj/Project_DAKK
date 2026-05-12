@@ -1,0 +1,134 @@
+/* --- ABOUT SECTION STYLES --- */
+
+.about {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background-color: var(--clr-bg-block);
+}
+
+.about__hero {
+  max-width: 800px;
+  margin-bottom: 80px;
+}
+
+.about__title {
+  margin-bottom: 30px;
+}
+
+.about__lead {
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--clr-text-main);
+  font-weight: var(--fw-medium);
+}
+
+/* Grid for Mission and Security */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-bottom: 80px;
+}
+
+@media (min-width: 1024px) {
+  .about__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.about__item {
+  padding: 40px;
+  background-color: var(--clr-bg-main);
+}
+
+.about__item--accent {
+  border-left: 4px solid var(--clr-accent);
+}
+
+.about__subtitle {
+  margin-bottom: 20px;
+}
+
+/* Wide block with columns */
+.about__wide-block {
+  margin-bottom: 80px;
+}
+
+.about__text-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  .about__text-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Tech List Styles */
+.about__list {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.about__list li {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--clr-divider);
+  font-size: 18px;
+}
+
+.about__list li strong {
+  color: var(--clr-accent);
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Quote Section */
+.about__quote {
+  margin: 80px 0;
+  padding: 60px;
+  background-color: var(--clr-bg-dark);
+  color: var(--clr-white);
+  text-align: center;
+}
+
+.about__quote p {
+  font-family: var(--font-headers);
+  font-size: 28px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Facts Cards */
+.about__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.fact-card {
+  padding: 30px;
+  background: var(--clr-bg-main);
+  text-align: center;
+  transition: transform var(--transition);
+}
+
+.fact-card:hover {
+  transform: translateY(-5px);
+}
+
+.fact-card span {
+  display: block;
+  font-family: var(--font-headers);
+  font-size: 32px;
+  font-weight: var(--fw-bold);
+  color: var(--clr-accent);
+  margin-bottom: 10px;
+}
+
+.fact-card p {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

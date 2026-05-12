@@ -6,19 +6,21 @@ import { setLocaleUrl } from "./scripts/utils/setLocaleUrl";
 import intersect from "@alpinejs/intersect";
 import type { Lang, LocaleStore } from "./scripts/type/lang";
 import { renderMenu } from "./scripts/core/menu";
+import { contactUs } from "./scripts/pages/contactUs";
 
 interface PageModule {
   init: () => void;
 }
 
 const routes: Record<string, () => Promise<PageModule>> = {
-  // map: () => import("./scripts/pages/map"),
+  notFound: () => import("./scripts/pages/notFound"),
   home: () => import("./scripts/pages/home"),
   news: () => import("./scripts/pages/news"),
   projects: () => import("./scripts/pages/projects"),
   video: () => import("./scripts/pages/video"),
   "project-single": () => import("./scripts/pages/project-single"),
   "projects-category": () => import("./scripts/pages/projects-category"),
+  about: () => import("./scripts/pages/about"),
 };
 
 const page = document.body.dataset.page;
@@ -38,6 +40,7 @@ if (page && routes[page]) {
 
 Alpine.data("localization", localization);
 Alpine.data("renderMenu", renderMenu);
+Alpine.data("contactUs", contactUs);
 
 Alpine.plugin(intersect);
 

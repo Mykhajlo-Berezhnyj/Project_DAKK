@@ -110,3 +110,7 @@ img {
 ul {
   list-style: none;
 }
+
+[x-cloak] {
+  display: none;
+}

@@ -1,0 +1,202 @@
+<section
+  class="contactUs"
+  x-data="{...contactUs(), settingsOpen: false}"
+  x-cloak
+  @click.outside="actionsOpen=false; settingsOpen=false;"
+  x-show="initialized"
+>
+  <button
+    class="btn-contact"
+    @click="adaptiveClick()"
+    ;
+    @touchstart="startPress"
+    ;
+    @touchend="endPress"
+    @touchcancel="endPress"
+  >
+    <svg width="35" height="30">
+      <use xlink:href="/images/sprite.svg#contactsUs">Звя'затися з нами</use>
+    </svg>
+  </button>
+  <div class="actions" x-show="actionsOpen">
+    <button class="close" @click="actionsOpen=false">
+      <svg width="24" height="24">
+        <use xlink:href="/images/sprite.svg#x"></use>
+      </svg>
+    </button>
+    <button class="actionsButton" :disabled="requestId" @click="sendContact()">
+      <span x-show="requestId && mode!=='alarm'">
+        <svg :class="{'load': isloading}" width="20" height="20">
+          <use xlink:href="/images/sprite.svg#loader"></use>
+        </svg>
+      </span>
+      <span
+        x-text="mode!=='alarm' && requestId ? 'Повторна спроба надсилання повідомлення...': '📞 Залишити контакти для зв\'язку'"
+      ></span>
+    </button>
+    <button
+      class="actionsButton"
+      @click="sendAlarm()"
+      x-show="!!identityUser()"
+      :disabled="!alarm.active || requestId"
+      :class="!alarm.active ? 'disabled' : ''"
+    >
+      <span x-show="requestId && mode==='alarm'">
+        <svg :class="{'load': isloading}" width="20" height="20">
+          <use xlink:href="/images/sprite.svg#loader"></use>
+        </svg>
+      </span>
+      <span
+        x-text="mode==='alarm' && requestId ? '🔔 Будимо оператора' : alarm.active ? '🔔 Розбудити оператора' : `Дайте оператору поспати ще ${alarm.timing} секунд`"
+        >🔔 Розбудити оператора</span
+      >
+    </button>
+    <button
+      class="actionsButton"
+      @click="togleChat()"
+      x-text="chatOpened? '❌ Закрити чат' : '💬 Відкрити чат'"
+    >
+      💬 Відкрити чат
+    </button>
+    <button
+      class="btnSettings"
+      @click="settingsOpen=!settingsOpen; console.log('settingsOpen.',  settingsOpen);"
+    >
+      <svg width="24" height="24" class="icon-settings">
+        <use xlink:href="/images/sprite.svg#settings"></use>
+      </svg>
+      Налаштування
+    </button>
+    <form x-show="settingsOpen" class="settings">
+      <button type="button" class="close" @click="settingsOpen=false">
+        <svg width="24" height="24">
+          <use xlink:href="/images/sprite.svg#x"></use>
+        </svg>
+      </button>
+      <fieldset>
+        <legend>Виберіть налаштування для кнопки контакту</legend>
+        <label>
+          <input
+            type="radio"
+            name="revers"
+            value="false"
+            @change="revers=false"
+            :checked="revers ===false"
+            x-model="revers"
+          />
+          Коротке натискання відкриває/закриває чат, довге натисканя
+          відкриває/закриває меню
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="revers"
+            value="true"
+            @change="revers=true"
+            :checked="revers===true"
+            x-model="revers"
+          />
+          Коротке натискання відкриває/закриває меню, довге натисканя
+          відкриває/закриває чат
+        </label>
+      </fieldset>
+      <button
+        type="button"
+        class="actionsButton btnSave"
+        @click="settingsOpen=false; saveRevers(); actionsOpen=false"
+      >
+        <svg width="24" height="24" class="icon-settings">
+          <use xlink:href="/images/sprite.svg#save"></use>
+        </svg>
+        Зберегти
+      </button>
+    </form>
+  </div>
+  <div class="modal-form" x-show="formOpen">
+    <form
+      class="contacts-form"
+      @submit.prevent="submitForm()"
+      @click.outside="formOpen=false"
+    >
+      <button type="button" class="close" @click="formOpen=false">
+        <svg width="24" height="24">
+          <use xlink:href="/images/sprite.svg#x">Звя'затися з нами</use>
+        </svg>
+      </button>
+      <div class="formHeader">
+        <h2 x-text="mode==='chat' ? 'Почати розмову' : 'Контактна форма' ">
+          Форма зворотного зв'язку
+        </h2>
+        <p
+          x-text="mode==='chat' ? 'Щоб розпочати чат вкажіть ваші дані' : (user.email && user.phone) ? 'Перевітре свої дані для зв\'язку' : 'Вкажіть ваші дані для зв\'язку з вами'"
+        ></p>
+      </div>
+      <div>
+        <label for="name">Ваше ім’я</label>
+        <input
+          type="text"
+          id="name"
+          x-model.trim="user.name"
+          placeholder="Ваше ім’я"
+          @input="validationForm()"
+        />
+        <span
+          class="errorForm"
+          x-text="errorsForm.name? errorsForm.name : ''"
+        ></span>
+      </div>
+      <div x-show="mode==='chat'">
+        <label for="phone">Вкажіть email</label>
+        <input
+          type="email"
+          id="email"
+          @input="user.email=user.email.trim().replace(/\s+/g, '').replace(/[^A-Za-z0-9@._+\-]/g, ''); validationForm()"
+          x-model="user.email"
+        />
+        <span
+          class="errorForm"
+          x-text="errorsForm.email ? errorsForm.email : ''"
+        ></span>
+      </div>
+      <div>
+        <label for="phone">Вкажіть номер телефону</label>
+        <input
+          type="tel"
+          @input="user.phone = user.phone.replace(/(?!^)\+/g, '').replace(/[^\d+]/g, '').replace(/^380/, '+380').replace(/^\+0/, '0'); validationForm()"
+          id="phone"
+          x-model="user.phone"
+        />
+        <span
+          class="errorForm"
+          x-text="errorsForm.phone ? errorsForm.phone : ''"
+        ></span>
+      </div>
+      <div x-show="mode==='call'">
+        <label for="message">Напишіть ваше питання</label>
+        <textarea id="message" x-model="message"></textarea>
+      </div>
+      <span
+        class="errorForm"
+        x-text="!errorsForm.name && !errorsForm.email && !errorsForm.phone ? '' : 'Перевіре правильність заповнення форми і виправте всі помилки перед відправкою'"
+      ></span>
+      <button
+        type="submit"
+        :disabled="isloading || !validationForm()"
+        class="btnSend"
+      >
+        <svg :class="{'load': isloading}" width="24" height="24">
+          <use xlink:href="/images/sprite.svg#telegram"></use>
+        </svg>
+        <span
+          x-text="isloading ? `${t(projectsData.sending)}...` : `${t(projectsData.send)}` "
+        ></span>
+      </button>
+    </form>
+  </div>
+  <p
+    class="info"
+    :class="error ? 'error' : ''"
+    x-text="messageOk ? messageOk :  '❌' + error"
+    x-show="messageOk || error"
+  ></p>
+</section>

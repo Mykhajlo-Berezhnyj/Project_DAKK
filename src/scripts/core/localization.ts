@@ -5,12 +5,14 @@ import { statusLang } from "../../data/dictionary/statusLang";
 import { DEFAULT_LANG, SUPPORTED_LANG } from "../../data/lang";
 import { SORT_OPTIONS } from "../../data/sortOptions";
 import { indexData } from "../../data/dictionary/indexData";
+import { aboutData } from "../../data/dictionary/aboutData";
 
 export function localization() {
   return {
     projectsData,
     statusLang,
     SORT_OPTIONS,
+    aboutData,
     indexData,
 
     t(field: Field) {

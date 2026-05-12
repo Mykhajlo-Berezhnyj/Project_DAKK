@@ -4,7 +4,7 @@ import { NEWS_QUERY } from "../service/query";
 import type { NewsStore } from "../type/news";
 import { newsTmpData } from "../../data/news/news-tmp";
 import { initNewsStore } from "../../stores/initNewsStore";
-import { getUrl, validationNew } from "./news-single";
+import { validationNew } from "./news-single";
 
 const MAX_SYMBOLS_TO_SHOW = 150;
 
@@ -12,10 +12,10 @@ const newsSectionEl = document.querySelector(".section-news");
 
 export const newsStore: NewsStore = {
   items: [],
-  page: { current: 0, pageLength: 10 },
-  isItemOpened: false,
-  openedItemId: null,
+  page: 1,
+  perPage: 3,
   isLoading: false,
+  curentNew: null,
 
   getNews() {
     return this.items;
@@ -23,17 +23,31 @@ export const newsStore: NewsStore = {
   setNews(newsArr) {
     this.items = [...newsArr];
   },
-  getCurrentPublication() {
-    return this.openedItemId;
+
+  getCurrentNew() {
+    return this.curentNew;
   },
-  setCurrentPublication(id: string | null) {
-    this.openedItemId = id;
+
+  setCurrentNew(post) {
+    this.curentNew = this.items.find((i) => i.slug === post.slug) ?? null;
+    scrollToTopOfPublication();
   },
-  getPublicationStatus() {
-    return this.isItemOpened;
+
+  resetCurrentNew() {
+    this.curentNew = null;
+    scrollToTopOfPublication();
   },
-  setPublicationStatus(isOpened: boolean) {
-    this.isItemOpened = isOpened;
+
+  get visible() {
+    return this.items.slice(0, this.page * this.perPage);
+  },
+
+  get hasMore() {
+    return this.items.length > this.page * this.perPage;
+  },
+
+  loadMore() {
+    this.page++;
   },
 };
 
@@ -66,15 +80,6 @@ export function init() {
 
 export function cutTextFn(text: string, length: number = MAX_SYMBOLS_TO_SHOW) {
   return text.length <= length ? text : text.slice(0, length) + " ...";
-}
-
-export function setPublication(id: string) {
-  const newsStore = Alpine.store("news") as NewsStore;
-
-  newsStore.setCurrentPublication(id);
-  newsStore.setPublicationStatus(true);
-  scrollToTopOfPublication();
-  getUrl(id);
 }
 
 export function scrollToTopOfPublication(): void {

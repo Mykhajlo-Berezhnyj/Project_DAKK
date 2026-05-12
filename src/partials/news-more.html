@@ -8,7 +8,7 @@
       <li class="news-more-gallery-item">
         <button
           type="button"
-          @click="setPublication(pub._id)"
+          @click="$store.news.setCurrentNew(pub), window.history.pushState({}, '', `/news/${pub.slug}`)"
           class="news-more-btn"
         >
           <article class="news-more-item">
@@ -32,7 +32,7 @@
   </ul>
   <button
     type="button"
-    @click="resetPost(), window.history.pushState({}, '', '/news')"
+    @click="$store.news.resetCurrentNew(), window.history.pushState({}, '', '/news')"
     class="news-more-btn-back"
   >
     Ще публікації

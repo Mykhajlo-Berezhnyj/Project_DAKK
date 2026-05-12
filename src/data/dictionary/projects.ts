@@ -103,6 +103,10 @@ export const projectsData = {
     uk: "сторінку новин через",
     en: "news page after",
   },
+  homePage: {
+    uk: "головну сторінку через",
+    en: "home page after",
+  },
   more: {
     uk: "Більше проектів",
     en: "More projects",
@@ -131,4 +135,12 @@ export const projectsData = {
     uk: "Оберіть категорію, щоб переглянути відповідні проєкти.",
     en: "Select a category to view relevant projects.",
   },
+  send: {
+    uk: "Надіслати",
+    en: "Send",
+  },
+  sending: {
+    uk: "Надсилаємо",
+    en: "Sending",
+  }
 };

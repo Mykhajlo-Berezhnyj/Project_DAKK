@@ -1,23 +1,10 @@
 <!doctype html>
 <html lang="uk" :lang="$store.locale.current" x-data="localization">
   <head>
-    <meta http-equiv="refresh" content="0; url=./index.html" />
+    <meta charset="UTF-8" />
   </head>
-  <body>
-    <main
-      style="
-        display: flex;
-        height: 100vh;
-        justify-content: space-around;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-      "
-    >
-      <h1 style="font-size: 100px">404</h1>
-      <h2 style="font-size: 48px" x-text="t(projectsData['404'])">
-        Не знайдено
-      </h2>
-    </main>
+  <body data-page="notFound">
+    <main></main>
   </body>
+  <script type="module" src="/src/main.ts"></script>
 </html>

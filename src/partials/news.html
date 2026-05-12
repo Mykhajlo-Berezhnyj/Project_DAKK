@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container" x-data="$store.news" x-cloak>
   <h2 class="news-title">Новини</h2>
   <ul x-show="$store.news.items.length>0" class="news-gallery">
-    <template x-data="news" x-for="pub in $store.news.items" :key="pub._id">
+    <template x-data="news" x-for="pub in visible" :key="pub._id">
       <li class="news-gallery-item">
         <button
           type="button"
-          @click="setPublication(pub._id)"
+          @click="$store.news.setCurrentNew(pub), window.history.pushState({}, '', `/news/${pub.slug}`)"
           class="publication-btn"
         >
           <article class="news-item">
@@ -31,4 +31,11 @@
       </li>
     </template>
   </ul>
+  <div
+    x-intersect.enter="$store.news.hasMore && $store.news.loadMore(), console.log('intersect')"
+  >
+    <span x-show="$store.news.isLoading"
+      >Завантажуємо.....Почекайте будь-ласка
+    </span>
+  </div>
 </div>

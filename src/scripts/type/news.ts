@@ -11,19 +11,22 @@ export interface New {
 
 export interface NewsStore {
   items: New[] | [];
-  page: {
-    current: number;
-    pageLength: number;
-  };
-  isItemOpened: boolean;
-  openedItemId: string | null;
-
+  page: number;
+  perPage: number;
+  curentNew: New | null;
   isLoading: boolean;
 
   getNews: () => New[] | [];
   setNews: ([]) => void;
-  getCurrentPublication: () => string | null;
-  setCurrentPublication: (id: string | null) => void;
-  getPublicationStatus: () => boolean;
-  setPublicationStatus: (isOpened: boolean) => void;
+  getCurrentNew: () => New | null;
+  setCurrentNew: (post: New) => void;
+  resetCurrentNew: () => void;
+  loadMore: () => void;
+  get visible(): New[] | [];
+  get hasMore(): boolean;
+
+  // getCurrentPublication: () => string | null;
+  // setCurrentPublication: (id: string | null) => void;
+  // getPublicationStatus: () => boolean;
+  // setPublicationStatus: (isOpened: boolean) => void;
 }
