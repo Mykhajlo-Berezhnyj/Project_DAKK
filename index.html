@@ -27,14 +27,39 @@
           <div class="video-overlay"></div>
           <div
             class="content"
-            x-data="{ phrases: ['Проектуємо простір', 'Створюємо майбутнє', 'Архітектура нового покоління'], current: 0, show: true }"
-            x-init="setInterval(() => { show = false; setTimeout(() => { current = (current + 1) % phrases.length; show = true; }, 500) }, 3000)"
+            x-data="{ phrases: [], current: 0, show: true, active: false, 
+              cycle() {
+              if (this.active) return;
+              this.show = false;
+              this.active = true;
+              setTimeout(() => { 
+                this.current = (this.current + 1) % this.phrases.length;
+                 this.show = true;
+                 this.active= false;
+                 setTimeout(() => {
+                  this.cycle();
+                 }, 2500)
+
+                }, 3500) },
+             init() {
+               this.updatePhrases();
+              this.$watch('$store.locale.current', ()=>this.updatePhrases())
+              this.cycle();
+            },
+             updatePhrases() {
+              this.phrases = [t(indexData.phrase1), t(indexData.phrase2), t(indexData.phrase3)]
+           },
+            destroy() {
+              this.active=false;
+            } }"
+            x-init="init()"
+            @destroy="destroy()"
           >
             <p
               class="phrase-item"
               x-text="phrases[current]"
               x-show="show"
-              x-transition.opacity.duration.500ms
+              x-transition.opacity.duration.2500ms
             ></p>
           </div>
         </div>

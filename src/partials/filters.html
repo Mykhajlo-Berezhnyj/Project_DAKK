@@ -50,7 +50,7 @@
           class="input-select"
           :class="{activeCategory: category}"
           :aria-pressed="category ? 'true' : 'false'"
-          @click="open=!open; console.log('category', category)"
+          @click="open=!open"
           :aria-label="t(projectsData.tiltup)"
           :title="t(projectsData.tiltup)"
           x-effect="document.body.style.overflow = open ? 'hidden' : ''"

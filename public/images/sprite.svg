@@ -90,6 +90,9 @@
         <circle cx="120" cy="120" r="120" fill="#0088cc"/>
         <path d="M50 120l135-52c6-2 11 2 9 8l-23 108c-2 8-7 10-14 6l-38-28-19 19c-3 3-6 4-9 4l4-42 77-69c3-3 0-5-4-3l-95 60-40-13c-9-3-9-10 2-14z" fill="#fff"/>
     </symbol>
+    <symbol id="email" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M2 4h20v16H2V4zm2 2v.01L12 13l8-7v-.01H4zm0 12h16V8l-8 7-8-7v10z"/>
+    </symbol>
     <symbol id="loader" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor">
         <circle class="spinner" cx="12" cy="12" r="9" stroke-width="3" stroke-dasharray="40 20" stroke-linecap="round" />
     </symbol>

@@ -1,5 +1,9 @@
 <div class="container">
-  <div x-data="news" class="post">
+  <div
+    x-data="news"
+    class="post"
+    @keydown.escape.window="$store.news.resetCurrentNew(), window.history.pushState({}, '', '/news')"
+  >
     <div class="post-img-thumb">
       <img
         :src="$store.news.curentNew?.images"
@@ -10,14 +14,19 @@
     </div>
     <div class="post-content-thumb">
       <a href="./news.html" class="post-link-back"></a>
-      <p class="post-definition">Публікація</p>
+      <p class="post-definition" x-text="t(newsData.publication)">Публікація</p>
       <h3 x-text="$store.news.curentNew?.title" class="post-title"></h3>
-      <p x-text="$store.news.curentNew?.description" class="post-description"></p>
+      <p
+        x-text="$store.news.curentNew?.description"
+        class="post-description"
+      ></p>
     </div>
     <button
       type="button"
-      @click="$store.news.resetCurrentNew(), window.history.pushState({}, '', '/news')"
+      @click="$store.news.resetCurrentNew(), window.history.pushState({}, '', l('/news'))"
       class="post-btn-back"
+      4
+      x-text="t(newsData.back)"
     >
       Повернутися до публікацій
     </button>

@@ -11,4 +11,18 @@ export const indexData = {
     uk: "Вітаємо на сайті Дніпровської архітектурної  конструкторської компанії (ДАКК)",
     en: "Welcome to the website of the Dnipro Architectural Design Company (DAKK)",
   },
-};
+  phrase1: {
+    en: "Designing space",
+    uk: "Проектуємо простір",
+  },
+  phrase2: {
+    en: "Creating the future",
+    uk: "Створюємо майбутнє",
+  },
+  phrase3: {
+    en: "Next-generation architecture",
+    uk: "Архітектура нового покоління",
+  },
+} as const;
+
+export type IndexData = typeof indexData;

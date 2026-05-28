@@ -18,15 +18,36 @@ header {
 
   @media (min-width: 768px) {
     display: flex;
-    gap: 10px;
+    gap: 20px;
   }
 }
 
 .langSwitch button {
   border: none;
-  background-color: transparent;
+  background-color: var(--clr-divider);
   padding: 10px 20px;
-  color: transparent;
+  color: var(--clr-text-main);
+  border-radius: 10px;
+
+  &:hover {
+    box-shadow:
+      1px 0px 2px 1px rgba(0, 0, 0, 0.685),
+      inset 0px 0px 2px 1px rgba(0, 0, 0, 0.685);
+  }
+}
+
+.langSwitch .activeLang {
+  box-shadow:
+    1px 0px 2px 1px black,
+    inset 0px 0px 2px 1px black;
+  pointer-events: none;
+  opacity: 0.8;
+
+  &:hover {
+    box-shadow:
+      1px 0px 2px 1px black,
+      inset 0px 0px 2px 1px black;
+  }
 }
 
 .open-button {

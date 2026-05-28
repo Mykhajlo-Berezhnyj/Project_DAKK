@@ -14,4 +14,6 @@ export const SORT_OPTIONS = {
 
 export type SortKey = keyof typeof SORT_OPTIONS;
 
-export type SortValue = typeof SORT_OPTIONS[SortKey];
+export type SortValue = (typeof SORT_OPTIONS)[SortKey];
+
+export type SortOptions = typeof SORT_OPTIONS;

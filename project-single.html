@@ -6,7 +6,7 @@
     <title>Project</title>
   </head>
 
-  <body data-page="project-single" >
+  <body data-page="project-single">
     <load src="./src/partials/header.html" />
 
     <main
@@ -56,28 +56,34 @@
               </div>
 
               <dl class="main-details-content-2">
-                <div class="description-group">
-                  <dt x-text="project?.area ? 'Площа:' : ''"></dt>
-                  <dd x-text="project?.area ? project.area + ' м²' : ''"></dd>
-                </div>
+                <template x-if="project?.area">
+                  <div class="description-group">
+                    <dt x-text="t(projectData.area)"></dt>
+                    <dd x-text="project?.area ? project.area + ' м²' : ''"></dd>
+                  </div>
+                </template>
 
-                <div class="description-group">
-                  <dt x-text="project?.timeline ? 'Рік роботи:' : ''"></dt>
-                  <dd
-                    x-text="project?.timeline
-                  ? (project.timeline.yearStart && project.timeline.yearEnd
-                  ? project.timeline.yearStart + ' - ' + project.timeline.yearEnd
-                  : (project.timeline.yearStart ?? project.timeline.yearEnd))
-                  : ''"
-                  ></dd>
-                </div>
+                <template x-if="project?.timeline">
+                  <div class="description-group">
+                    <dt x-text="t(projectData.timeline)"></dt>
+                    <dd
+                      x-text="project?.timeline
+                    ? (project.timeline.yearStart && project.timeline.yearEnd
+                    ? project.timeline.yearStart + ' - ' + project.timeline.yearEnd
+                    : (project.timeline.yearStart ?? project.timeline.yearEnd))
+                    : ''"
+                    ></dd>
+                  </div>
+                </template>
 
-                <div class="description-group">
-                  <dt x-text="project?.status ? 'Статус:' : ''"></dt>
-                  <dd
-                    x-text="project?.status ? statusLang.find(s => s.key === project?.status)?.label[$store.locale.current] : ''"
-                  ></dd>
-                </div>
+                <template x-if="project?.status">
+                  <div class="description-group">
+                    <dt x-text="t(projectData.status)"></dt>
+                    <dd
+                      x-text="project?.status ? statusLang.find(s => s.key === project?.status)?.label[$store.locale.current] : ''"
+                    ></dd>
+                  </div>
+                </template>
               </dl>
 
               <a
@@ -85,7 +91,8 @@
                 x-show="project?.siteUrl"
                 :href="project?.siteUrl"
               >
-                Перейти на сайт проекту: <span x-text="project?.siteUrl"></span>
+                <span x-text="t(projectData.linkWebsite)"></span
+                ><span x-text="project?.siteUrl"></span>
               </a>
             </div>
           </div>
@@ -104,12 +111,12 @@
       <!-- Deatils -->
       <section class="tech-details">
         <div class="container tech-container">
-          <h2 x-text="'Технічна інформація'" class="tech-title"></h2>
+          <h2 x-text="t(projectData.techinfo)" class="tech-title"></h2>
           <dl class="details-1">
             <template x-if="project?.typeOfServices?.length">
               <div class="description-group">
                 <dt
-                  x-text="project?.typeOfServices.length > 1 ? 'Надані послуги: ' : 'Надана послуга: '"
+                  x-text="project?.typeOfServices.length > 1 ? t(projectData.services) : t(projectData.service) "
                 ></dt>
                 <dd>
                   <ul>
@@ -127,7 +134,7 @@
             <template x-if="project?.supplier?.length">
               <div class="description-group">
                 <dt
-                  x-text="project?.supplier.length > 1 ? 'Замовники: ' : 'Замовник: '"
+                  x-text="project?.supplier.length > 1 ? t(projectData.customers) : t(projectData.customer)"
                 ></dt>
                 <dd>
                   <ul>
@@ -139,137 +146,139 @@
               </div>
             </template>
 
-            <div class="description-group">
-              <dt
-                x-text="project?.generalDesigner?.name ? 'Генпроектувальник: ' : ''"
-              ></dt>
-              <dd>
-                <a
-                  x-show="project?.generalDesigner"
-                  :href="project?.generalDesigner?.link"
-                  target="_blank"
-                  alt=""
-                >
-                  <span x-text="project?.generalDesigner?.name"></span>
-                </a>
-              </dd>
-            </div>
+            <template x-if="project?.generalDesigner">
+              <div class="description-group">
+                <dt x-text="t(projectData.generalDesigner)"></dt>
+                <dd>
+                  <a
+                    x-show="project?.generalDesigner"
+                    :href="project?.generalDesigner?.link"
+                    target="_blank"
+                    alt=""
+                  >
+                    <span x-text="project?.generalDesigner?.name"></span>
+                  </a>
+                </dd>
+              </div>
+            </template>
 
-            <div class="description-group">
-              <dt x-text="'Код категорії:'"></dt>
-              <dd x-text="project?.consequenceClass"></dd>
-            </div>
-            <div class="description-group">
-              <dt x-text="'Конструктив:'"></dt>
-              <dd x-text="project?.constructive"></dd>
-            </div>
-            <div class="description-group" x-show="project?.award">
-              <dt x-text="'Нагороди:'"></dt>
-              <dd x-text="project?.award"></dd>
-            </div>
+            <template x-if="project?.consequenceClass">
+              <div class="description-group">
+                <dt x-text="t(projectData.consequenceClass)"></dt>
+                <dd x-text="project?.consequenceClass"></dd>
+              </div>
+            </template>
+            <template x-if="project?.constructive">
+              <div class="description-group">
+                <dt x-text="t(projectData.constructive)"></dt>
+                <dd x-text="project?.constructive"></dd>
+              </div>
+            </template>
+            <template x-if="project?.award">
+              <div class="description-group">
+                <dt x-text="t(projectData.award)"></dt>
+                <dd x-text="project?.award"></dd>
+              </div>
+            </template>
           </dl>
 
-          <div class="pdf-link">
-            <a
-              x-show="project?.linkDocuments"
-              :href="project?.linkDocuments"
-              target="_blank"
-              alt=""
-            >
-              <img src="/images/pdf_icon.webp" width="30px" />
-              <span>Паспорт об'єкта</span>
-            </a>
-          </div>
+          <template x-if="project?.linkDocuments">
+            <div class="pdf-link">
+              <a :href="project?.linkDocuments" target="_blank" alt="">
+                <img src="/images/pdf_icon.webp" width="30px" />
+                <span x-text="t(projectData.passport)">Паспорт об'єкта</span>
+              </a>
+            </div>
+          </template>
         </div>
       </section>
 
       <!--Web and Gallery-->
-      <section class="light-grey" x-show="project?.photo?.length">
-        <div class="container">
-          <h2 x-text="'Фото об\'єкту'"></h2>
-          <div class="gallery" x-show="project?.photo?.length">
-            <div class="gallery-wrapper">
-              <button
-                @click="galleryData.prev()"
-                class="arrow left"
-                x-show="galleryData.isSlaider"
-              >
-                &lt;
-              </button>
-
-              <div class="gallery-track" x-ref="track">
-                <template
-                  x-for="(img, index) in galleryData.isSlaider ? [...galleryData.photos, ...galleryData.photos, ...galleryData.photos] : galleryData.photos"
-                  :key="index"
+      <template x-if="project?.photo?.length">
+        <section class="light-grey">
+          <div class="container">
+            <h2 x-text="t(projectData.photo)"></h2>
+            <div class="gallery" x-show="project?.photo?.length">
+              <div class="gallery-wrapper">
+                <button
+                  @click="galleryData.prev()"
+                  class="arrow left"
+                  x-show="galleryData.isSlaider"
                 >
-                  <img
-                    class="thumbnail"
-                    class="thumbnail"
-                    :src="`${img}?w=320&fm=webp&q=80`"
-                    :srcset="`${img}?w=320&fm=webp&q=80 1x,
-                              ${img}?w=640&fm=webp&q=80 2x`"
-                    :class="{'active': index === galleryData.activeIndex+1}"
-                    @click="galleryData.openModal(img)"
-                  />
-                </template>
-              </div>
-
-              <button
-                @click="galleryData.next()"
-                class="arrow right"
-                x-show="galleryData.isSlaider"
-              >
-                &gt;
-              </button>
-            </div>
-
-            <template x-if="galleryData.activeImage">
-              <div class="modal" @click="galleryData.closeModal()">
-                <div class="image-wrapper">
-                  <button
-                    @click.stop="galleryData.prev()"
-                    class="arrow left"
-                    x-show="project?.photo?.length > 1"
+                  &lt;
+                </button>
+                <div class="gallery-track" x-ref="track">
+                  <template
+                    x-for="(img, index) in galleryData.isSlaider ? [...galleryData.photos, ...galleryData.photos, ...galleryData.photos] : galleryData.photos"
+                    :key="index"
                   >
-                    &lt;
-                  </button>
-                  <img
-                    :src="`${galleryData.activeImage}?w=1200&fm=webp&q=85`"
-                    :srcset="`${galleryData.activeImage}?w=800&fm=webp&q=85 800w,
-                              ${galleryData.activeImage}?w=1200&fm=webp&q=85 1200w,
-                              ${galleryData.activeImage}?w=1800&fm=webp&q=85 1800w
-                            `"
-                    sizes="90vw"
-                  />
-                  <button
-                    @click.stop="galleryData.next()"
-                    class="arrow right"
-                    x-show="project?.photo?.length > 1"
-                  >
-                    &gt;
-                  </button>
+                    <img
+                      class="thumbnail"
+                      class="thumbnail"
+                      :src="`${img}?w=320&fm=webp&q=80`"
+                      :srcset="`${img}?w=320&fm=webp&q=80 1x,
+                                ${img}?w=640&fm=webp&q=80 2x`"
+                      :class="{'active': index === galleryData.activeIndex+1}"
+                      @click="galleryData.openModal(img)"
+                    />
+                  </template>
                 </div>
+                <button
+                  @click="galleryData.next()"
+                  class="arrow right"
+                  x-show="galleryData.isSlaider"
+                >
+                  &gt;
+                </button>
               </div>
-            </template>
+              <template x-if="galleryData.activeImage">
+                <div class="modal" @click="galleryData.closeModal()">
+                  <div class="image-wrapper">
+                    <button
+                      @click.stop="galleryData.prev()"
+                      class="arrow left"
+                      x-show="project?.photo?.length > 1"
+                    >
+                      &lt;
+                    </button>
+                    <img
+                      :src="`${galleryData.activeImage}?w=1200&fm=webp&q=85`"
+                      :srcset="`${galleryData.activeImage}?w=800&fm=webp&q=85 800w,
+                                ${galleryData.activeImage}?w=1200&fm=webp&q=85 1200w,
+                                ${galleryData.activeImage}?w=1800&fm=webp&q=85 1800w
+                              `"
+                      sizes="90vw"
+                    />
+                    <button
+                      @click.stop="galleryData.next()"
+                      class="arrow right"
+                      x-show="project?.photo?.length > 1"
+                    >
+                      &gt;
+                    </button>
+                  </div>
+                </div>
+              </template>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </template>
 
       <!-- Partners -->
       <template x-if="project?.partners?.length">
         <section>
           <div class="container partners">
-            <h2>Партнери</h2>
+            <h2 x-text="t(projectData.partners)">Партнери</h2>
             <ul>
               <template x-for="p in project.partners" :key="p._id">
                 <li class="partners-items">
                   <article>
                     <img x-show="p.logo" :src="p.logo" />
                     <h3 x-text="p.name"></h3>
-                    <p x-text="'Адреса:' + p.location"></p>
+                    <p x-text="t(projectData.adress) + p.location"></p>
                     <a
                       :href="p.link"
-                      x-text="'Веб-сайт:' + p.link"
+                      x-text="t(projectData.web) + p.link"
                       target="_blank"
                       rel="noopener noreferrer"
                     ></a>

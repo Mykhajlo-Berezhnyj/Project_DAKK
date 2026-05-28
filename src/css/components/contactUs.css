@@ -9,13 +9,23 @@
   border-radius: 50%;
 }
 
-.contactUs button {
+.contactUs button,
+.contactUs a {
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   outline: none;
+  gap: 10px;
   font-size: 12px;
+
+  &:hover {
+    color: var(--clr-text-main);
+    font-weight: 500;
+    box-shadow:
+      1px 0px 2px 1px rgba(0, 0, 0, 0.685),
+      inset 0px 0px 2px 1px rgba(0, 0, 0, 0.685);
+  }
 }
 
 .btn-contact {
@@ -48,13 +58,15 @@
   border-radius: 20px;
   padding-inline: 10px;
   background-color: var(--clr-divider);
+  color: var(--clr-text-main);
 
   &:hover {
     background-color: white;
   }
 }
 
-.close {
+.actions .close,
+form .close {
   width: auto;
   height: auto;
   padding: 0;
@@ -71,6 +83,7 @@
   &:hover {
     stroke: rgb(240, 27, 27);
     transform: rotate(180deg);
+    box-shadow: none;
   }
 }
 
@@ -168,7 +181,7 @@
   pointer-events: none !important;
 }
 
-button:disabled {
+.btnUp button:disabled {
   background-color: lightgrey;
   color: black;
   opacity: 0.6;
@@ -214,6 +227,7 @@ button:disabled {
   &:hover {
     background-color: transparent;
     color: var(--clr-divider);
+    box-shadow: none;
   }
   &:hover .icon-settings {
     background-color: transparent;

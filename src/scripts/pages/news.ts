@@ -16,6 +16,7 @@ export const newsStore: NewsStore = {
   perPage: 3,
   isLoading: false,
   curentNew: null,
+  scrollY: null,
 
   getNews() {
     return this.items;
@@ -29,13 +30,18 @@ export const newsStore: NewsStore = {
   },
 
   setCurrentNew(post) {
+    this.scrollY = window.scrollY;
     this.curentNew = this.items.find((i) => i.slug === post.slug) ?? null;
     scrollToTopOfPublication();
   },
 
   resetCurrentNew() {
     this.curentNew = null;
-    scrollToTopOfPublication();
+    if (this.scrollY !== null) {
+      window.scrollTo({ top: this.scrollY, behavior: "auto" });
+    } else {
+      scrollToTopOfPublication();
+    }
   },
 
   get visible() {
@@ -64,8 +70,7 @@ export function init() {
     },
   })
     .then((data: any) => {
-      console.log("🚀 ~ init ~ data:", data);
-      // newsStore.setNews(data.news);
+      newsStore.setNews(data.news);
       // // !! Temporary data
       newsStore.setNews(newsTmpData);
       validationNew();

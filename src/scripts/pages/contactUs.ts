@@ -178,7 +178,6 @@ export function contactUs(): ContactUs {
     submitForm() {
       if (!this.validationForm()) return;
 
-      console.log("name:", this.user.name);
       if (this.mode === "chat") {
         Crisp.chat.show();
         this.formOpen = false;
@@ -224,7 +223,6 @@ export function contactUs(): ContactUs {
               this.error =
                 "Не вдалося відправити, спробуйте пізніше, а зараз можете задати свої питаня в чаті ";
             }
-            console.log("🚀 ~ contactUs ~retry:", retry);
 
             this.isloading = false;
             setTimeout(() => {
@@ -280,7 +278,6 @@ export function contactUs(): ContactUs {
           this.mode = "chat";
           this.requestId = null;
         }
-        console.log("🚀 ~ contactUs ~ .this.requestId:", this.requestId);
       } finally {
         this.openCrisp();
         if (retry === 0) {
@@ -311,7 +308,6 @@ export function contactUs(): ContactUs {
         "chat:opened",
         () => {
           this.chatOpened = true;
-          console.log("🚀 ~ contactUs ~ this.chatOpened:", this.chatOpened);
         },
       ]);
 
@@ -320,7 +316,6 @@ export function contactUs(): ContactUs {
         "chat:closed",
         () => {
           this.chatOpened = false;
-          console.log("🚀 ~ contactUs ~ this.chatOpened:", this.chatOpened);
         },
       ]);
 
@@ -332,10 +327,6 @@ export function contactUs(): ContactUs {
           this.user.timeLastActive = this.timeLastMessage;
           setStorage("contact-timeLastMessage", this.timeLastMessage);
           this.refreshUser();
-          console.log(
-            "🚀 ~ contactUs--push ~ this.timeLastMessage:",
-            this.timeLastMessage,
-          );
         },
       ]);
 
@@ -357,7 +348,6 @@ export function contactUs(): ContactUs {
         return this.user;
       } else {
         const user = getStorage("contact-user") as Partial<User> | null;
-        console.log("🚀 ~ contactUs getStorage ~ user:", user);
         if (!!user?.name?.trim() && !!user?.phone?.trim()) {
           this.user = { ...this.user, ...user };
           return this.user;
@@ -376,13 +366,6 @@ export function contactUs(): ContactUs {
         email: Crisp.user.getEmail() || "",
         phone: Crisp.user.getPhone() || "",
       };
-      console.log("getUserThisCrisp ~user:", user);
-      console.log("getUserThisCrisp ~ser?.name?.trim():", user?.name?.trim());
-      console.log(
-        "getUserThisCrisp ~ser?.phone?.trim():",
-        !!user?.phone?.trim(),
-      );
-
       if (!!user?.name?.trim() && !!user?.phone?.trim()) {
         return user;
       } else {
@@ -392,7 +375,6 @@ export function contactUs(): ContactUs {
 
     refreshUser() {
       const user = this.identityUser();
-      console.log("🚀 ~ contactUs~refreshUser ~ user:", user);
       if (!user.name?.trim() && user.phone?.trim()) return;
 
       this.user = { ...this.user, ...user, timeLastActive: Date.now() };
@@ -404,10 +386,6 @@ export function contactUs(): ContactUs {
       this.actionsOpen = false;
 
       const user = this.identityUser();
-      console.log(
-        "🚀 ~ contactUs ~  this.user.timeLastActive:",
-        this.user.timeLastActive,
-      );
       if (!user.name && !user.phone) {
         this.formOpen = true;
       } else if (Date.now() - this.user.timeLastActive > 2 * 60 * 60 * 1000) {
@@ -451,14 +429,9 @@ export function contactUs(): ContactUs {
       const user = this.identityUser();
 
       if (user) {
-        console.log("🚀 ~ sendAlarm ~ this.user:", this.user);
         this.mode = "alarm";
         this.requestId = Date.now();
         await this.sendForm(true);
-        console.log(
-          "🚀 ~ sendAlarm ~ this.timeLastAlarm:",
-          this.alarm.timeLastAlarm,
-        );
         this.checkAlarm();
       } else {
         this.formOpen = true;
@@ -468,10 +441,6 @@ export function contactUs(): ContactUs {
     checkAlarm() {
       // if (this.timeLastAlarm === 0) return;
       const diff = Date.now() - this.alarm.timeLastAlarm;
-      console.log(
-        "🚀 ~ checkAlarm ~ this.timeLastAlarm:",
-        this.alarm.timeLastAlarm,
-      );
       const timing = (10 * 60 * 1000 - diff) / 1000;
 
       if (timing <= 0) {
@@ -490,7 +459,6 @@ export function contactUs(): ContactUs {
       const localPhone = this.user.phone.replace(/\D/g, "");
       const emailLocal =
         this.user.email?.trim() || `contact_${localPhone}@example.com`;
-      console.log("🚀 ~ contactUs ~ emailLocal:", emailLocal);
       Crisp.user.setEmail(emailLocal);
       Crisp.user.setPhone(localPhone);
       Crisp.session.setData({
@@ -523,7 +491,6 @@ export function contactUs(): ContactUs {
     },
 
     saveRevers() {
-      console.log("🚀 ~ saveRevers ~ this.revers:", this.revers);
       setStorage("contact-revers", this.revers);
     },
 

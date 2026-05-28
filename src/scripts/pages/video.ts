@@ -24,7 +24,11 @@ export const videoStore: VideoStore = {
         url.hostname === "drive.google.com" &&
         url.pathname.includes("/view")
       ) {
-        return this.openedVideo.videoUrl.replace("/view", "/preview");
+        const prevUrl = this.openedVideo.videoUrl.replace(
+          /\/view.*$/,
+          "/preview",
+        );
+        return prevUrl;
       }
       return this.openedVideo.videoUrl;
     } catch (error) {

@@ -19,6 +19,26 @@
     </svg>
   </button>
   <div class="actions" x-show="actionsOpen">
+    <a
+      class="actionsButton"
+      href="https://t.me/dakk"
+      @click="actionsOpen=false"
+    >
+      <svg width="20" height="20">
+        <use xlink:href="/images/sprite.svg#telegram"></use>
+      </svg>
+      Телеграм
+    </a>
+    <a
+      class="actionsButton"
+      href="mailto: lala@gmail.com"
+      @click="actionsOpen=false"
+    >
+      <svg width="24" height="24">
+        <use xlink:href="/images/sprite.svg#email"></use>
+      </svg>
+      Емайл
+    </a>
     <button class="close" @click="actionsOpen=false">
       <svg width="24" height="24">
         <use xlink:href="/images/sprite.svg#x"></use>
@@ -60,7 +80,8 @@
     </button>
     <button
       class="btnSettings"
-      @click="settingsOpen=!settingsOpen; console.log('settingsOpen.',  settingsOpen);"
+      x-show="!!user?.name?.trim() && !!user?.phone?.trim()"
+      @click="settingsOpen=!settingsOpen"
     >
       <svg width="24" height="24" class="icon-settings">
         <use xlink:href="/images/sprite.svg#settings"></use>

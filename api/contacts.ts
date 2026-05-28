@@ -30,9 +30,7 @@ export default async function sendMessage(req: Req, res: Res) {
     });
   }
   const botToken = process.env.BOT_TOKEN;
-  console.log("🚀 ~ sendMessage ~ botToken:", botToken);
   const chatID = process.env.CHAT_ID;
-  console.log("🚀 ~ sendMessage ~ chatID:", chatID);
 
   const text = `
        📝 Нове звернення:
@@ -67,9 +65,7 @@ export default async function sendMessage(req: Req, res: Res) {
       }),
     });
 
-    console.log("🚀 ~ sendMessage ~ data:", data);
     const result = await data.json();
-    console.log("🚀 ~ sendMessage ~ result:", result);
 
     if (!result.ok) {
       throw new Error(result.description || "Telegram send error");

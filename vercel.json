@@ -66,6 +66,7 @@
     { "source": "/en/videos", "destination": "/videos.html" },
     { "source": "/en/about", "destination": "/about.html" },
     { "source": "/en/contacts", "destination": "/contacts.html" },
-    { "source": "/en", "destination": "/index.html" }
+    { "source": "/en", "destination": "/index.html" },
+    { "source": "/en/", "destination": "/index.html" }
   ]
 }

@@ -32,7 +32,6 @@ export function loadSingleProject() {
       if (this.project?.photo?.length) {
         this.galleryData.init();
         this.galleryData.setPhotos(this.project.photo);
-        console.log("photos:", this.project?.photo);
       }
       window.scrollTo({ top: 60, behavior: "auto" });
     },

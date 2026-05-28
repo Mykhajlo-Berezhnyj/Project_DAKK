@@ -18,11 +18,7 @@ export function setLocaleUrl(locale: Lang) {
   }
 
   const newPath =
-    "/" +
-    path.join("/") +
-    (path.length ? "/" : "") +
-    window.location.search +
-    window.location.hash;
-
+    "/" + path.join("/") + window.location.search + window.location.hash;
+  console.log("🚀 ~ setLocaleUrl ~ newPath:", newPath);
   window.history.pushState({}, "", newPath);
 }

@@ -17,7 +17,7 @@ export function psGallery() {
       window.addEventListener("resize", this.resizeHandler);
       Alpine.nextTick(() => {
         this.setTrackWidth();
-        if (!this.isSlaider) return;
+        if (!this.isSlaider || !track) return;
         track.style.justifyContent = "flex-start";
         this.activeIndex = this.photos.length;
         track.scrollLeft = this.activeIndex * this.width;
@@ -93,7 +93,6 @@ export function psGallery() {
       this.activeIndex = this.activeImage
         ? (this.activeIndex + 1) % this.photos.length
         : this.activeIndex + 1;
-      console.log("🚀 ~ psGallery ~ activeIndex:", this.activeIndex);
       this.scrollToActive();
       if (this.activeImage) {
         this.activeImage = this.photos[this.activeIndex];
@@ -108,14 +107,12 @@ export function psGallery() {
       if (!this.activeImage) {
         if (this.activeIndex > this.photos.length * 2 - 1) {
           this.activeIndex = this.photos.length;
-          console.log("🚀 ~ psGallery ~ auto:");
           track.style.scrollBehavior = "auto";
           track.scrollLeft = (this.activeIndex - 1) * this.width;
 
           track.offsetHeight;
         } else if (this.activeIndex < 1) {
           this.activeIndex = this.photos.length;
-          console.log("🚀 ~ psGallery ~ auto:");
           track.style.scrollBehavior = "auto";
           track.scrollLeft = (this.activeIndex + 1) * this.width;
 

@@ -1,18 +1,76 @@
 export const projectData = {
-  titleHead: {
-    uk: "Галерея проектів Дніпровської архітектурної конструкторської компанії(ДАКК)",
-    en: "Gallery of Projects by Dnipro Architectural Design Company (DAKK)",
+  area: {
+    uk: "Площа:",
+    en: "Area:",
   },
-  descriptionHead: {
-    uk: "Ознайомтесь із галереєю проектів ДАКК. Від концептуальних ідей до реалізованих будівель — сучасна архітектура з увагою до деталей. Відкрийте галерею ДАКК і ви знайдете проекти різного спрямування: від укриття та житлових комплексів до промислового будівництва, освітніх та бізнес-центрів. Використовуйте пошук і категорії для швидкого доступу до потрібних проектів.",
-    en: "Explore the project gallery of Dnipro Architectural Design Company (DAKK). From conceptual ideas to completed buildings — modern architecture with attention to detail. Discover DADC’s diverse portfolio: from civil defense shelter and residential complexes to industrial facilities, educational institutions, and business centers. Use search and categories for quick access to the projects you need.",
+  timeline: {
+    uk: "Рік роботи:",
+    en: "Timeline",
   },
-  title: {
-    uk: "Наші проекти",
-    en: "Our Projects",
+  status: {
+    uk: "Статус:",
+    en: "Status:",
   },
-  langSwitch: {
-    uk: "Переключити мову на",
-    en: "Langswitch to",
+  linkWebsite: {
+    uk: "Перейти на сайт проекту:",
+    en: "Go to the project website:",
   },
-};
+  techinfo: {
+    uk: "Технічна інформація",
+    en: "Technical information",
+  },
+  services: {
+    uk: "Надані послуги:",
+    en: "Services provided:",
+  },
+  service: {
+    uk: "Надана послуга:",
+    en: "Service provided:",
+  },
+  customers: {
+    uk: "Замовники:",
+    en: "Customers:",
+  },
+  customer: {
+    uk: "Замовник:",
+    en: "Customer:",
+  },
+  generalDesigner: {
+    uk: "Генпроектувальник:",
+    en: "General Designer:",
+  },
+  consequenceClass: {
+    uk: "Код категорії:",
+    en: "Consequence class:",
+  },
+  constructive: {
+    uk: "Конструктив:",
+    en: "Constructive:",
+  },
+  award: {
+    uk: "Нагороди:",
+    en: "Award:",
+  },
+  passport: {
+    uk: "Паспорт об'єкта:",
+    en: "Object passport:",
+  },
+  photo: {
+    en: "Object photo",
+    uk: "Фото об'єкту",
+  },
+  partners: {
+    en: "Partners",
+    uk: "Партнери",
+  },
+  adress: {
+    en: "Адресса:",
+    uk: "Adress:",
+  },
+  web: {
+    en: "Веб-сайт:",
+    uk: "Website",
+  },
+} as const;
+
+export type ProjectData = typeof projectData;

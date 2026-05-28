@@ -7,6 +7,7 @@ import intersect from "@alpinejs/intersect";
 import type { Lang, LocaleStore } from "./scripts/type/lang";
 import { renderMenu } from "./scripts/core/menu";
 import { contactUs } from "./scripts/pages/contactUs";
+import { renderPartners } from "./scripts/pages/partners";
 
 interface PageModule {
   init: () => void;
@@ -41,6 +42,7 @@ if (page && routes[page]) {
 Alpine.data("localization", localization);
 Alpine.data("renderMenu", renderMenu);
 Alpine.data("contactUs", contactUs);
+Alpine.data("partners", renderPartners);
 
 Alpine.plugin(intersect);
 

@@ -1,4 +1,3 @@
-
 .footer-link-logo {
   display: inline-block;
   margin-bottom: 8px;
@@ -6,14 +5,42 @@
 }
 
 .footer-partner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  justify-content: center;
   padding: var(--container-padding);
+  gap: 10px;
+}
+
+.partners-track {
+  display: flex;
+  overflow: hidden;
 }
 
 .footer-partner-list {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.5s ease;
+}
+
+.footer-partner-item {
+  flex-shrink: 0;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  width: 200px;
+  height: 140px;
+}
+
+.namePartners {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .footer-address {
@@ -26,6 +53,7 @@
 
   padding: var(--container-padding);
 }
+
 .footer-contacts,
 .footer-social-list {
   display: flex;
@@ -74,4 +102,9 @@
     flex-direction: row;
     justify-content: space-around;
   }
+}
+
+.dlItem {
+  display: flex;
+  gap: 10px;
 }

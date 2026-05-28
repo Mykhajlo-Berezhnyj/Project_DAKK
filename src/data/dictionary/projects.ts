@@ -142,5 +142,7 @@ export const projectsData = {
   sending: {
     uk: "Надсилаємо",
     en: "Sending",
-  }
-};
+  },
+} as const;
+
+export type ProjectsData = typeof projectsData;

@@ -1,7 +1,7 @@
 <section
   id="projects-preview"
   x-data="projectsPrev()"
-  x-init="init(); console.log('projects', projects)"
+  x-init="init()"
   data-current-id="project._id"
 >
   <div class="container container-preview">
@@ -19,7 +19,10 @@
         ❮
       </button>
       <ul class="projects-gallery">
-        <template x-for="(item, index) in visible" :key="item._id + '-' + index">
+        <template
+          x-for="(item, index) in visible"
+          :key="item._id + '-' + index"
+        >
           <li class="gallery-item item-prev">
             <article class="card">
               <a

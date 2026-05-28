@@ -1,6 +1,6 @@
 <header x-data="renderMenu()">
   <div class="container header-container">
-    <a href="/" class="logo-link">
+    <a :href="l('/')" class="logo-link">
       <img
         src="/images/logoFull.webp"
         width="150"
@@ -15,6 +15,7 @@
         @click="($store.locale.set('en'));"
         :aria-label="t(projectsData.langSwitch) + ' EN'"
         :title="t(projectsData.langSwitch) + ' EN'"
+        :class="{activeLang: $store.locale.current === 'en'}"
       >
         EN
       </button>
@@ -22,6 +23,7 @@
         @click="($store.locale.set('uk'));"
         :aria-label="t(projectsData.langSwitch) + ' UK'"
         :title="t(projectsData.langSwitch) + ' UK'"
+        :class="{activeLang: $store.locale.current === 'uk'}"
       >
         UA
       </button>
@@ -32,6 +34,7 @@
       class="btn open-button"
       @click="openMenu()"
       aria-label="Відкрити меню"
+      x-text="t(menuData.menu)"
     >
       Menu
     </button>

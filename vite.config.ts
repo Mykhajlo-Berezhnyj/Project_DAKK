@@ -56,18 +56,19 @@ export default defineConfig({
           if (!req.url) return next();
 
           if (
-            req.url.startsWith("./") ||
-            req.url.startsWith("/")
-            // req.url.startsWith("/@vite") ||
-            // req.url.startsWith("/node_modules/") ||
-            // req.url.startsWith("/src/") ||
-            // req.url.includes(".js") ||
-            // req.url.includes(".css") ||
-            // req.url.includes(".png") ||
-            // req.url.includes(".jpg") ||
-            // req.url.includes(".svg") ||
-            // req.url.includes(".webp") ||
-            // req.url.includes(".html")
+            // req.url.startsWith("./") ||
+            // req.url.startsWith("/")
+            req.url.startsWith("/@vite") ||
+            req.url.startsWith("/node_modules/") ||
+            req.url.startsWith("/src/") ||
+            req.url.includes(".js") ||
+            req.url.includes(".css") ||
+            req.url.includes(".png") ||
+            req.url.includes(".jpg") ||
+            req.url.includes(".svg") ||
+            req.url.includes(".webp") ||
+            req.url.includes(".mp4") ||
+            req.url.includes(".html")
           ) {
             return next();
           }

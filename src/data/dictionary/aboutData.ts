@@ -43,4 +43,6 @@ export const aboutData = {
     uk: "«Якісний проект — це насамперед надійність. Це усталені потоки розробки та логічна структура — як підприємства, так і робочої документації».",
     en: "“A high-quality project is, above all, reliability. These are established development flows and a logical structure — both for the enterprise and the working documentation.”",
   },
-};
+} as const;
+
+export type AboutData = typeof aboutData;

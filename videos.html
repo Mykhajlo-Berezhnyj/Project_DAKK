@@ -3,12 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Our videos</title>
+    <title x-text="t(videosData.titleHead)">
+      Відео – Перегляньте наші проєкти
+    </title>
+    <meta
+      name="description"
+      :content="t(videosData.description)"
+      content="Перегляньте добірку відео з нашими архітектурними рішеннями, дизайном та ідеями майбутнього."
+    />
   </head>
   <body data-page="video">
     <load src="./src/partials/header.html" />
     <main>
-      <h1 class="video-main-title">Ласкаво просимо до розділу «Відео»</h1>
+      <h1 class="video-main-title" x-text="t(videosData.title)">
+        Ласкаво просимо до розділу «Відео»
+      </h1>
       <load src="./src/partials/videoPage.html" />
     </main>
     <load src="./src/partials/footer.html" />

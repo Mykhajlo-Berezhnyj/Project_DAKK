@@ -1,5 +1,5 @@
 <div x-data="news" class="container news-more">
-  <h2 class="news-more-title">Ще публікації</h2>
+  <h2 class="news-more-title" x-text="t(newsData.more)">Ще публікації</h2>
   <ul x-show="$store.news.items.length>0" class="news-more-gallery">
     <template
       x-for="pub in $store.news.items.filter(el=> el._id!==$store.news.openedItemId).slice(-3)"
@@ -8,7 +8,7 @@
       <li class="news-more-gallery-item">
         <button
           type="button"
-          @click="$store.news.setCurrentNew(pub), window.history.pushState({}, '', `/news/${pub.slug}`)"
+          @click="$store.news.setCurrentNew(pub), window.history.pushState({}, '', l(`/news/${pub.slug}`))"
           class="news-more-btn"
         >
           <article class="news-more-item">
@@ -32,8 +32,9 @@
   </ul>
   <button
     type="button"
-    @click="$store.news.resetCurrentNew(), window.history.pushState({}, '', '/news')"
+    @click="$store.news.resetCurrentNew(), window.history.pushState({}, '', l('/news'))"
     class="news-more-btn-back"
+    x-text="t(newsData.more)"
   >
     Ще публікації
   </button>

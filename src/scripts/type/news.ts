@@ -15,6 +15,7 @@ export interface NewsStore {
   perPage: number;
   curentNew: New | null;
   isLoading: boolean;
+  scrollY: number | null;
 
   getNews: () => New[] | [];
   setNews: ([]) => void;
@@ -24,9 +25,4 @@ export interface NewsStore {
   loadMore: () => void;
   get visible(): New[] | [];
   get hasMore(): boolean;
-
-  // getCurrentPublication: () => string | null;
-  // setCurrentPublication: (id: string | null) => void;
-  // getPublicationStatus: () => boolean;
-  // setPublicationStatus: (isOpened: boolean) => void;
 }
