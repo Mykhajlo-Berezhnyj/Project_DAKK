@@ -3,7 +3,7 @@ import Alpine from "alpinejs";
 import type { LocaleStore } from "../type/lang";
 
 const client = createClient({
-  projectId: "3o5bf3fb",
+  projectId: "syvh0wsw",
   dataset: "production",
   apiVersion: "2023-03-01",
   useCdn: true,
