@@ -1,25 +1,103 @@
 /* --- ABOUT SECTION STYLES --- */
 
 .about {
-  padding-top: 100px;
+  padding-top: 0; /* ОПТИМИЗАЦИЯ: убираем верхний отступ, чтобы полноэкранный слайдер встал ровно под шапку */
   padding-bottom: 100px;
   background-color: var(--clr-bg-block);
 }
 
+.about h1 {
+  color: var(--clr-white);
+}
+/* ==========================================================================
+   КИНЕМАТОГРАФИЧЕСКИЙ СЛАЙДЕР (ХИРО-СЕКЦИЯ)
+   ========================================================================== */
+
 .about__hero {
-  max-width: 800px;
-  margin-bottom: 80px;
+  position: relative;
+  height: 60vh; /* Базовая высота для мобильных экранов */
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px; /* Отступ до следующего блока на мобилках */
+}
+
+.about__slides {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.about__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 2s ease-in-out; /* Плавное перетекание картинок за 2 секунды */
+}
+
+/* Класс, который Alpine.js будет переключать по таймеру */
+.about__slide.is-active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.about__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Картинка идеально заполняет экран без искажения пропорций */
+}
+
+/* Эффект Кена Бернса: запускается только тогда, когда слайд получает класс .is-active */
+.about__slide.is-active .about__img {
+  animation: kenBurns 6.5s ease-out forwards;
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.06); /* Изящное медленное приближение на 6% */
+  }
+}
+
+/* Затемняющий слой поверх фото для стопроцентной читаемости текста */
+.about__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 50% затемнения */
+  z-index: 3;
+}
+
+/* Контейнер с текстом, лежащий поверх слайдов */
+.about__hero-content {
+  position: relative;
+  z-index: 4;
+  max-width: 850px;
+  color: var(--clr-white); /* Текст внутри Хиро теперь всегда белый */
 }
 
 .about__title {
-  margin-bottom: 30px;
+  font-family: var(--font-headers);
+  font-size: 32px; /* Стартовый размер для мобильных */
+  margin-bottom: 20px;
 }
 
 .about__lead {
-  font-size: 24px;
+  font-size: 18px; /* Аккуратный размер для мобильных */
   line-height: 1.4;
-  color: var(--clr-text-main);
   font-weight: var(--fw-medium);
+  color: rgba(255, 255, 255, 0.9); /* Мягкий белый цвет */
 }
 
 /* Grid for Mission and Security */
@@ -28,12 +106,6 @@
   grid-template-columns: 1fr;
   gap: 40px;
   margin-bottom: 80px;
-}
-
-@media (min-width: 1024px) {
-  .about__grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 .about__item {
@@ -58,12 +130,6 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
-}
-
-@media (min-width: 768px) {
-  .about__text-columns {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 /* Tech List Styles */
@@ -131,4 +197,48 @@
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (Адаптивность по методологии Mobile-First)
+   ========================================================================== */
+
+/* --- Адаптив для ПЛАНШЕТОВ и средних экранов (от 768px) --- */
+@media (min-width: 768px) {
+  .about__hero {
+    height: 70vh; /* Слайдер становится выше */
+    margin-bottom: 80px; /* оригинальный отступ возвращается на ПК */
+  }
+
+  .about__title {
+    font-size: 46px; /* Заголовок крупнее */
+    margin-bottom: 30px; /* оригинальный отступ под заголовком */
+  }
+
+  .about__lead {
+    font-size: 22px; /* Лид-текст плавно растет */
+  }
+
+  .about__text-columns {
+    grid-template-columns: 1fr 1fr; /* двухколоночная сетка */
+  }
+}
+
+/* --- Адаптив для КОМПЬЮТЕРОВ и ноутбуков (от 1024px) --- */
+@media (min-width: 1024px) {
+  .about__hero {
+    height: 75vh; /* Финальная премиальная высота слайдера на ПК */
+  }
+
+  .about__title {
+    font-size: 56px; /* Монументальный размер шрифта для десктопа */
+  }
+
+  .about__lead {
+    font-size: 24px; /* оригинальный размер лида */
+  }
+
+  .about__grid {
+    grid-template-columns: 1fr 1fr; /*  сетка для Миссии и Безопасности */
+  }
 }

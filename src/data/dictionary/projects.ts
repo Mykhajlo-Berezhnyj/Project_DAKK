@@ -143,6 +143,10 @@ export const projectsData = {
     uk: "Надсилаємо",
     en: "Sending",
   },
+  dakk: {
+    uk: "ДАКК",
+    en: "DAKK",
+  }
 } as const;
 
 export type ProjectsData = typeof projectsData;

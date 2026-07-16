@@ -3,7 +3,7 @@ header {
   top: 0;
   width: 100%;
   z-index: 3000;
-  padding: 24px 0;
+/* padding: 24px 0; */
   background-color: var(--clr-bg-dark);
 }
 
@@ -118,15 +118,50 @@ header {
 
 .logo-link {
   display: inline-block;
-  transition: opacity 0.3s ease;
+  overflow: hidden;
+  padding: 0px 40px;
 }
 
 .logo-link:hover {
-  opacity: 0.8;
+  /* opacity: 0.8; */
+  scale: 1.05;
+  font-weight: bold;
 }
 
-.logo-img {
+.logo-text {
+  font-family: var(--font-headers);
+  font-weight: var(--fw-bold);
+  font-size: 2rem;
+  color: var(--clr-white);
+  text-transform: uppercase;
   display: block;
-  max-width: 150px;
-  min-height: 50px;
+  letter-spacing: -0.5em;
+  opacity: 0;
+  filter: blur(10px);
+
+  animation: dakkReveal 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+
+  @media (min-width: 768px) {
+    font-size: 3.5rem;
+  }
+}
+
+@keyframes dakkReveal {
+  0% {
+    letter-spacing: -0.3em;
+    opacity: 0;
+    filter: blur(12px);
+    transform: scale(0.95);
+  }
+  30% {
+    opacity: 0.7;
+    filter: blur(4px);
+  }
+  100% {
+    letter-spacing: 0.15em;
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+    text-shadow: 0 0 20px var(--logo-glow);
+  }
 }

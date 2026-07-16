@@ -26,6 +26,7 @@ export function loadSingleProject() {
       const project = await validationProject("single");
       if (project) {
         this.project = project;
+        this.setSeo();
       } else {
         await this.load();
       }
@@ -53,5 +54,21 @@ export function loadSingleProject() {
         this.isLoading = false;
       }
     },
-  };
+
+    setSeo() {
+      if (!this.project) return;
+
+      document.title = this.project.seo?.metaTitle || this.project.projectName || "Project DAKK";
+
+      let meta = document.querySelector('meta[name="description"]');
+      const description = this.project.seo?.metaDescription || this.project.description || "";
+      console.log("🚀 ~ loadSingleProject ~ description:", description)
+      if (!meta) {
+meta = document.createElement("meta");
+        meta.setAttribute("name", "description");
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute("content", description);
+    }
+  }
 }

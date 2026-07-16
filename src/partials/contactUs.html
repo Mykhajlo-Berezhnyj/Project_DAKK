@@ -13,6 +13,8 @@
     ;
     @touchend="endPress"
     @touchcancel="endPress"
+    :aria-label="$store.locale.current === 'uk'? 'Зв\'язатися з нами' : 'Contact us'"
+    title="$store.locale.current === 'uk'? 'Зв\'язатися з нами' : 'Contact us'"
   >
     <svg width="35" height="30">
       <use xlink:href="/images/sprite.svg#contactsUs">Звя'затися з нами</use>
