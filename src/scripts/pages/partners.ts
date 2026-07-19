@@ -12,7 +12,11 @@ export function renderPartners() {
 
     init() {
       Alpine.nextTick(() => {
+        const track = document.querySelector(".partners-track") as HTMLElement;
         this.setTrackWidth();
+        if (!this.isAuto) {
+        track.style.justifyContent = "center";
+        }
         this.autoScrol();
       });
       window.addEventListener("resize", () => {
@@ -25,14 +29,20 @@ export function renderPartners() {
     },
 
     setTrackWidth() {
-      if (!this.isAuto) return;
-      const track = document.querySelector(".partners-track") as HTMLElement;
+       const track = document.querySelector(".partners-track") as HTMLElement;
+     
+       if (!this.isAuto) {
+        track.style.justifyContent = "center";
+        return;
+      }
+     
       const list = document.querySelector(
         ".footer-partner-list",
       ) as HTMLElement;
       const card = document.querySelector(".footer-partner-item");
       if (!track || !list || !card) return;
       track.style.width = "100%";
+      track.style.justifyContent = "flex-start";
       const widhTrack = track.clientWidth;
       const widthCard = card.clientWidth;
       if (!widhTrack || !widthCard) return;

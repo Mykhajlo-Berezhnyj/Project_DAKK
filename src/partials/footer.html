@@ -1,5 +1,5 @@
 <footer class="footer" id="footer">
-  <div class="container">
+  <div class="container footer-container">
     <a href="/" class="footer-link-logo">
       <img
         src="/images/logoFull.webp"
@@ -8,27 +8,14 @@
         class="footer-logo"
       />
     </a>
-    <hr />
-    <div class="footer-partner">
-      <h3 x-text="t(footerData.partners)">Наші партнери:</h3>
-      <div class="partners-track">
-        <ul class="footer-partner-list" x-data="partners">
-          <template x-for="(item, index) in cards" :key="index">
-            <li class="footer-partner-item">
-              <img
-                :src="item.logo"
-                :alt="`Логотип ${item.name}`"
-                width="320"
-                class="footer-partner-logo"
-              />
-              <h4 class="namePartners" x-text="item.name"></h4>
-            </li>
-          </template>
-        </ul>
-      </div>
-    </div>
-    <address class="footer-address">
-      <div class="contacts">
+    <!-- <hr /> -->
+      <div class="dakk-info">
+<p x-text=""><span x-text="new Date().getFullYear() - 2005"></span> <span x-text="$store.locale.current === 'uk' ? 'років досвіду' : 'years of experience'"></span></p>
+<p>+100 <span x-text="$store.locale.current === 'uk' ? 'реалізованих проєктів' : 'implemented projects'"></span></p>    
+</div>
+    
+    <!-- <div class="footer-info"> -->
+      <address class="footer-address">
         <h3 x-text="t(footerData.contacts)">Контакти</h3>
         <dl class="footer-contacts">
           <div class="dlItem">
@@ -43,10 +30,10 @@
           </div>
           <div class="dlItem">
             <dt x-text="t(footerData.email)">Пошта:</dt>
-            <dd><a href="mailto: lala@gmail.com">lala@gmail.com</a></dd>
+            <dd><a href="mailto: director@dakk.biz">director@dakk.biz</a></dd>
           </div>
         </dl>
-      </div>
+      </address>
       <div class="footer-social">
         <h3 x-text="t(footerData.social)">Соціальні мережі:</h3>
         <ul class="footer-social-list">
@@ -97,7 +84,7 @@
           </li>
         </ul>
       </div>
-    </address>
+    <!-- </div> -->
     <load src="/src/partials/btnUp.html" />
     <load src="/src/partials/contactUs.html" />
   </div>

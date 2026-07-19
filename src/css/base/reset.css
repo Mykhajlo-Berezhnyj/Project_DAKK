@@ -97,7 +97,7 @@ h3 {
 .footer {
   background-color: var(--clr-bg-dark);
   color: var(--clr-white);
-  padding: 60px 0; /* Vertical breathing room */
+  padding: 40px 0; /* Vertical breathing room */
 }
 
 /* 7. Utilities */

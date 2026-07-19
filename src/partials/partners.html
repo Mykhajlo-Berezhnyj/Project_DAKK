@@ -1,0 +1,22 @@
+<section class="footer-partner">
+    <div class="partner-container container">
+      <h3 x-text="t(footerData.partners)">Наші партнери:</h3>
+      <div class="partners-track">
+        <ul class="footer-partner-list" x-data="partners">
+          <template x-for="(item, index) in cards" :key="index">
+            <li class="footer-partner-item">
+              <a :href="item.url" target="_blank" rel="noopener noreferrer">  
+              <img
+                :src="item.logo"
+                :alt="`Логотип ${item.name}`"
+                width="320"
+                class="footer-partner-logo"
+              />
+              <h4 class="namePartners" x-text="item.name"></h4>
+            </a>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </div>
+    </section>
