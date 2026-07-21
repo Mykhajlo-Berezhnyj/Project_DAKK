@@ -86,13 +86,26 @@
         <circle cx="18" cy="18" r="1" fill="currentColor"/>
         <path d="M18 15.5v1M18 19.5v1M15.5 18h1M19.5 18h1" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
     </symbol>
-    <symbol  id="telegram" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 240 240">
-        <circle cx="120" cy="120" r="120" fill="#0088cc"/>
-        <path d="M50 120l135-52c6-2 11 2 9 8l-23 108c-2 8-7 10-14 6l-38-28-19 19c-3 3-6 4-9 4l4-42 77-69c3-3 0-5-4-3l-95 60-40-13c-9-3-9-10 2-14z" fill="#fff"/>
+     <symbol id="telegram" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_617_2320)">
+            <g clip-path="url(#clip1_617_2320)">
+                <path d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#2DA5E1"/>
+                <path d="M8.10663 18.809L21.5733 13.2623C22.9066 12.6845 27.4133 10.8356 27.4133 10.8356C27.4133 10.8356 29.4933 10.0267 29.3244 11.9912C29.2622 12.8001 28.8 15.6267 28.3377 18.6934L26.8977 27.769C26.8977 27.769 26.7822 29.1023 25.7777 29.3334C24.7733 29.5645 23.1822 28.5245 22.8888 28.2845C22.5955 28.0445 18.5511 25.5112 17.0488 24.2401C16.896 24.1364 16.7718 23.9956 16.6881 23.831C16.6043 23.6663 16.5636 23.4831 16.5699 23.2985C16.5761 23.1138 16.629 22.9338 16.7236 22.7751C16.8183 22.6165 16.9516 22.4844 17.1111 22.3912C19.1911 20.4801 21.6711 18.1156 23.1822 16.6134C23.8755 15.9201 24.5688 14.3023 21.6711 16.2667L13.5288 21.7601C13.1108 21.948 12.6592 22.0496 12.201 22.0588C11.7427 22.0679 11.2874 21.9845 10.8622 21.8134C9.14663 21.3334 7.11107 20.5956 7.11107 20.5956C7.11107 20.5956 5.72441 19.7067 8.08885 18.8179L8.10663 18.809Z" fill="white"/>
+            </g>
+        </g>
+        <defs>
+            <clipPath id="clip0_617_2320">
+                <rect width="40" height="40" fill="white"/>
+            </clipPath>
+            <clipPath id="clip1_617_2320">
+                <rect width="40" height="40" fill="white"/>
+            </clipPath>
+        </defs>
     </symbol>
-    <symbol id="email" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M2 4h20v16H2V4zm2 2v.01L12 13l8-7v-.01H4zm0 12h16V8l-8 7-8-7v10z"/>
-    </symbol>
+    <symbol id="email" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" viewBox="0 0 24 24">
+         <circle cx="12" cy="12" r="11" fill="white" stroke="currentColor" stroke-width="1" />
+         <path transform="translate(2.8, 2.8) scale(0.75)" d="M2 4h20v16H2V4zm2 2v.01L12 13l8-7v-.01H4zm0 12h16V8l-8 7-8-7v10z"/>
+  </symbol>
     <symbol id="loader" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor">
         <circle class="spinner" cx="12" cy="12" r="9" stroke-width="3" stroke-dasharray="40 20" stroke-linecap="round" />
     </symbol>

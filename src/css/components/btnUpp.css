@@ -8,27 +8,27 @@
   justify-content: center;
   flex-direction: column;
   position: fixed;
-  bottom: 10px;
-  right: 4px;
-  width: 30px;
-  height: 30px;
+  bottom: 78px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
   padding: 4px;
   border-radius: 50%;
   border: 2px solid var(--clr-accent);
-  background-color: rgba(255, 255, 255, 0.5);
+  /* background-color: rgba(255, 255, 255, 0.5); */
   z-index: 999;
 
   @media (min-width: 768px) {
-    bottom: 0;
-    right: 0;
-    width: 30px;
-    height: 30px;
     padding: 6px;
+  }
+
+    @media (min-width: 1440px) {
+    right: 42px;
   }
 
   &:hover {
     border: 2px solid var(--clr-accent-hover);
-    background-color: var(--clr-divider);
+    /* background-color: var(--clr-divider); */
   }
 }
 
