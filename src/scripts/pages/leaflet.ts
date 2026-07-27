@@ -6,7 +6,7 @@ import type { Category } from "../type/project";
 import { getPartsPath } from "../utils/getPartsPath";
 import { getCashed } from "../service/getCashed";
 
-interface ProjectLocation {
+export interface ProjectLocation {
   projectName: string;
   slug: string;
   category: Category;

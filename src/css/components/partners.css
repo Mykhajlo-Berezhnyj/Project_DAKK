@@ -26,6 +26,7 @@
   gap: 30px;
   transition: transform 0.5s ease;
   justify-content: center;
+  padding-block: 10px;
 }
 
 .footer-partner-item a {
@@ -35,18 +36,23 @@
   align-items: center;
   text-align: center;
   gap: 12px;
-  width: 234px;
-  height: 160px;
+  width: 200px;
+  height: 100px;
+
+  &:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+  }
 }
 
 .footer-partner-item img {
-  width: 230px;
-  height: 90px;
+  width: 100%;
+  height: 80px;
   object-fit: cover;
   color: var(--clr-white);
   border: 1px solid var(--clr-white);
   border-radius: 4px;
-  background-color: var(--clr-bg-dark);
+  background-color: rgba(0, 0, 0, 0.858);
 }
 
 .namePartners {

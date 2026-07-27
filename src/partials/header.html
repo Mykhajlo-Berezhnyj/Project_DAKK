@@ -1,6 +1,12 @@
 <header x-data="renderMenu()">
   <div class="container header-container">
     <a :href="l('/')" class="logo-link">
+      <img
+        src="/images/logo.webp"
+        width="120"
+        alt="Логотип компанії"
+        class="logo-img"
+        />
       <span class="logo-text" x-text="t(projectsData.dakk)">ДАКК</span>
     </a>
 
@@ -45,7 +51,7 @@
             width="150"
             height="50"
             alt="На головну"
-            class="logo-img"
+            class="logo-img-menu"
           />
         </a>
         <button

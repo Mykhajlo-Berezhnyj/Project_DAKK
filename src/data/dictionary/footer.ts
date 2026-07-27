@@ -12,8 +12,8 @@ export const footerData = {
     uk: "Наша адреса:",
   },
   adress: {
-    en: "st. Shevchenko, 1, Kyiv, Ukraine",
-    uk: "вул. Шевченка, 1, Київ, Україна",
+    en: "Ukraine, 49000, Dnipro, B. Khmelnytsky St. 4/308",
+    uk: "Україна, 49000, м. Дніпро, вул. Б. Хмельницького 4/308",
   },
   phone: {
     en: "Phone:",
@@ -38,6 +38,14 @@ export const footerData = {
   linkedIn: {
     en: "Our LinkedIn page",
     uk: "Наша сторінка на LinkedIn",
+  },
+  dakk: {
+    en: "DAKK",
+    uk: "ДАКК",
+  },
+  dakkSub: {
+    en: "Dnipro Architectural Design Company",
+    uk: "Дніпровська архітектурa конструкторська компанія",
   },
 } as const;
 

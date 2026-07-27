@@ -38,11 +38,12 @@ a:hover {
 }
 
 .grey {
-  background-color: var(--clr-bg-dark);
+  background-color: var(--clr-header);
 }
 
 .light-grey {
-  background-color: var(--clr-text-secondary);
+  /* background-color: var(--clr-text-secondary); */
+  background-color: var(--clr-accent-hover);
 }
 
 .light-grey h2 {
@@ -280,7 +281,7 @@ a:hover {
 
 .arrow {
   position: absolute;
-  background: var(--clr-text-secondary);
+  background: var(--clr-accent);
   color: var(--clr-bg-block);
   border: none;
   width: 40px;

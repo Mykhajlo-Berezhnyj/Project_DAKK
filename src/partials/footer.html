@@ -2,11 +2,13 @@
   <div class="container footer-container">
     <a href="/" class="footer-link-logo">
       <img
-        src="/images/logoFull.webp"
+        src="/images/logo.webp"
         alt="Логотип компанії"
         width="120"
         class="footer-logo"
       />
+      <span class="footer-logo-text" x-text="t(footerData.dakk)">ДАКК</span>
+      <span class="footer-logo-subtext" x-text="t(footerData.dakkSub)">Дніпровська архітектурно-конструкторська компанія</span>
     </a>
     <!-- <hr /> -->
       <div class="dakk-info">
@@ -20,13 +22,14 @@
         <dl class="footer-contacts">
           <div class="dlItem">
             <dt x-text="t(footerData.titleAdress)">Наша адреса:</dt>
-            <dd x-text="t(footerData.adress)">
-              вул. Шевченка, 1, Київ, Україна
+            <dd >
+              <a href="https://maps.app.goo.gl/mrzU1aZbvF1wEy3EA" rel="noopener noreferrer" target="_blank" x-text="t(footerData.adress)"></a>
+             
             </dd>
           </div>
           <div class="dlItem">
             <dt x-text="t(footerData.phone)">Телефон:</dt>
-            <dd><a href="tel:+38093939393">+38(093)-939-393</a></dd>
+            <dd><a href="tel:+380676331481">+38(067)-633-1481</a></dd>
           </div>
           <div class="dlItem">
             <dt x-text="t(footerData.email)">Пошта:</dt>
@@ -40,7 +43,7 @@
           <li class="footer-social-item">
             <a
               class="footer-social-link"
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/share/14omuDhJAsX/?locale=uk_Ua"
               :aria-label="t(footerData.facebook)"
               target="_blank"
             >

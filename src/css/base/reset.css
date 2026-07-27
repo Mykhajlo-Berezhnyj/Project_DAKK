@@ -95,7 +95,7 @@ h3 {
 
 /* 6. Specific Footer Styles */
 .footer {
-  background-color: var(--clr-bg-dark);
+  background-color: var(--clr-header);
   color: var(--clr-white);
   padding: 40px 0; /* Vertical breathing room */
 }

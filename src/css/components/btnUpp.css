@@ -41,11 +41,13 @@
   @media (min-width: 768px) {
     width: 34px;
     height: 34px;
+    fill: #1877F2;
+  stroke: #1877F2;
   }
 }
 
 .btnUp:hover {
-  fill: var(--clr-accent-hover);
-  stroke: var(--clr-accent-hover);
+  fill: #1877F2;
+  stroke: #1877F2;
 }
 
